@@ -2,451 +2,276 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>الولادة الجديدة | Dark Story</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MA Memories</title>
     <style>
-        /* --- الإعدادات العامة والأجواء السينمائية الغامضة --- */
+        /* التنسيقات العامة للموقع */
         * {
-            box-sizing: border-box;
-            user-select: none;
-        }
-        body, html {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(11,11,11,1));
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* تنسيق شباتر الذكريات (5 صور في كل شابتر) */
+        .chapter-section {
+            margin-bottom: 60px;
+            padding: 20px;
+            background: #111;
+            border-radius: 16px;
+            border: 1px solid #222;
+        }
+
+        .chapter-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #e50914;
+            border-bottom: 2px solid #222;
+            padding-bottom: 10px;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .media-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: #1a1a1a;
+        }
+
+        .media-item img {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            background-color: #050505;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        /* --- 1. شاشة اقلب التليفون (Orientation Screen) --- */
-        #orientation-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .phone-icon {
-            width: 60px;
-            height: 110px;
-            border: 4px solid #fff;
-            border-radius: 10px;
-            position: relative;
-            animation: rotatePhone 2s infinite ease-in-out;
-            margin-bottom: 20px;
-        }
-        .phone-icon::after {
-            content: '';
-            position: absolute;
-            bottom: 5px; left: 50%;
-            width: 10px; height: 10px;
-            background: #fff;
-            border-radius: 50%;
-            transform: translateX(-50%);
-        }
-        @keyframes rotatePhone {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(-90deg); }
-            100% { transform: rotate(-90deg); }
-        }
-        .rotate-text {
-            font-size: 1.4rem;
-            color: #e0e0e0;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-
-        /* إخفاء شاشة التدوير تلقائياً لو الشاشة أفقية بالعرض */
-        @media (orientation: landscape) {
-            #orientation-screen { display: none !important; }
-        }
-
-        /* --- شاشات المحتوى والـ States --- */
-        .screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .active-screen { display: flex !important; }
-
-        /* --- 2. شاشة المقدمة (Intro Screen) --- */
-        #intro-screen {
-            background: radial-gradient(circle, #15151a 0%, #050505 100%);
-        }
-        .intro-text {
-            font-size: 1.8rem;
-            text-align: center;
-            max-width: 650px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            color: #b0b0b0;
-            text-shadow: 0 0 8px rgba(0,0,0,0.7);
-        }
-        .burn-btn {
-            background: #200;
-            color: #ff4500;
-            border: 2px solid #ff4500;
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 15px #ff4500, inset 0 0 10px #500;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px #000;
-        }
-        .burn-btn:hover {
+        .media-item:hover img {
             transform: scale(1.05);
-            box-shadow: 0 0 25px #ff8c00, inset 0 0 15px #800;
-            color: #ff8c00;
         }
 
-        /* --- 3. شاشة استدعاء الكتاب من النار (Summon Screen) --- */
-        #summon-screen {
-            background: #000;
+        /* --- قسم معرض التاتو الجديد --- */
+        .tattoo-title-section {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        .tattoo-title-section h2 {
+            font-size: 2.2rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .tattoo-title-section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #e50914;
+            margin: 10px auto 0;
+        }
+
+        .tattoo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            background: #141414;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            border: 1px solid #222;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(229, 9, 20, 0.2);
+            border-color: #333;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 380px;
             overflow: hidden;
         }
-        /* تأثير وهج النار الخلفي */
-        .fire-bg {
-            position: absolute;
-            bottom: 0; width: 100%; height: 45%;
-            background: linear-gradient(to top, rgba(255,69,0,0.6), rgba(255,140,0,0.3), transparent);
-            filter: blur(20px);
-            animation: fireFlicker 0.5s infinite alternate;
-            z-index: 1;
-        }
-        @keyframes fireFlicker {
-            0% { transform: scaleY(1); opacity: 0.8; }
-            100% { transform: scaleY(1.1); opacity: 1; }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        /* مجسم الكتاب المحروق الطالع من النار */
-        .burning-book {
-            width: 260px;
-            height: 360px;
-            background: radial-gradient(circle, #252525 20%, #0f0f0f 80%);
-            border: 10px solid #050505;
-            border-radius: 5px 24px 24px 5px;
-            box-shadow: 
-                0 0 40px #ff4500, 
-                inset 0 0 30px #000,
-                0 20px 50px rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            z-index: 5;
-            transform: translateY(100vh) rotate(-15deg);
-            transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1);
-            position: relative;
+        .gallery-item:hover .image-wrapper img {
+            transform: scale(1.05);
         }
-        .burning-book::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border: 2px dashed #ff4500;
-            border-radius: 5px 24px 24px 5px;
-            filter: blur(2px);
-            opacity: 0.6;
-        }
-        .book-title {
-            color: #d1a153;
-            font-size: 2.2rem;
-            font-weight: bold;
-            text-shadow: 0 0 12px #ff4500, 2px 2px 5px #000;
+
+        .item-info {
             padding: 20px;
+            text-align: center;
+        }
+
+        .item-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .item-info p {
+            font-size: 0.85rem;
+            color: #aaa;
             line-height: 1.4;
         }
-        .book-risen {
-            transform: translateY(0) rotate(0deg) scale(1) !important;
-        }
 
-        /* --- 4. شاشة عرض وقراءة صفحات الكتاب (Book Screen) --- */
-        #book-screen {
-            background: radial-gradient(circle, #1a1510 0%, #050505 100%);
-        }
-        .book-container {
-            width: 92%;
-            height: 85%;
-            max-width: 1000px;
-            background: #e6d5b8; /* ورق أصفر قديم مهرّأ */
-            border-radius: 6px;
-            box-shadow: 
-                inset 0 0 40px rgba(139,69,19,0.6), 
-                inset 0 0 65px rgba(0,0,0,0.95),
-                0 20px 50px rgba(0,0,0,0.85);
-            display: flex;
-            position: relative;
-            overflow: hidden;
-            clip-path: polygon(0% 2%, 100% 0%, 99% 97%, 1% 99%); /* حواف متآكلة ومشرشرة */
-        }
-        /* فاصل منتصف الكتاب */
-        .book-spine {
-            position: absolute;
-            left: 50%; top: 0; bottom: 0; width: 4px;
-            background: rgba(0,0,0,0.35);
-            box-shadow: 0 0 15px rgba(0,0,0,0.9);
-            z-index: 10;
-        }
-        /* تقسيم الكتاب لصفحتين (عرضي) */
-        .page-half {
-            width: 50%;
-            height: 100%;
-            padding: 25px 35px;
-            display: flex;
-            flex-direction: column;
-            color: #2b1d0c;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        /* كادرات بستايل رسوم الأنمي والكومكس المصورة */
-        .comic-art-container {
-            width: 100%;
-            height: 150px;
-            background: #111;
-            border: 3px solid #2b1d0c;
-            margin-bottom: 12px;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-        }
-        .art-overlay {
-            position: absolute;
-            width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            font-weight: bold; font-size: 0.95rem;
+        footer {
             text-align: center;
-            padding: 10px;
-        }
-        /* كادر شخصية علي (شاب عشريني) */
-        .art-hero {
-            background: linear-gradient(45deg, #1a2634, #2c3e50);
-            color: #00ffcc;
-            border-left: 6px solid #00ffcc;
-        }
-        /* كادر ظلال الدكتور والممرضة */
-        .art-shadows {
-            background: linear-gradient(135deg, #1c0808, #3a0d0d);
-            color: #ff4444;
-            border-left: 6px solid #ff4444;
-        }
-        /* كادر خاص بالوالدة والمطبخ */
-        .art-mom {
-            background: linear-gradient(to right, #3d2c1e, #5c4033);
-            color: #ffcc00;
-            border-left: 6px solid #ffcc00;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #111;
         }
 
-        .page-half h3 {
-            margin: 0 0 8px 0;
-            color: #5a0000;
-            font-size: 1.35rem;
-            border-bottom: 1px dashed rgba(0,0,0,0.25);
-            padding-bottom: 5px;
-        }
-        .page-half p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin: 0;
-            text-align: justify;
-            font-weight: 500;
-        }
-
-        /* أزرار تقليب الصفحات */
-        .nav-controls {
-            margin-top: 15px;
-            display: flex;
-            gap: 20px;
-            z-index: 20;
-        }
-        .page-btn {
-            background: #e6d5b8;
-            color: #2b1d0c;
-            border: 2px solid #2b1d0c;
-            padding: 8px 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px #2b1d0c;
-            transition: all 0.2s ease;
-        }
-        .page-btn:active {
-            transform: translate(3px, 3px);
-            box-shadow: 0px 0px 0px #2b1d0c;
-        }
-
-        /* أنيميشن تقليب الصفحة المرن */
-        .flip-animation {
-            animation: pageFlipEffect 0.6s ease-in-out;
-        }
-        @keyframes pageFlipEffect {
-            0% { transform: scaleX(1); transform-origin: center; }
-            50% { transform: scaleX(0); opacity: 0.4; }
-            100% { transform: scaleX(1); }
+        /* التوافق مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .image-wrapper { height: 320px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. شاشة إجبار تدوير الهاتف رأسي/أفقي -->
-    <div id="orientation-screen">
-        <div class="phone-icon"></div>
-        <div class="rotate-text">يرجى قلب الهاتف للوضع الأفقي <br> لتجربة الرواية المصورة بأفضل شكل</div>
-    </div>
+    <header>
+        <h1>MA Memories</h1>
+        <p>توثيق اللحظات والقصص الجميلة</p>
+    </header>
 
-    <!-- 2. شاشة المقدمة والزرار المشتعل -->
-    <div id="intro-screen" class="screen active-screen">
-        <div class="intro-text">كل خيبة أمل، كل خيانة، وكل ذكرى مؤلمة تركت أثراً.. أوشكت أن تتحول إلى فصول مكتوبة بالنار. هل أنت مستعد لفتح كتاب الذكريات؟</div>
-        <button class="burn-btn" onclick="startSummon()">استدعاء الرواية من اللهب</button>
-    </div>
+    <div class="container">
 
-    <!-- 3. شاشة خروج الكتاب من وسط النار -->
-    <div id="summon-screen" class="screen">
-        <div class="fire-bg"></div>
-        <div id="the-book" class="burning-book" onclick="openTheBook()">
-            <div class="book-title">الولادة<br>الجديدة</div>
-        </div>
-    </div>
-
-    <!-- 4. شاشة عرض صفحات الكتاب وتقليبها بالتوالي بتفاصيل قصة علي -->
-    <div id="book-screen" class="screen">
-        <div class="book-container" id="book-pages-wrapper">
-            <div class="book-spine"></div>
-            
-            <!-- الصفحة اليمنى (كادر البطل علي صقر) -->
-            <div class="page-half" id="right-page">
-                <div class="comic-art-container art-hero" id="right-art-box">
-                    <div class="art-overlay" id="right-art-text">[ كادر أنمي: شاب في العشرين من عمره، ملامحه حادة ومليئة بالغموض ]</div>
-                </div>
-                <h3 id="right-title">الفصل الأول: عيادة الظلال</h3>
-                <p id="right-text">جلس علي، الشاب الذي لم يتجاوز العشرين من عمره، على المقعد الخشبي. كانت عيناه تحملان نظرة شخص رأى من الخذلان والخيانة ما يكفي لأعمار مديدة. نظر نحو الفراغ وبدأ يسرد حكايته بثقة بركان يوشك على الانفجار.</p>
+        <!-- الشابتر الأول: يحتوي على 5 صور بالتساوي -->
+        <section class="chapter-section">
+            <h2 class="chapter-title">الشابتر الأول</h2>
+            <div class="media-grid">
+                <div class="media-item"><img src="chapter1-img1.jpg" alt="صورة 1"></div>
+                <div class="media-item"><img src="chapter1-img2.jpg" alt="صورة 2"></div>
+                <div class="media-item"><img src="chapter1-img3.jpg" alt="صورة 3"></div>
+                <div class="media-item"><img src="chapter1-img4.jpg" alt="صورة 4"></div>
+                <div class="media-item"><img src="chapter1-img5.jpg" alt="صورة 5"></div>
             </div>
-            
-            <!-- الصفحة اليسرى (كادر الدكتور والممرضة الظلال) -->
-            <div class="page-half" id="left-page">
-                <div class="comic-art-container art-shadows" id="left-art-box">
-                    <div class="art-overlay" id="left-art-text">[ ظل أنمي: طبيب نفسي وممرضة يتحركان كأشباح سوداء مبهمة ]</div>
-                </div>
-                <h3 id="left-title">الحراس الصامتون</h3>
-                <p id="left-text">أمام علي، جلس الدكتور النفسي وخلفه الممرضة. لم تكن ملامحهم واضحة، بل كانوا عبارة عن ظلال سوداء حادة تتحرك ببطء وسط عتمة الغرفة، يستمعون بذهول وصمت تام لرحلة فك شفرات الماضي التي يخوضها هذا الشاب.</p>
+        </section>
+
+        <!-- الشابتر الثاني: يحتوي على 5 صور بالتساوي -->
+        <section class="chapter-section">
+            <h2 class="chapter-title">الشابتر الثاني</h2>
+            <div class="media-grid">
+                <div class="media-item"><img src="chapter2-img1.jpg" alt="صورة 6"></div>
+                <div class="media-item"><img src="chapter2-img2.jpg" alt="صورة 7"></div>
+                <div class="media-item"><img src="chapter2-img3.jpg" alt="صورة 8"></div>
+                <div class="media-item"><img src="chapter2-img4.jpg" alt="صورة 9"></div>
+                <div class="media-item"><img src="chapter2-img5.jpg" alt="صورة 10"></div>
             </div>
+        </section>
+
+        <!-- عنوان قسم التاتو الجديد -->
+        <div class="tattoo-title-section">
+            <h2>Tattoo Ink Designs</h2>
         </div>
 
-        <!-- أزرار التحكم والتقليب للزائر -->
-        <div class="nav-controls">
-            <button class="page-btn" id="next-btn" onclick="nextPage()">الصفحة التالية ←</button>
-        </div>
+        <!-- معرض صور التاتو الأربعة المدمجة -->
+        <section class="tattoo-gallery">
+            
+            <!-- كارت 1: الساعد واليد -->
+            <div class="gallery-item">
+                <div class="image-wrapper">
+                    <img src="forearm-snake.png" alt="Forearm Snake and Eye Tattoo">
+                </div>
+                <div class="item-info">
+                    <h3>Forearm & Hand Sleeve</h3>
+                    <p>Detailed cobra design blending with realistic eye element</p>
+                </div>
+            </div>
+
+            <!-- كارت 2: الساعد (الأرقام الرومانية) -->
+            <div class="gallery-item">
+                <div class="image-wrapper">
+                    <img src="forearm-roman.png" alt="Roman Numerals Tattoo">
+                </div>
+                <div class="item-info">
+                    <h3>Forearm Script</h3>
+                    <p>Roman numerals paired with bold "No Risk No Story" lettering</p>
+                </div>
+            </div>
+
+            <!-- كارت 3: الرقبة -->
+            <div class="gallery-item">
+                <div class="image-wrapper">
+                    <img src="neck-script.png" alt="Neck Script Tattoo">
+                </div>
+                <div class="item-info">
+                    <h3>Neck Placement</h3>
+                    <p>Elegant, vertical "Never look back" script typography</p>
+                </div>
+            </div>
+
+            <!-- كارت 4: الصدر -->
+            <div class="gallery-item">
+                <div class="image-wrapper">
+                    <img src="chest-tattoo.png" alt="Chest Typography Tattoo">
+                </div>
+                <div class="item-info">
+                    <h3>Chest Statement</h3>
+                    <p>Clean script text centered perfectly on the upper chest</p>
+                </div>
+            </div>
+
+        </section>
+
     </div>
 
-    <script>
-        // داتا قصة علي صقر والدكتور والوشوم والقفلة كاملة ومقسمة صفحات
-        const storyPages = [
-            {
-                rightArt: "[ كادر أنمي: شاب في العشرين من عمره، ملامحه حادة ومليئة بالغموض ]",
-                rightArtClass: "art-hero",
-                rightTitle: "الفصل الأول: عيادة الظلال",
-                rightText: "جلس علي، الشاب الذي لم يتجاوز العشرين من عمره، على المقعد الخشبي. كانت عيناه تحملان نظرة شخص رأى من الخذلان والخيانة ما يكفي لأعمار مديدة. نظر نحو الفراغ وبدأ يسرد حكايته بثقة بركان يوشك على الانفجار.",
-                leftArt: "[ ظل أنمي: طبيب نفسي وممرضة يتحركان كأشباح سوداء مبهمة ]",
-                leftArtClass: "art-shadows",
-                leftTitle: "الحراس الصامتون",
-                leftText: "أمام علي، جلس الدكتور النفسي وخلفه الممرضة. لم تكن ملامحهم واضحة، بل كانوا عبارة عن ظلال سوداء حادة تتحرك ببطء وسط عتمة الغرفة، يستمعون بذهول وصمت تام لرحلة فك شفرات الماضي التي يخوضها هذا الشاب."
-            },
-            {
-                rightArt: "[ كادر كومكس: ذراع الشاب محفور عليها وشم كوبرا ضخمة ملتفة كالحارس ]",
-                rightArtClass: "art-hero",
-                rightTitle: "الفصل الثاني: كتاب الوشوم",
-                rightText: "رفع علي كم قميصه ببطء ليتكشف السحر الأسود.. ذراعه بالكامل مغطاة بوشم حية (كوبرا) ضخمة مرسومة بدقة مرعبة، لافة حول جسده. قال بنبرة جافة: 'هذه الحية هي الصدمة التي قرصتني لتوقظني من غفلتي..'",
-                leftArt: "[ كادر أنمي: عيون واقعية مرسومة بدقة وتواريخ بالرموز الرومانية القديمة ]",
-                leftArtClass: "art-hero",
-                leftTitle: "العيون والتواريخ",
-                leftText: "وعلى الجانب الآخر، ظهرت عيون واقعية حادة وتحتها تواريخ غامضة بالرموز الرومانية القديمة. تابع علي: 'هذه العيون هي الحقيقة التي صرت أرى بها وجوه البشر على أصلها. جسدي لم يعد جلداً، لقد تحول لكتاب مهري يحمل فصول خياناتهم'."
-            },
-            {
-                rightArt: "[ كادر أنمي حماسي: الشاب يعلن سيطرته وتحكمه في خيوط اللعبة ]",
-                rightArtClass: "art-hero",
-                rightTitle: "الفصل الثالث: السيطرة التامة",
-                rightText: "'القديم مات يا دكتور.. علي الذي كان يسامح ويصفي النية حرقته مع ورق هذا الكتاب. الآن بدأت الولادة الجديدة.. أنا من يضع القوانين، وأنا من يحرك كل هذه الشخصيات من وراء الستار!' اهتزت ظلال الدكتور والممرضة رعباً من هيبته.",
-                leftArt: "[ كادر كومكس مفاجئ: الغرفة المظلمة تختفي وتظهر إضاءة المطبخ والمنزل العادية ]",
-                leftArtClass: "art-mom",
-                leftTitle: "المفاجأة الصادمة (الـ Twist)",
-                leftText: "وفجأة.. انطفأت الأجواء الدرامية! أُضيئت لمبة الغرفة البيضاء القوية، وتلاشت ظلال الدكتور والممرضة.. لينبثق صوت الوالدة العفوية من خلف الباب وهي تقول بصوت مصري أصيل: 'جرى إيه يا واد يا علي؟ بقالك ساعة واقف قدام المراية وعايش الدور وتقول حية وولادة جديدة! سيبك من التمثيل ده وخد كيس الزبالة وأنت نازل وهاتلنا معاك بـ 10 جنيه عيش وفينو من الفرن!'"
-            }
-        ];
+    <footer>
+        <p>&copy; 2026 MA Memories. All Rights Reserved.</p>
+    </footer>
 
-        let currentPageIndex = 0;
-
-        // الانتقال من شاشة المقدمة إلى شاشة النار والطلوع
-        function startSummon() {
-            document.getElementById('intro-screen').classList.remove('active-screen');
-            document.getElementById('summon-screen').classList.add('active-screen');
-            
-            setTimeout(() => {
-                document.getElementById('the-book').classList.add('book-risen');
-            }, 200);
-        }
-
-        // عند الضغط على الكتاب يفتح وندخل شاشة القراءة
-        function openTheBook() {
-            document.getElementById('summon-screen').classList.remove('active-screen');
-            document.getElementById('book-screen').classList.add('active-screen');
-        }
-
-        // نظام تقليب ومحاكاة الصفحات بالتوالي
-        function nextPage() {
-            if (currentPageIndex < storyPages.length - 1) {
-                currentPageIndex++;
-                const wrapper = document.getElementById('book-pages-wrapper');
-                
-                // تشغيل أنيميشن تقليب الورقة
-                wrapper.classList.add('flip-animation');
-                
-                setTimeout(() => {
-                    // تحديث محتوى الصفحة اليمنى (النص والكادر والـ CSS Class)
-                    document.getElementById('right-title').innerText = storyPages[currentPageIndex].rightTitle;
-                    document.getElementById('right-text').innerText = storyPages[currentPageIndex].rightText;
-                    document.getElementById('right-art-text').innerText = storyPages[currentPageIndex].rightArt;
-                    document.getElementById('right-art-box').className = "comic-art-container " + storyPages[currentPageIndex].rightArtClass;
-                    
-                    // تحديث محتوى الصفحة اليسرى (النص والكادر والـ CSS Class)
-                    document.getElementById('left-title').innerText = storyPages[currentPageIndex].leftTitle;
-                    document.getElementById('left-text').innerText = storyPages[currentPageIndex].leftText;
-                    document.getElementById('left-art-text').innerText = storyPages[currentPageIndex].leftArt;
-                    document.getElementById('left-art-box').className = "comic-art-container " + storyPages[currentPageIndex].leftArtClass;
-                    
-                    // لو وصلنا لآخر صفحة نغير اسم الزرار
-                    if(currentPageIndex === storyPages.length - 1) {
-                        document.getElementById('next-btn').innerText = "تمت القراءة بنجاح";
-                    }
-                }, 300); // تغيير المحتوى في منتصف حركة التقليب تماماً
-
-                setTimeout(() => {
-                    wrapper.classList.remove('flip-animation');
-                }, 600);
-            } else {
-                alert("الولادة الجديدة اكتملت.. انزل هات العيش والفينو لـ والدتك يا علي قبل ما تتبهدل! 😂");
-            }
-        }
-
-        // للتأكد من المرونة أثناء تغيير حجم المتصفح على الكمبيوتر
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > window.innerHeight) {
-                document.getElementById('orientation-screen').style.setProperty('display', 'none', 'important');
-            }
-        });
-    </script>
 </body>
-</html> 
+</html>
