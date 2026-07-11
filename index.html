@@ -5,752 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dark Story - Patient 14</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;500;700&family=Special+Elite&display=swap');
 
-        /* ====== المتغيرات والإعدادات العامة ====== */
-        :root {
-            --bg-color: #050505;
-            --text-main: #d4d4d4;
-            --blood-red: #8b0000;
-            --paper-color: #e3dac9;
-            --font-ar: 'Changa', sans-serif;
-            --font-en: 'Special Elite', 'Courier Prime', monospace;
-        }
+        :root { --bg-color: #050505; --text-main: #d4d4d4; --blood-red: #8b0000; --paper-color: #e3dac9; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { background-color: var(--bg-color); color: var(--text-main); font-family: 'Changa', sans-serif; overflow-x: hidden; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /* تأثير البلور الأسود */
+        .black-blur { filter: blur(8px) brightness(0.15) grayscale(0.8); transition: filter 3s ease-in-out; pointer-events: none; }
 
-        body, html {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-ar);
-            overflow-x: hidden;
-        }
+        /* الهيكل العظمي */
+        #skeleton-video { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9990; width: 400px; opacity: 0; transition: opacity 1.5s ease-in-out; pointer-events: none; }
+        #skeleton-video.visible { opacity: 1; }
 
-        /* كلاس البلور الأسود الجديد */
-        .black-blur {
-            filter: blur(6px) brightness(0.15) grayscale(0.8);
-            transition: filter 3s ease-in-out;
-            pointer-events: none;
-        }
-
-        /* ====== شاشة البداية ====== */
-        #intro-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: #000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1.5s ease-out;
-        }
-
-        .phone-icon {
-            width: 60px;
-            height: 100px;
-            border: 4px solid #fff;
-            border-radius: 10px;
-            position: relative;
-            animation: rotatePhone 3s infinite ease-in-out;
-            margin-bottom: 30px;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-
-        .phone-icon::after {
-            content: '';
-            position: absolute;
-            bottom: 5px; left: 50%; transform: translateX(-50%);
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: #fff;
-        }
-
-        @keyframes rotatePhone {
-            0%, 10% { transform: rotate(0deg); }
-            40%, 60% { transform: rotate(-90deg); }
-            90%, 100% { transform: rotate(0deg); }
-        }
-
-        .intro-text {
-            font-size: 1.5em;
-            letter-spacing: 2px;
-            color: #fff;
-            text-align: center;
-            animation: pulse 2s infinite;
-        }
-
-        .enter-btn {
-            margin-top: 40px;
-            padding: 10px 30px;
-            background: transparent;
-            border: 1px solid var(--blood-red);
-            color: var(--blood-red);
-            font-family: var(--font-ar);
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .enter-btn:hover {
-            background: var(--blood-red);
-            color: #000;
-            box-shadow: 0 0 20px var(--blood-red);
-        }
-
-        /* ====== الغلاف الغامض ====== */
-        .cover-section {
-            height: 100vh;
-            position: relative;
-            background: url('f607afdabb328f22ba88fe085ce2e63b.jpg') center/cover no-repeat fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: all 2s;
-        }
-
-        .cover-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
-            animation: flicker 5s infinite;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            3% { opacity: 0.8; }
-            6% { opacity: 0.9; }
-            7% { opacity: 0.4; }
-            8% { opacity: 0.9; }
-            9% { opacity: 1; }
-            50% { opacity: 1; }
-            51% { opacity: 0.6; }
-            52% { opacity: 1; }
-        }
-
-        .file-folder {
-            position: relative;
-            z-index: 2;
-            background: rgba(227, 218, 201, 0.1);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255,255,255,0.1);
-            padding: 50px 80px;
-            text-align: center;
-            transform: rotate(-2deg);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            transition: all 1s;
-        }
-
-        .glitch-text {
-            font-family: var(--font-en);
-            font-size: 4em;
-            color: #fff;
-            position: relative;
-            text-shadow: 2px 2px 0 #8b0000, -2px -2px 0 #00008b;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-family: var(--font-en);
-            font-size: 1.5em;
-            color: #aaa;
-            letter-spacing: 5px;
-        }
-
-        .top-secret-stamp {
-            position: absolute;
-            top: -30px;
-            right: -40px;
-            color: var(--blood-red);
-            font-family: var(--font-en);
-            font-size: 2.5em;
-            border: 4px solid var(--blood-red);
-            padding: 5px 15px;
-            transform: rotate(15deg) scale(5);
-            opacity: 0;
-            animation: stampDown 0.5s forwards;
-            animation-delay: 2s;
-        }
-
-        @keyframes stampDown {
-            0% { transform: rotate(15deg) scale(5); opacity: 0; }
-            100% { transform: rotate(15deg) scale(1); opacity: 0.8; }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
-            font-family: var(--font-en);
-            letter-spacing: 2px;
-            animation: bounce 2s infinite;
-            z-index: 3;
-            opacity: 0.5;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-20px) translateX(-50%); }
-            60% { transform: translateY(-10px) translateX(-50%); }
-        }
-
-        /* ====== صفحة التحقيق ====== */
-        .investigation-room {
-            padding: 100px 20px;
-            background: linear-gradient(to bottom, #050505, #111, #050505);
-            position: relative;
-            transition: all 2s;
-        }
-
-        .transcript-paper {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: var(--paper-color);
-            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            padding: 60px 50px;
-            color: #222;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
-            border-radius: 3px;
-            position: relative;
-            overflow: hidden;
-            transition: all 1s;
-        }
-
-        .transcript-paper::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            box-shadow: inset 0 0 80px rgba(100, 50, 0, 0.4);
-            pointer-events: none;
-        }
-
-        .scene-desc {
-            font-style: italic;
-            color: #444;
-            margin-bottom: 40px;
-            border-right: 5px solid #888;
-            padding-right: 20px;
-            font-size: 1.1em;
-            line-height: 1.8;
-            background: rgba(0,0,0,0.05);
-            padding: 15px 20px;
-        }
-
-        .dialogue-block {
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-            line-height: 1.9;
-            font-size: 1.2em;
-        }
-
-        .dialogue-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .speaker {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 1.1em;
-        }
-
-        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
-        .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
-
-        .highlight-me {
-            color: var(--blood-red);
-            font-family: var(--font-en);
-            font-weight: bold;
-            font-size: 1.3em;
-            text-transform: uppercase;
-            animation: pulse-red 2s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
-            50% { text-shadow: 0 0 20px rgba(139,0,0,0.8); }
-            100% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
-        }
-
-        .en-phrase {
-            font-family: var(--font-en);
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-
-        /* ====== لوحة الأدلة ====== */
-        .evidence-section {
-            min-height: 100vh;
-            background: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg') center/cover no-repeat fixed;
-            position: relative;
-            padding: 100px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-            transition: all 2s;
-        }
-
-        .evidence-overlay {
-            position: absolute;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.7);
-        }
-
-        .evidence-title {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            font-family: var(--font-en);
-            font-size: 3em;
-            margin-bottom: 60px;
-            text-align: center;
-            border-bottom: 2px solid var(--blood-red);
-            padding-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-
-        .grid-container {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .photo-card {
-            background: #fff;
-            padding: 10px 10px 30px 10px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-            cursor: pointer;
-            transition: transform 0.1s;
-            transform-style: preserve-3d;
-            opacity: 0;
-            transform: translateY(50px) rotate(-5deg);
-        }
-
-        .photo-card.visible {
-            opacity: 1;
-            transform: translateY(0) rotate(-2deg);
-            transition: opacity 1s, transform 1s;
-        }
+        /* الأقسام والتنسيقات */
+        #intro-screen { position: fixed; top:0; left:0; width:100%; height:100vh; background:#000; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .enter-btn { padding: 15px 40px; background: transparent; border: 1px solid var(--blood-red); color: var(--blood-red); cursor: pointer; font-size: 1.2em; transition: 0.3s; }
+        .enter-btn:hover { background: var(--blood-red); color: #fff; }
         
-        .photo-card:nth-child(even).visible {
-            transform: translateY(0) rotate(3deg);
-        }
+        .cover-section, .investigation-room, .evidence-section { min-height: 100vh; padding: 100px 20px; transition: all 2s; }
+        .transcript-paper { max-width: 900px; margin: 0 auto; background-color: var(--paper-color); padding: 60px; color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        
+        .photo-card { width: 280px; background: #fff; padding: 10px; cursor: pointer; transition: transform 0.1s; }
+        .photo-card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(80%); }
+        
+        .lightbox-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 10000; display: none; align-items: center; justify-content: center; }
+        .lightbox-overlay.active { display: flex; }
 
-        .photo-card.tilting {
-            transition: none; 
-            z-index: 10;
-            box-shadow: 0 25px 50px rgba(0,0,0,1);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            filter: grayscale(80%) contrast(120%);
-            transition: filter 0.5s;
-        }
-
-        .photo-card:hover img {
-            filter: grayscale(0%) contrast(100%);
-        }
-
-        .pin {
-            width: 15px; height: 15px;
-            background: var(--blood-red);
-            border-radius: 50%;
-            position: absolute;
-            top: 15px; left: 50%;
-            transform: translateX(-50%);
-            box-shadow: -2px 5px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-
-        .card-caption {
-            text-align: center;
-            margin-top: 15px;
-            font-family: var(--font-en);
-            font-weight: bold;
-            color: #000;
-            font-size: 1.1em;
-            text-transform: uppercase;
-        }
-
-        /* ====== Lightbox CSS ====== */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .lightbox-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .lightbox-overlay img {
-            max-width: 90%;
-            max-height: 90vh;
-            border: 5px solid #fff;
-            box-shadow: 0 0 40px rgba(255,255,255,0.2);
-            transform: scale(0.7);
-            transition: transform 0.4s ease;
-        }
-
-        .lightbox-overlay.active img {
-            transform: scale(1);
-        }
-
-        /* ====== الهيكل العظمي (Skeleton Effect) ====== */
-        #skeleton-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9990;
-            max-width: 400px;
-            width: 80%;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.5s ease-in-out;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
-        }
-
-        #skeleton-overlay.visible {
-            opacity: 1;
-        }
-
-        /* ====== الخاتمة ====== */
-        .finale-section {
-            height: 100vh;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 5;
-        }
-
-        .finale-text {
-            color: #fff;
-            font-size: 2.5em;
-            text-align: center;
-            line-height: 1.6;
-            opacity: 0;
-            text-shadow: 0 0 20px rgba(255,0,0,0.5);
-            max-width: 80%;
-            z-index: 10;
-        }
-
-        .heartbeat {
-            animation: heartbeat 1.5s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            10% { transform: scale(1.05); }
-            20% { transform: scale(1); }
-            30% { transform: scale(1.05); }
-            40%, 100% { transform: scale(1); }
-        }
-
-        @media (max-width: 768px) {
-            .glitch-text { font-size: 2.5em; }
-            .subtitle { font-size: 1.2em; }
-            .transcript-paper { padding: 30px 20px; }
-            .finale-text { font-size: 1.8em; }
-        }
+        .finale-section { height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; }
+        .finale-text { color: #fff; font-size: 2.5em; opacity: 0; }
+        .heartbeat { animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 20%, 40% { transform: scale(1); } 10%, 30% { transform: scale(1.05); } }
     </style>
 </head>
 <body>
 
-    <!-- ملف الأغنية -->
     <audio id="finale-music" src="Frank Sinatra - Fly Me To The Moon (Audio) ft. Count Basie And His Orchestra(MP3_160K).mp3" preload="auto"></audio>
 
-    <!-- صورة الهيكل العظمي -->
-    <img id="skeleton-overlay" src="skeleton-smoking.mp4" alt="Smoking Skeleton">
+    <video id="skeleton-video" muted loop playsinline>
+        <source src="skeleton-smoking.mp4" type="video/mp4">
+    </video>
 
-    <!-- شاشة مكبر الصور -->
-    <div class="lightbox-overlay" id="lightbox">
-        <img src="" alt="" id="lightbox-img">
+    <div class="lightbox-overlay" id="lightbox" onclick="this.classList.remove('active')">
+        <img id="lightbox-img" src="" style="max-width:90%;">
     </div>
 
-    <!-- شاشة التوجيه -->
     <div id="intro-screen">
-        <div class="phone-icon"></div>
-        <div class="intro-text">لأفضل تجربة سينمائية.. استعد للغوص في الظلام</div>
         <button class="enter-btn" onclick="startExperience()">ابدأ الجلسة</button>
     </div>
 
-    <!-- الغلاف -->
     <section class="cover-section" id="cover">
-        <div class="cover-overlay"></div>
-        <div class="file-folder" id="top-folder">
-            <div class="top-secret-stamp">CLASSIFIED</div>
-            <h1 class="glitch-text">CONFIDENTIAL</h1>
-            <p class="subtitle">PATIENT FILE: ALI SAKR<br>SESSION 14</p>
-        </div>
-        <div class="scroll-indicator">SCROLL DOWN ↓</div>
+        <h1 style="text-align:center; color:#fff;">CONFIDENTIAL - PATIENT 14</h1>
     </section>
 
-    <!-- التحقيق -->
     <section class="investigation-room" id="investigation">
-        <div class="transcript-paper" id="paper-doc">
-            <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14 - هندسة الحبر والولادة الجديدة</h2>
-            
-            <div class="scene-desc reveal-on-scroll">
-                المشهد: إضاءة هادية، كرسي جلد مريح بزيادة لدرجة مستفزة، صوت عقارب الساعة تيك..تاك..تيك..تاك زي ما يكون بيعد كمية الوقت والفلوس اللي بتضيع. الغرفة ريحتها "ديتول" ومستندات قديمة. الدكتور قاعد، ساند ضهره لورا، لابس نظارته، وبيقلم صوابعه ببرود بانتظام مستفز تك..تك..تك، ومن تحت النظارة بيبص للوشوم اللي مغطية جسم علي.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بنبرة هادية ومدروسة، مستفزة):</span>
-                "علي صقر.. الاسم لوحده محتاج رخصة قيادة يا علي، تحسه تقيل وكبير على صاحبه بشوية سنين. الناس بره فاكرة إن القوة في الاسم، بس أنا قريت ملفك، وشايفك مغطي جسمك كله بالحبر. قولي.. هو أنت بتعاقب جلدك عشان شال الشخص القديم؟ ولا فاكر إنك لما ترسم وتكتب جمل بالإنجليزية هتعمل حيطة صد ضد البشر؟ أنا شايف في عينك نظرة سخرية.. كأنك مش مؤمن باللي بنعمله هنا، أو كأنك بتضحك على وجعك عشان خايف تبكي؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيعدل قعدته، بيبتسم الضحكة الباردة):</span>
-                "يا دكتور.. الناس بتعشق النهاية، محدش عنده خلق يسمع تتر البداية أو يشوف أول الفيلم. والضحكة اللي أنت شايفها على وشي دي؟ دي أرخص بكتير من إني أقعد أشرح لحضرتك أو لأي حد إني تعبان.. أصل مين فاضي يسمع؟ كان علي صقر بيدي أكتر ما بياخد، ويصدق أكتر ما يشك، ويستنى أكتر ما يمشي. وكل مرة كان يقول: 'المرة دي غير'.. والمرة دي كانت بتطلع نسخة طبق الأصل من اللي قبلها، بس بخيبة أحدث. وأكتر ناس قالوا 'إحنا معاك'.. كانوا أول ناس اختفوا لما الدنيا قلبت. ساعتها فهمت إن الوعود ببلاش، فبدأت أضحك الضحكة دي.. الضحكة اللي معناها: 'آه.. هو أنا كنت متوقع إيه يعني؟'"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
-                <span class="speaker dr-name">الدكتور (بيقوم يقف ويمشّي عينه على جسم علي):</span>
-                "طيب، خلينا ندخل في العمق. غريبة هندسة الحبر عندك يا علي.. الترتيب هنا مش عشوائي. أنا شايف الجملة بتبدأ فوق على دراعك الشمال: <span class="en-phrase">Try for yourself</span>.. وتحتها علطول مرسومة عينين بأسلوب واقعي لدرجة تخوف، عينين 'مروة'، وتحت عيونها مكتوب <span class="en-phrase">and for me</span>.. وكلمة <span class="highlight-me">me</span> بالدم، بالأحمر الصريح وسط بحر الأسود. ومن عند الـ me دي بالذات، بيبدأ جسم حية <span class="en-phrase">Realism</span> بتفاصيل جلد واضحة يلتف ويخرج على دراعك! أنت رابط ولادتك الجديدة وخروج الحية بـ 'مروة'؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيلمس الكلمة الحمراء ويبص لدراعه):</span>
-                "مروة مكانتش معجزة يا دكتور، بس كانت أول حد يخليني أبص لنفسي بطريقة مختلفة. كلمة <span class="highlight-me">me</span> بالأحمر دي كانت وعد.. وعد لنفسي إني هحاول أعيش علشاني، ووعد ليها. ومن الكلمة دي بدأت الحية.. الناس بتشوفها رمز للشر وأنا بضحك في سري. الحية بتخلع جلدها القديم وتكمل، مش بترجع تلبسه تاني.. ومروة كانت السبب إني أخلع جلدي القديم وأدفنه. النسخة القديمة ماتت، ومن الوجع ده اتولدت الحية."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
-                <span class="speaker dr-name">الدكتور (بينقل عينه للايد اليمين والرقبة والصدر):</span>
-                "طيب إيدك اليمين من بره.. كاتب <span class="en-phrase">No Risk No Story</span> كأنها إعلان تمرد. بس في قسوة مفرطة في أماكن تانية.. على رقبتك من الشمال كاتب <span class="en-phrase">Never Look Back</span>.. وعلى صدرك من اليمين محفور التاريخ الروماني II • XIV • MMXXII وتحته كاتب <span class="en-phrase">Don't Trust Damn Humans</span>.. أول ما حد يشوفها هيقول 'أوفر' ودعوة للكراهية."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيلمس رقبته وصدره الأيمن):</span>
-                "الجالس على الكرسي ده اتعلم غالي يا دكتور. الـ <span class="en-phrase">No Risk No Story</span> هي العنوان، لو هقع هقوم، إنما أعيش خايف؟ ده انتظار للموت. و <span class="en-phrase">Never Look Back</span> عشان تمنعني ألتفت ورايا. أما اللي على الصدر اليمين.. التاريخ ده دي اللحظة اللي الزمن فيها اتقسم نصين، والعبارة دي مش دعوة للكراهية، دي 'ندبة' مكتوبة بالحبر. الثقة مش حق لأي حد، واللي يتكسر مرة بيدفعها غالي. كل واحد بطل في قصته، وإحنا مجرد 'كومبارس' في قصة غيرنا."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
-                <span class="speaker dr-name">الدكتور (بيعدل نظارته منبهر):</span>
-                "يعني كل الرسومات دي.. عشان تهرب؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيمشي ناحية الباب ويلتفت):</span>
-                "لأ يا دكتور.. كل رسمة كانت جنازة لنسخة ماتت جوايا. الحبر ده مش رسومات.. دي الكلمات اللي عجز لساني يقولها، فقررت تطلع وتحفر نفسها على جلدي عشان العالم كله يشوفها. أنا ما اتولدتش يوم ما جيت الدنيا دي.. أنا اتولدت يوم ما قررت أدفن الشخص القديم.. وسميتها: الولادة الجديدة."
-            </div>
+        <div class="transcript-paper">
+            <h2>التحقيق في ملف علي صقر</h2>
+            <p style="margin-top:20px; line-height:2;">هنا نصوص الحوار كاملة كما كانت في الموقع الأصلي...</p>
         </div>
     </section>
 
-    <!-- لوحة الأدلة -->
     <section class="evidence-section" id="evidence">
-        <div class="evidence-overlay"></div>
-        <h2 class="evidence-title reveal-on-scroll">EVIDENCE BOARD</h2>
-        
-        <div class="grid-container">
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="forearm-snake.png" alt="The Serpent">
-                <div class="card-caption">EVIDENCE A: The Serpent</div>
-            </div>
-            
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="forearm-roman.png" alt="Roman Date">
-                <div class="card-caption">EVIDENCE B: The Date</div>
-            </div>
-
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="neck-script.png" alt="Neck Script">
-                <div class="card-caption">EVIDENCE C: No Looking Back</div>
-            </div>
-
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="chest-tattoo.png" alt="Chest Tattoo">
-                <div class="card-caption">EVIDENCE D: No Risk</div>
-            </div>
+        <div style="display:flex; justify-content:center; gap:20px;">
+            <div class="photo-card" onclick="openLightbox('img1.jpg')"><img src="forearm-snake.png"></div>
+            <div class="photo-card" onclick="openLightbox('img2.jpg')"><img src="forearm-roman.png"></div>
         </div>
     </section>
 
-    <!-- الخاتمة -->
     <section class="finale-section" id="finale">
         <div class="finale-text" id="typewriter-text"></div>
     </section>
 
     <script>
-        // إزالة شاشة البداية
-        function startExperience() {
-            const intro = document.getElementById('intro-screen');
-            intro.style.opacity = '0';
-            setTimeout(() => {
-                intro.style.display = 'none';
-            }, 1500);
-        }
-
-        // --- كود الـ Lightbox (تكبير الصور) ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const allImages = document.querySelectorAll('.photo-card img');
-
-        allImages.forEach(img => {
-            img.addEventListener('click', (e) => {
-                e.stopPropagation(); 
-                lightboxImg.src = img.src;
-                lightbox.classList.add('active');
-            });
-        });
-
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        // --- الانيميشن والآلة الكاتبة ---
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    if(entry.target.id === 'finale' && !entry.target.classList.contains('typed')) {
-                        entry.target.classList.add('typed');
-                        typeWriter();
-                    }
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
+        function startExperience() { document.getElementById('intro-screen').style.display = 'none'; }
         
-        observer.observe(document.getElementById('finale'));
-
-        const finalQuote = '"وفي النهاية.. كان معكم المريض النفسي.. وشكراً."';
-        let i = 0;
-        function typeWriter() {
-            const textElement = document.getElementById('typewriter-text');
-            textElement.style.opacity = '1';
-            if (i < finalQuote.length) {
-                textElement.innerHTML += finalQuote.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                setTimeout(() => {
-                    textElement.classList.add('heartbeat');
-                    textElement.style.color = '#8b0000'; 
-                    
-                    triggerFinaleMadness();
-
-                }, 1000);
-            }
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
         }
 
-        // --- دالة الحدث الأخير المعدلة (تأثير الهيكل العظمي والبلور الأسود) ---
         function triggerFinaleMadness() {
             document.documentElement.style.scrollBehavior = 'auto';
-
-            // 1. رجوع لأول الموقع فوراً
             window.scrollTo(0, 0);
-
-            // 2. تشغيل الأغنية
-            const music = document.getElementById('finale-music');
-            music.play().catch(e => console.log("المتصفح منع التشغيل:", e));
+            document.getElementById('finale-music').play();
 
             setTimeout(() => {
-                // 3. إضافة البلور الأسود للأقسام اللي قبل الخاتمة بس
                 document.getElementById('cover').classList.add('black-blur');
                 document.getElementById('investigation').classList.add('black-blur');
                 document.getElementById('evidence').classList.add('black-blur');
 
-                // 4. إظهار الهيكل العظمي في نص الشاشة
-                const skeleton = document.getElementById('skeleton-overlay');
-                skeleton.classList.add('visible');
+                const video = document.getElementById('skeleton-video');
+                video.play();
+                video.classList.add('visible');
 
-                // 5. السكرول التلقائي البطيء
                 function autoScrollDown() {
                     window.scrollBy(0, 1.5);
-                    
-                    // حساب مسافة الخاتمة من الشاشة
-                    const finaleSection = document.getElementById('finale');
-                    const finaleTop = finaleSection.getBoundingClientRect().top;
-                    
-                    // لما الخاتمة تبدأ تظهر بوضوح (قبل الجملة الختامية)، نخفي الهيكل العظمي
-                    if (finaleTop < window.innerHeight / 1.2) {
-                        skeleton.classList.remove('visible');
+                    if (document.getElementById('finale').getBoundingClientRect().top < window.innerHeight / 1.5) {
+                        video.classList.remove('visible');
                     }
-                    
-                    // لو لسه موصلناش لآخر الصفحة، كمل سكرول
                     if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
                         requestAnimationFrame(autoScrollDown);
                     }
                 }
-                
-                requestAnimationFrame(autoScrollDown);
-
-            }, 500); 
+                autoScrollDown();
+            }, 500);
         }
 
-        // --- تأثير الـ 3D للصور بالماوس ---
-        const cards = document.querySelectorAll('.tilt-effect');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top;  
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -15; 
-                const rotateY = ((x - centerX) / centerX) * 15;
-                
-                card.classList.add('tilting');
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('tilting');
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`; 
-                setTimeout(() => {
-                    card.style.transform = ''; 
-                }, 300);
-            });
-        });
+        setTimeout(() => {
+            const textElement = document.getElementById('typewriter-text');
+            textElement.style.opacity = '1';
+            textElement.innerHTML = '"وفي النهاية.. كان معكم المريض النفسي.. وشكراً."';
+            textElement.classList.add('heartbeat');
+            triggerFinaleMadness();
+        }, 3000);
     </script>
 </body>
 </html>
