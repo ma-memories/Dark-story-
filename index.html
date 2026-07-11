@@ -28,13 +28,13 @@
             color: var(--text-main);
             font-family: var(--font-ar);
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            /* شلنا الـ smooth من هنا عشان ميتعارضش مع الأوامر البرمجية */
         }
 
         /* كلاس البلور اللي بيشتغل في النهاية */
         body.blur-mode {
-            filter: blur(1.5px) contrast(1.1) brightness(0.8);
-            transition: filter 3s ease-in-out;
+            filter: blur(1px) contrast(1.2) brightness(0.7);
+            transition: filter 4s ease-in-out;
         }
 
         /* ====== شاشة البداية ====== */
@@ -231,25 +231,6 @@
             pointer-events: none;
         }
 
-        /* كلاس النار اللي بيضاف للورق */
-        .on-fire::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 100%;
-            /* استخدام صورة نار متحركة بخلفية سوداء مع خاصية الدمج */
-            background: url('https://media.giphy.com/media/nrXif9YExO9EI/giphy.gif') center bottom / cover;
-            mix-blend-mode: screen; 
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
-            animation: fireIgnite 3s ease-in forwards;
-        }
-
-        @keyframes fireIgnite {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 0.95; transform: translateY(0); }
-        }
-
         .scene-desc {
             font-style: italic;
             color: #444;
@@ -444,6 +425,48 @@
             transform: scale(1);
         }
 
+        /* ====== تأثير الحرق واختفاء الورق ====== */
+        .on-fire {
+            position: relative;
+        }
+        
+        .on-fire::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://media.giphy.com/media/nrXif9YExO9EI/giphy.gif') center bottom / cover;
+            mix-blend-mode: screen; 
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            animation: fireIgnite 1.5s ease-in forwards;
+        }
+
+        @keyframes fireIgnite {
+            0% { opacity: 0; }
+            100% { opacity: 0.95; }
+        }
+
+        /* تحويل خلفية الورقة لأسود ثم تختفي (رماد) */
+        .burn-away {
+            animation: backgroundBurn 6s forwards 1s; 
+        }
+
+        /* إخفاء الكلام والصور اللي جوه الورقة */
+        .burn-away > * {
+            animation: contentBurn 4s forwards 1.5s;
+        }
+
+        @keyframes backgroundBurn {
+            0% { background-color: var(--paper-color); }
+            40% { background-color: #110000; background-image: none; box-shadow: 0 0 50px #8b0000; border-color: transparent;}
+            100% { background-color: transparent; background-image: none; box-shadow: none; border-color: transparent;}
+        }
+
+        @keyframes contentBurn {
+            to { opacity: 0; visibility: hidden; }
+        }
+
         /* ====== الخاتمة ====== */
         .finale-section {
             height: 100vh;
@@ -570,28 +593,24 @@
         <h2 class="evidence-title reveal-on-scroll">EVIDENCE BOARD</h2>
         
         <div class="grid-container">
-            <!-- الصورة 1 -->
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="forearm-snake.png" alt="The Serpent">
                 <div class="card-caption">EVIDENCE A: The Serpent</div>
             </div>
             
-            <!-- الصورة 2 -->
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="forearm-roman.png" alt="Roman Date">
                 <div class="card-caption">EVIDENCE B: The Date</div>
             </div>
 
-            <!-- الصورة 3 -->
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="neck-script.png" alt="Neck Script">
                 <div class="card-caption">EVIDENCE C: No Looking Back</div>
             </div>
 
-            <!-- الصورة 4 -->
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="chest-tattoo.png" alt="Chest Tattoo">
@@ -622,13 +641,12 @@
 
         allImages.forEach(img => {
             img.addEventListener('click', (e) => {
-                e.stopPropagation(); // عشان الماوس ميعملش تداخل
+                e.stopPropagation(); 
                 lightboxImg.src = img.src;
                 lightbox.classList.add('active');
             });
         });
 
-        // قفل الصورة عند الضغط في أي مكان
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
@@ -644,7 +662,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // إذا وصل للنهاية شغل انيميشن الآلة الكاتبة
                     if(entry.target.id === 'finale' && !entry.target.classList.contains('typed')) {
                         entry.target.classList.add('typed');
                         typeWriter();
@@ -659,7 +676,6 @@
         
         observer.observe(document.getElementById('finale'));
 
-        // تأثير الآلة الكاتبة وتفعيل الحدث الأخير
         const finalQuote = '"وفي النهاية.. كان معكم المريض النفسي.. وشكراً."';
         let i = 0;
         function typeWriter() {
@@ -670,51 +686,56 @@
                 i++;
                 setTimeout(typeWriter, 100);
             } else {
-                // لما الجملة تخلص
                 setTimeout(() => {
                     textElement.classList.add('heartbeat');
-                    textElement.style.color = '#8b0000'; // اللون الأحمر
+                    textElement.style.color = '#8b0000'; 
                     
-                    // تشغيل الحدث الجنوني الأخير
                     triggerFinaleMadness();
 
                 }, 1000);
             }
         }
 
-        // --- دالة الحدث الأخير (النار، السكرول، المزيكا، البلور) ---
+        // --- دالة الحدث الأخير المعدلة ---
         function triggerFinaleMadness() {
-            // 1. رجوع لأول الموقع بسرعة
-            window.scrollTo({ top: 0, behavior: 'auto' }); 
+            // حل مشكلة التعليق: وقفنا تأثير السكرول الناعم بتاع الـ CSS مؤقتاً
+            document.documentElement.style.scrollBehavior = 'auto';
+
+            // 1. رجوع لأول الموقع فوراً وبدون تعليق
+            window.scrollTo(0, 0);
 
             // 2. تشغيل الأغنية
             const music = document.getElementById('finale-music');
-            music.play().catch(e => console.log("المتصفح منع التشغيل التلقائي للصوت:", e));
+            music.play().catch(e => console.log("المتصفح منع التشغيل:", e));
 
             setTimeout(() => {
                 // 3. تفعيل البلور الخفيف
                 document.body.classList.add('blur-mode');
 
-                // 4. حرق الورق والملفات
-                document.getElementById('paper-doc').classList.add('on-fire');
-                document.getElementById('top-folder').classList.add('on-fire');
+                // 4. حرق الورق والملفات (النار + إخفاء الورق تماماً)
+                const elementsToBurn = [
+                    document.getElementById('paper-doc'),
+                    document.getElementById('top-folder'),
+                    ...document.querySelectorAll('.photo-card') // الصور كمان هتولع وتختفي
+                ];
 
-                // 5. السكرول التلقائي البطيء لتحت كأنه تتر سينمائي
-                let currentScroll = 0;
+                elementsToBurn.forEach(el => {
+                    el.classList.add('on-fire', 'burn-away');
+                });
+
+                // 5. السكرول التلقائي البطيء السلس
                 function autoScrollDown() {
-                    currentScroll += 0.8; // سرعة النزول (تقدر تزودها أو تقللها)
-                    window.scrollTo(0, currentScroll);
+                    window.scrollBy(0, 1.5); // هينزل ببطء شديد وسلاسة
                     
                     // لو لسه موصلناش لآخر الصفحة، كمل سكرول
-                    if (currentScroll < document.body.scrollHeight - window.innerHeight) {
+                    if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
                         requestAnimationFrame(autoScrollDown);
                     }
                 }
                 
-                // نبدأ السكرول التلقائي
-                autoScrollDown();
+                requestAnimationFrame(autoScrollDown);
 
-            }, 500); // استنى نص ثانية بس بعد ما يترفع لفوق
+            }, 500); 
         }
 
         // --- تأثير الـ 3D للصور بالماوس ---
