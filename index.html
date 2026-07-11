@@ -3,252 +3,627 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Story - The Confidential File</title>
+    <title>Dark Story - Patient 14</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Tajawal:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap');
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: #333;
-            font-family: 'Courier Prime', 'Tajawal', monospace;
-            line-height: 1.8;
+        /* ====== المتغيرات والإعدادات العامة ====== */
+        :root {
+            --bg-color: #050505;
+            --text-main: #d4d4d4;
+            --blood-red: #8b0000;
+            --paper-color: #e3dac9;
+            --font-ar: 'Changa', sans-serif;
+            --font-en: 'Special Elite', 'Courier Prime', monospace;
         }
 
-        /* الغلاف الافتتاحي للملف السري */
-        .cover-page {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-ar);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ====== شاشة البداية (توجيه الهاتف) ====== */
+        #intro-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .phone-icon {
+            width: 60px;
+            height: 100px;
+            border: 4px solid #fff;
+            border-radius: 10px;
+            position: relative;
+            animation: rotatePhone 3s infinite ease-in-out;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .phone-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 5px; left: 50%; transform: translateX(-50%);
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        @keyframes rotatePhone {
+            0%, 10% { transform: rotate(0deg); }
+            40%, 60% { transform: rotate(-90deg); }
+            90%, 100% { transform: rotate(0deg); }
+        }
+
+        .intro-text {
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            color: #fff;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .enter-btn {
+            margin-top: 40px;
+            padding: 10px 30px;
+            background: transparent;
+            border: 1px solid var(--blood-red);
+            color: var(--blood-red);
+            font-family: var(--font-ar);
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .enter-btn:hover {
+            background: var(--blood-red);
+            color: #000;
+            box-shadow: 0 0 20px var(--blood-red);
+        }
+
+        /* ====== الغلاف الغامض ====== */
+        .cover-section {
             height: 100vh;
-            background-image: url('f607afdabb328f22ba88fe085ce2e63b.jpg');
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            background: url('f607afdabb328f22ba88fe085ce2e63b.jpg') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            animation: flicker 5s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            3% { opacity: 0.8; }
+            6% { opacity: 0.9; }
+            7% { opacity: 0.4; }
+            8% { opacity: 0.9; }
+            9% { opacity: 1; }
+            50% { opacity: 1; }
+            51% { opacity: 0.6; }
+            52% { opacity: 1; }
+        }
+
+        .file-folder {
+            position: relative;
+            z-index: 2;
+            background: rgba(227, 218, 201, 0.1);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.1);
+            padding: 50px 80px;
+            text-align: center;
+            transform: rotate(-2deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .glitch-text {
+            font-family: var(--font-en);
+            font-size: 4em;
+            color: #fff;
+            position: relative;
+            text-shadow: 2px 2px 0 #8b0000, -2px -2px 0 #00008b;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: var(--font-en);
+            font-size: 1.5em;
+            color: #aaa;
+            letter-spacing: 5px;
+        }
+
+        .top-secret-stamp {
+            position: absolute;
+            top: -30px;
+            right: -40px;
+            color: var(--blood-red);
+            font-family: var(--font-en);
+            font-size: 2.5em;
+            border: 4px solid var(--blood-red);
+            padding: 5px 15px;
+            transform: rotate(15deg) scale(5);
+            opacity: 0;
+            animation: stampDown 0.5s forwards;
+            animation-delay: 2s; /* يبدأ بعد دخول الموقع */
+        }
+
+        @keyframes stampDown {
+            0% { transform: rotate(15deg) scale(5); opacity: 0; }
+            100% { transform: rotate(15deg) scale(1); opacity: 0.8; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-family: var(--font-en);
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+            z-index: 3;
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        /* ====== صفحة التحقيق (The Transcript) ====== */
+        .investigation-room {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #050505, #111, #050505);
+            position: relative;
+        }
+
+        .transcript-paper {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--paper-color);
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            padding: 60px 50px;
+            color: #222;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
+            border-radius: 3px;
+            position: relative;
+        }
+
+        /* تأثير حرق في الأطراف */
+        .transcript-paper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 80px rgba(100, 50, 0, 0.4);
+            pointer-events: none;
+        }
+
+        .scene-desc {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 40px;
+            border-right: 5px solid #888;
+            padding-right: 20px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            background: rgba(0,0,0,0.05);
+            padding: 15px 20px;
+        }
+
+        .dialogue-block {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+            line-height: 1.9;
+            font-size: 1.2em;
+        }
+
+        .dialogue-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .speaker {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
+        .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
+
+        .highlight-me {
+            color: var(--blood-red);
+            font-family: var(--font-en);
+            font-weight: bold;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
+            50% { text-shadow: 0 0 20px rgba(139,0,0,0.8); }
+            100% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
+        }
+
+        .en-phrase {
+            font-family: var(--font-en);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        /* ====== لوحة الأدلة (Evidence Board) ====== */
+        .evidence-section {
+            min-height: 100vh;
+            background: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg') center/cover no-repeat fixed;
+            position: relative;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .evidence-overlay {
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .evidence-title {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            font-family: var(--font-en);
+            font-size: 3em;
+            margin-bottom: 60px;
+            text-align: center;
+            border-bottom: 2px solid var(--blood-red);
+            padding-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .grid-container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* تأثير الـ 3D للصور */
+        .photo-card {
+            background: #fff;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: transform 0.1s;
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: translateY(50px) rotate(-5deg);
+        }
+
+        .photo-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotate(-2deg);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        .photo-card:nth-child(even).visible {
+            transform: translateY(0) rotate(3deg);
+        }
+
+        /* ده كلاس بيتحط بالجافاسكريبت لحركة الماوس */
+        .photo-card.tilting {
+            transition: none; /* عشان الحركة تكون ناعمة مع الماوس */
+            z-index: 10;
+            box-shadow: 0 25px 50px rgba(0,0,0,1);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(120%);
+            transition: filter 0.5s;
+        }
+
+        .photo-card:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        .pin {
+            width: 15px; height: 15px;
+            background: var(--blood-red);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px; left: 50%;
+            transform: translateX(-50%);
+            box-shadow: -2px 5px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+
+        .card-caption {
+            text-align: center;
+            margin-top: 15px;
+            font-family: var(--font-en);
+            font-weight: bold;
+            color: #000;
+            font-size: 1.1em;
+            text-transform: uppercase;
+        }
+
+        /* ====== الخاتمة السينمائية ====== */
+        .finale-section {
+            height: 100vh;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        .cover-text {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border: 2px solid #8b0000;
-            transform: rotate(-2deg);
-            text-align: center;
-        }
-
-        .cover-text h1 {
-            color: #8b0000;
-            font-size: 3em;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        /* صفحة التحقيق / تفريغ الجلسة */
-        .transcript-page {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #f4edd8; /* لون ورق قديم */
-            background-image: url('https://www.transparenttextures.com/patterns/old-wall.png'); /* ملمس ورق */
-            padding: 50px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border-radius: 5px;
-            position: relative;
-        }
-
-        .transcript-page::before {
-            content: "CONFIDENTIAL TRANSCRIPT";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: rgba(139, 0, 0, 0.3);
-            font-size: 1.5em;
-            font-weight: bold;
-            transform: rotate(-15deg);
-        }
-
-        .scene-desc {
-            font-style: italic;
-            color: #555;
-            margin-bottom: 30px;
-            border-right: 4px solid #777;
-            padding-right: 15px;
-        }
-
-        .dialogue {
-            margin-bottom: 25px;
-        }
-
-        .dr-name {
-            font-weight: bold;
-            color: #2c3e50;
-            text-decoration: underline;
-        }
-
-        .ali-name {
-            font-weight: bold;
-            color: #8b0000;
-        }
-
-        .highlight-red {
-            color: #8b0000;
-            font-weight: bold;
-        }
-
-        /* لوحة الأدلة - الخاتمة */
-        .evidence-board {
-            min-height: 100vh;
-            background-image: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 50px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            max-width: 800px;
-            margin-top: 50px;
-        }
-
-        .photo-frame {
-            background: #eee;
-            padding: 10px 10px 30px 10px;
-            box-shadow: 2px 5px 15px rgba(0,0,0,0.6);
-            transform: rotate(-3deg);
-            transition: transform 0.3s;
-        }
-
-        .photo-frame:nth-child(even) {
-            transform: rotate(4deg);
-        }
-
-        .photo-frame:hover {
-            transform: scale(1.05) rotate(0deg);
-            z-index: 10;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            background-color: #ddd;
-        }
-
-        .photo-caption {
-            text-align: center;
-            margin-top: 10px;
-            font-family: 'Courier Prime', monospace;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .final-greeting {
-            margin-top: 60px;
-            background: rgba(0, 0, 0, 0.7);
+        .finale-text {
             color: #fff;
-            padding: 20px 40px;
-            font-size: 1.5em;
-            border: 2px solid #8b0000;
+            font-size: 2.5em;
             text-align: center;
-            font-family: 'Courier Prime', monospace;
+            line-height: 1.6;
+            opacity: 0; /* بيظهر بالـ JS */
+            text-shadow: 0 0 20px rgba(255,0,0,0.5);
+            max-width: 80%;
+        }
+
+        /* تأثير النبض للخاتمة */
+        .heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.05); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.05); }
+            40%, 100% { transform: scale(1); }
+        }
+
+        /* شاشات الموبايل */
+        @media (max-width: 768px) {
+            .glitch-text { font-size: 2.5em; }
+            .subtitle { font-size: 1.2em; }
+            .transcript-paper { padding: 30px 20px; }
+            .finale-text { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cover-page">
-        <div class="cover-text">
-            <h1>CONFIDENTIAL</h1>
-            <p>PATIENT FILE: ALI SAKR</p>
-            <p>SESSION: 14</p>
-        </div>
+    <!-- شاشة التوجيه -->
+    <div id="intro-screen">
+        <div class="phone-icon"></div>
+        <div class="intro-text">لأفضل تجربة سينمائية.. استعد للغوص في الظلام</div>
+        <button class="enter-btn" onclick="startExperience()">ابدأ الجلسة</button>
     </div>
 
-    <div class="transcript-page">
-        <h2 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; font-family: 'Tajawal', sans-serif;">العيادة رقم 14 - فصل: هندسة الحبر والولادة الجديدة</h2>
+    <!-- الغلاف -->
+    <section class="cover-section">
+        <div class="cover-overlay"></div>
+        <div class="file-folder">
+            <div class="top-secret-stamp">CLASSIFIED</div>
+            <h1 class="glitch-text">CONFIDENTIAL</h1>
+            <p class="subtitle">PATIENT FILE: ALI SAKR<br>SESSION 14</p>
+        </div>
+        <div class="scroll-indicator">SCROLL DOWN ↓</div>
+    </section>
+
+    <!-- التحقيق -->
+    <section class="investigation-room">
+        <div class="transcript-paper">
+            <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14 - هندسة الحبر والولادة الجديدة</h2>
+            
+            <div class="scene-desc reveal-on-scroll">
+                المشهد: إضاءة هادية، كرسي جلد مريح بزيادة لدرجة مستفزة، صوت عقارب الساعة تيك..تاك..تيك..تاك زي ما يكون بيعد كمية الوقت والفلوس اللي بتضيع. الغرفة ريحتها "ديتول" ومستندات قديمة. الدكتور قاعد، ساند ضهره لورا، لابس نظارته، وبيقلم صوابعه ببرود بانتظام مستفز تك..تك..تك، ومن تحت النظارة بيبص للوشوم اللي مغطية جسم علي.
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (بنبرة هادية ومدروسة، مستفزة):</span>
+                "علي صقر.. الاسم لوحده محتاج رخصة قيادة يا علي، تحسه تقيل وكبير على صاحبه بشوية سنين. الناس بره فاكرة إن القوة في الاسم، بس أنا قريت ملفك، وشايفك مغطي جسمك كله بالحبر. قولي.. هو أنت بتعاقب جلدك عشان شال الشخص القديم؟ ولا فاكر إنك لما ترسم وتكتب جمل بالإنجليزية هتعمل حيطة صد ضد البشر؟ أنا شايف في عينك نظرة سخرية.. كأنك مش مؤمن باللي بنعمله هنا، أو كأنك بتضحك على وجعك عشان خايف تبكي؟"
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيعدل قعدته، بيبتسم الضحكة الباردة):</span>
+                "يا دكتور.. الناس بتعشق النهاية، محدش عنده خلق يسمع تتر البداية أو يشوف أول الفيلم. والضحكة اللي أنت شايفها على وشي دي؟ دي أرخص بكتير من إني أقعد أشرح لحضرتك أو لأي حد إني تعبان.. أصل مين فاضي يسمع؟ كان علي صقر بيدي أكتر ما بياخد، ويصدق أكتر ما يشك، ويستنى أكتر ما يمشي. وكل مرة كان يقول: 'المرة دي غير'.. والمرة دي كانت بتطلع نسخة طبق الأصل من اللي قبلها، بس بخيبة أحدث. وأكتر ناس قالوا 'إحنا معاك'.. كانوا أول ناس اختفوا لما الدنيا قلبت. ساعتها فهمت إن الوعود ببلاش، فبدأت أضحك الضحكة دي.. الضحكة اللي معناها: 'آه.. هو أنا كنت متوقع إيه يعني؟'"
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
+                <span class="speaker dr-name">الدكتور (بيقوم يقف ويمشّي عينه على جسم علي):</span>
+                "طيب، خلينا ندخل في العمق. غريبة هندسة الحبر عندك يا علي.. الترتيب هنا مش عشوائي. أنا شايف الجملة بتبدأ فوق على دراعك الشمال: <span class="en-phrase">Try for yourself</span>.. وتحتها علطول مرسومة عينين بأسلوب واقعي لدرجة تخوف، عينين 'مروة'، وتحت عيونها مكتوب <span class="en-phrase">and for me</span>.. وكلمة <span class="highlight-me">me</span> بالدم، بالأحمر الصريح وسط بحر الأسود. ومن عند الـ me دي بالذات، بيبدأ جسم حية <span class="en-phrase">Realism</span> بتفاصيل جلد واضحة يلتف ويخرج على دراعك! أنت رابط ولادتك الجديدة وخروج الحية بـ 'مروة'؟"
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيلمس الكلمة الحمراء ويبص لدراعه):</span>
+                "مروة مكانتش معجزة يا دكتور، بس كانت أول حد يخليني أبص لنفسي بطريقة مختلفة. كلمة <span class="highlight-me">me</span> بالأحمر دي كانت وعد.. وعد لنفسي إني هحاول أعيش علشاني، ووعد ليها. ومن الكلمة دي بدأت الحية.. الناس بتشوفها رمز للشر وأنا بضحك في سري. الحية بتخلع جلدها القديم وتكمل، مش بترجع تلبسه تاني.. ومروة كانت السبب إني أخلع جلدي القديم وأدفنه. النسخة القديمة ماتت، ومن الوجع ده اتولدت الحية."
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
+                <span class="speaker dr-name">الدكتور (بينقل عينه للايد اليمين والرقبة والصدر):</span>
+                "طيب إيدك اليمين من بره.. كاتب <span class="en-phrase">No Risk No Story</span> كأنها إعلان تمرد. بس في قسوة مفرطة في أماكن تانية.. على رقبتك من الشمال كاتب <span class="en-phrase">Never Look Back</span>.. وعلى صدرك من اليمين محفور التاريخ الروماني II • XIV • MMXXII وتحته كاتب <span class="en-phrase">Don't Trust Damn Humans</span>.. أول ما حد يشوفها هيقول 'أوفر' ودعوة للكراهية."
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيلمس رقبته وصدره الأيمن):</span>
+                "الجالس على الكرسي ده اتعلم غالي يا دكتور. الـ <span class="en-phrase">No Risk No Story</span> هي العنوان، لو هقع هقوم، إنما أعيش خايف؟ ده انتظار للموت. و <span class="en-phrase">Never Look Back</span> عشان تمنعني ألتفت ورايا. أما اللي على الصدر اليمين.. التاريخ ده دي اللحظة اللي الزمن فيها اتقسم نصين، والعبارة دي مش دعوة للكراهية، دي 'ندبة' مكتوبة بالحبر. الثقة مش حق لأي حد، واللي يتكسر مرة بيدفعها غالي. كل واحد بطل في قصته، وإحنا مجرد 'كومبارس' في قصة غيرنا."
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll" style="margin-top: 50px;">
+                <span class="speaker dr-name">الدكتور (بيعدل نظارته منبهر):</span>
+                "يعني كل الرسومات دي.. عشان تهرب؟"
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيمشي ناحية الباب ويلتفت):</span>
+                "لأ يا دكتور.. كل رسمة كانت جنازة لنسخة ماتت جوايا. الحبر ده مش رسومات.. دي الكلمات اللي عجز لساني يقولها، فقررت تطلع وتحفر نفسها على جلدي عشان العالم كله يشوفها. أنا ما اتولدتش يوم ما جيت الدنيا دي.. أنا اتولدت يوم ما قررت أدفن الشخص القديم.. وسميتها: الولادة الجديدة."
+            </div>
+        </div>
+    </section>
+
+    <!-- لوحة الأدلة -->
+    <section class="evidence-section">
+        <div class="evidence-overlay"></div>
+        <h2 class="evidence-title reveal-on-scroll">EVIDENCE BOARD</h2>
         
-        <div class="scene-desc" style="font-family: 'Tajawal', sans-serif;">
-            المشهد: إضاءة هادية، كرسي جلد مريح بزيادة لدرجة مستفزة، صوت عقارب الساعة تيك..تاك..تيك..تاك زي ما يكون بيعد كمية الوقت والفلوس اللي بتضيع. الغرفة ريحتها "ديتول" ومستندات قديمة. الدكتور قاعد، ساند ضهره لورا، لابس نظارته، وبيقلم صوابعه ببرود بانتظام مستفز تك..تك..تك، ومن تحت النظارة بيبص للوشوم اللي مغطية جسم علي.
-        </div>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="dr-name">الدكتور (بنبرة هادية ومدروسة، مستفزة):</span><br>
-            "علي صقر.. الاسم لوحده محتاج رخصة قيادة يا علي، تحسه تقيل وكبير على صاحبه بشوية سنين. الناس بره فاكرة إن القوة في الاسم، بس أنا قريت ملفك، وشايفك مغطي جسمك كله بالحبر. قولي.. هو أنت بتعاقب جلدك عشان شال الشخص القديم؟ ولا فاكر إنك لما ترسم وتكتب جمل بالإنجليزية هتعمل حيطة صد ضد البشر؟ أنا شايف في عينك نظرة سخرية.. كأنك مش مؤمن باللي بنعمله هنا، أو كأنك بتضحك على وجعك عشان خايف تبكي؟"
-        </div>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="ali-name">علي (بيعدل قعدته، بيبتسم الضحكة الباردة):</span><br>
-            "يا دكتور.. الناس بتعشق النهاية، محدش عنده خلق يسمع تتر البداية أو يشوف أول الفيلم. والضحكة اللي أنت شايفها على وشي دي؟ دي أرخص بكتير من إني أقعد أشرح لحضرتك أو لأي حد إني تعبان.. أصل مين فاضي يسمع؟ كان علي صقر بيدي أكتر ما بياخد، ويصدق أكتر ما يشك، ويستنى أكتر ما يمشي. وكل مرة كان يقول: 'المرة دي غير'.. والمرة دي كانت بتطلع نسخة طبق الأصل من اللي قبلها، بس بخيبة أحدث. وأكتر ناس قالوا 'إحنا معاك'.. كانوا أول ناس اختفوا لما الدنيا قلبت. ساعتها فهمت إن الوعود ببلاش، فبدأت أضحك الضحكة دي.. الضحكة اللي معناها: 'آه.. هو أنا كنت متوقع إيه يعني؟'"
-        </div>
-
-        <h3 style="margin-top: 40px; font-family: 'Tajawal', sans-serif;">جغرافية الألم وتفكيك الحبر</h3>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="dr-name">الدكتور (بيقوم يقف ويمشّي عينه على جسم علي):</span><br>
-            "طيب، خلينا ندخل في العمق. غريبة هندسة الحبر عندك يا علي.. الترتيب هنا مش عشوائي. أنا شايف الجملة بتبدأ فوق على دراعك الشمال: 'Try for yourself'.. وتحتها علطول مرسومة عينين بأسلوب واقعي لدرجة تخوف، عينين 'مروة'، وتحت عيونها مكتوب 'and for me'.. وكلمة <span class="highlight-red">me</span> بالدم، بالأحمر الصريح وسط بحر الأسود. ومن عند الـ me دي بالذات، بيبدأ جسم حية Realism بتفاصيل جلد واضحة يلتف ويخرج على دراعك! أنت رابط ولادتك الجديدة وخروج الحية بـ 'مروة'؟"
-        </div>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="ali-name">علي (بيلمس الكلمة الحمراء ويبص لدراعه):</span><br>
-            "مروة مكانتش معجزة يا دكتور، بس كانت أول حد يخليني أبص لنفسي بطريقة مختلفة. كلمة me بالأحمر دي كانت وعد.. وعد لنفسي إني هحاول أعيش علشاني، ووعد ليها. ومن الكلمة دي بدأت الحية.. الناس بتشوفها رمز للشر وأنا بضحك في سري. الحية بتخلع جلدها القديم وتكمل، مش بترجع تلبسه تاني.. ومروة كانت السبب إني أخلع جلدي القديم وأدفنه. النسخة القديمة ماتت، ومن الوجع ده اتولدت الحية."
-        </div>
-
-        <h3 style="margin-top: 40px; font-family: 'Tajawal', sans-serif;">هندسة المخاطرة والدروع الأخيرة</h3>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="dr-name">الدكتور (بينقل عينه للايد اليمين والرقبة والصدر):</span><br>
-            "طيب إيدك اليمين من بره.. كاتب 'No Risk No Story' كأنها إعلان تمرد. بس في قسوة مفرطة في أماكن تانية.. على رقبتك من الشمال كاتب 'Never Look Back'.. وعلى صدرك من اليمين محفور التاريخ الروماني II • XIV • MMXXII (14 فبراير 2022) وتحته كاتب 'Don't Trust Damn Humans'.. أول ما حد يشوفها هيقول 'أوفر' ودعوة للكراهية."
-        </div>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="ali-name">علي (بيلمس رقبته وصدره الأيمن):</span><br>
-            "الجالس على الكرسي ده اتعلم غالي يا دكتور. الـ 'No Risk No Story' هي العنوان، لو هقع هقوم، إنما أعيش خايف؟ ده انتظار للموت. و'Never Look Back' عشان تمنعني ألتفت ورايا. أما اللي على الصدر اليمين.. التاريخ ده دي اللحظة اللي الزمن فيها اتقسم نصين، والعبارة دي مش دعوة للكراهية، دي 'ندبة' مكتوبة بالحبر. الثقة مش حق لأي حد، واللي يتكسر مرة بيدفعها غالي. كل واحد بطل في قصته، وإحنا مجرد 'كومبارس' في قصة غيرنا."
-        </div>
-
-        <h3 style="margin-top: 40px; font-family: 'Tajawal', sans-serif;">الصفحة الأخيرة: هندسة الصمت</h3>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="dr-name">الدكتور (بيعدل نظارته منبهر):</span><br>
-            "يعني كل الرسومات دي.. عشان تهرب؟"
-        </div>
-
-        <div class="dialogue" style="font-family: 'Tajawal', sans-serif;">
-            <span class="ali-name">علي (بيمشي ناحية الباب ويلتفت):</span><br>
-            "لأ يا دكتور.. كل رسمة كانت جنازة لنسخة ماتت جوايا. الحبر ده مش رسومات.. دي الكلمات اللي عجز لساني يقولها، فقررت تطلع وتحفر نفسها على جلدي عشان العالم كله يشوفها. أنا ما اتولدتش يوم ما جيت الدنيا دي.. أنا اتولدت يوم ما قررت أدفن الشخص القديم.. وسميتها: الولادة الجديدة."
-        </div>
-    </div>
-
-    <div class="evidence-board">
-        <div class="photos-grid">
-            <div class="photo-frame">
-                <img src="forearm-snake.png" alt="Evidence A: The Serpent">
-                <div class="photo-caption">EVIDENCE A: The Serpent</div>
+        <div class="grid-container">
+            <!-- الصورة 1 -->
+            <div class="photo-card reveal-on-scroll tilt-effect">
+                <div class="pin"></div>
+                <img src="forearm-snake.png" alt="The Serpent">
+                <div class="card-caption">EVIDENCE A: The Serpent</div>
             </div>
-            <div class="photo-frame">
-                <img src="forearm-roman.png" alt="Evidence B: Roman Date">
-                <div class="photo-caption">EVIDENCE B: The Date</div>
+            
+            <!-- الصورة 2 -->
+            <div class="photo-card reveal-on-scroll tilt-effect">
+                <div class="pin"></div>
+                <img src="forearm-roman.png" alt="Roman Date">
+                <div class="card-caption">EVIDENCE B: The Date</div>
             </div>
-            <div class="photo-frame">
-                <img src="neck-script.png" alt="Evidence C: Neck Script">
-                <div class="photo-caption">EVIDENCE C: Never Look Back</div>
+
+            <!-- الصورة 3 -->
+            <div class="photo-card reveal-on-scroll tilt-effect">
+                <div class="pin"></div>
+                <img src="neck-script.png" alt="Neck Script">
+                <div class="card-caption">EVIDENCE C: No Looking Back</div>
             </div>
-            <div class="photo-frame">
-                <img src="chest-tattoo.png" alt="Evidence D: Chest Tattoo">
-                <div class="photo-caption">EVIDENCE D: No Risk</div>
+
+            <!-- الصورة 4 -->
+            <div class="photo-card reveal-on-scroll tilt-effect">
+                <div class="pin"></div>
+                <img src="chest-tattoo.png" alt="Chest Tattoo">
+                <div class="card-caption">EVIDENCE D: No Risk</div>
             </div>
         </div>
+    </section>
 
-        <div class="final-greeting">
-            "وفي النهاية.. كان معكم المريض النفسي.. وشكراً."
-        </div>
-    </div>
+    <!-- الخاتمة -->
+    <section class="finale-section" id="finale">
+        <div class="finale-text" id="typewriter-text"></div>
+    </section>
 
+    <script>
+        // إزالة شاشة البداية
+        function startExperience() {
+            const intro = document.getElementById('intro-screen');
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+            }, 1500);
+        }
+
+        // انيميشن الظهور عند السكرول (Scroll Reveal)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // إذا وصل للنهاية شغل انيميشن الآلة الكاتبة
+                    if(entry.target.id === 'finale' && !entry.target.classList.contains('typed')) {
+                        entry.target.classList.add('typed');
+                        typeWriter();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // مراقبة قسم النهاية
+        observer.observe(document.getElementById('finale'));
+
+        // تأثير الآلة الكاتبة للنهاية
+        const finalQuote = '"وفي النهاية.. كان معكم المريض النفسي.. وشكراً."';
+        let i = 0;
+        function typeWriter() {
+            const textElement = document.getElementById('typewriter-text');
+            textElement.style.opacity = '1';
+            if (i < finalQuote.length) {
+                textElement.innerHTML += finalQuote.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                // إضافة نبض بعد انتهاء الكتابة
+                setTimeout(() => {
+                    textElement.classList.add('heartbeat');
+                    textElement.style.color = '#8b0000'; // يتحول لدموي
+                }, 1000);
+            }
+        }
+
+        // تأثير الـ 3D للصور بالماوس (Tilt Effect)
+        const cards = document.querySelectorAll('.tilt-effect');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element.
+                const y = e.clientY - rect.top;  // y position within the element.
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -15; // Max rotation 15deg
+                const rotateY = ((x - centerX) / centerX) * 15;
+                
+                card.classList.add('tilting');
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('tilting');
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`; // هيرجع للوضع الافتراضي بتاع الـ CSS
+                // بنمسح الستايل المباشر عشان كلاس visible يرجع يشتغل
+                setTimeout(() => {
+                    card.style.transform = ''; 
+                }, 300);
+            });
+        });
+    </script>
 </body>
 </html>
