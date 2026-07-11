@@ -28,13 +28,13 @@
             color: var(--text-main);
             font-family: var(--font-ar);
             overflow-x: hidden;
-            /* شلنا الـ smooth من هنا عشان ميتعارضش مع الأوامر البرمجية */
         }
 
-        /* كلاس البلور اللي بيشتغل في النهاية */
-        body.blur-mode {
-            filter: blur(1px) contrast(1.2) brightness(0.7);
-            transition: filter 4s ease-in-out;
+        /* كلاس البلور الأسود الجديد */
+        .black-blur {
+            filter: blur(6px) brightness(0.15) grayscale(0.8);
+            transition: filter 3s ease-in-out;
+            pointer-events: none;
         }
 
         /* ====== شاشة البداية ====== */
@@ -113,6 +113,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            transition: all 2s;
         }
 
         .cover-overlay {
@@ -207,6 +208,7 @@
             padding: 100px 20px;
             background: linear-gradient(to bottom, #050505, #111, #050505);
             position: relative;
+            transition: all 2s;
         }
 
         .transcript-paper {
@@ -302,6 +304,7 @@
             flex-direction: column;
             align-items: center;
             overflow: hidden;
+            transition: all 2s;
         }
 
         .evidence-overlay {
@@ -393,7 +396,7 @@
             text-transform: uppercase;
         }
 
-        /* ====== Lightbox CSS (مكبر الصور) ====== */
+        /* ====== Lightbox CSS ====== */
         .lightbox-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -425,46 +428,23 @@
             transform: scale(1);
         }
 
-        /* ====== تأثير الحرق واختفاء الورق ====== */
-        .on-fire {
-            position: relative;
-        }
-        
-        .on-fire::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://media.giphy.com/media/nrXif9YExO9EI/giphy.gif') center bottom / cover;
-            mix-blend-mode: screen; 
-            z-index: 100;
-            pointer-events: none;
+        /* ====== الهيكل العظمي (Skeleton Effect) ====== */
+        #skeleton-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9990;
+            max-width: 400px;
+            width: 80%;
             opacity: 0;
-            animation: fireIgnite 1.5s ease-in forwards;
+            pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
         }
 
-        @keyframes fireIgnite {
-            0% { opacity: 0; }
-            100% { opacity: 0.95; }
-        }
-
-        /* تحويل خلفية الورقة لأسود ثم تختفي (رماد) */
-        .burn-away {
-            animation: backgroundBurn 6s forwards 1s; 
-        }
-
-        /* إخفاء الكلام والصور اللي جوه الورقة */
-        .burn-away > * {
-            animation: contentBurn 4s forwards 1.5s;
-        }
-
-        @keyframes backgroundBurn {
-            0% { background-color: var(--paper-color); }
-            40% { background-color: #110000; background-image: none; box-shadow: 0 0 50px #8b0000; border-color: transparent;}
-            100% { background-color: transparent; background-image: none; box-shadow: none; border-color: transparent;}
-        }
-
-        @keyframes contentBurn {
-            to { opacity: 0; visibility: hidden; }
+        #skeleton-overlay.visible {
+            opacity: 1;
         }
 
         /* ====== الخاتمة ====== */
@@ -475,6 +455,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 5;
         }
 
         .finale-text {
@@ -513,6 +494,9 @@
     <!-- ملف الأغنية -->
     <audio id="finale-music" src="Frank Sinatra - Fly Me To The Moon (Audio) ft. Count Basie And His Orchestra(MP3_160K).mp3" preload="auto"></audio>
 
+    <!-- صورة الهيكل العظمي -->
+    <img id="skeleton-overlay" src="skeleton-smoking.gif" alt="Smoking Skeleton">
+
     <!-- شاشة مكبر الصور -->
     <div class="lightbox-overlay" id="lightbox">
         <img src="" alt="" id="lightbox-img">
@@ -526,7 +510,7 @@
     </div>
 
     <!-- الغلاف -->
-    <section class="cover-section">
+    <section class="cover-section" id="cover">
         <div class="cover-overlay"></div>
         <div class="file-folder" id="top-folder">
             <div class="top-secret-stamp">CLASSIFIED</div>
@@ -537,7 +521,7 @@
     </section>
 
     <!-- التحقيق -->
-    <section class="investigation-room">
+    <section class="investigation-room" id="investigation">
         <div class="transcript-paper" id="paper-doc">
             <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14 - هندسة الحبر والولادة الجديدة</h2>
             
@@ -588,7 +572,7 @@
     </section>
 
     <!-- لوحة الأدلة -->
-    <section class="evidence-section">
+    <section class="evidence-section" id="evidence">
         <div class="evidence-overlay"></div>
         <h2 class="evidence-title reveal-on-scroll">EVIDENCE BOARD</h2>
         
@@ -696,12 +680,11 @@
             }
         }
 
-        // --- دالة الحدث الأخير المعدلة ---
+        // --- دالة الحدث الأخير المعدلة (تأثير الهيكل العظمي والبلور الأسود) ---
         function triggerFinaleMadness() {
-            // حل مشكلة التعليق: وقفنا تأثير السكرول الناعم بتاع الـ CSS مؤقتاً
             document.documentElement.style.scrollBehavior = 'auto';
 
-            // 1. رجوع لأول الموقع فوراً وبدون تعليق
+            // 1. رجوع لأول الموقع فوراً
             window.scrollTo(0, 0);
 
             // 2. تشغيل الأغنية
@@ -709,23 +692,27 @@
             music.play().catch(e => console.log("المتصفح منع التشغيل:", e));
 
             setTimeout(() => {
-                // 3. تفعيل البلور الخفيف
-                document.body.classList.add('blur-mode');
+                // 3. إضافة البلور الأسود للأقسام اللي قبل الخاتمة بس
+                document.getElementById('cover').classList.add('black-blur');
+                document.getElementById('investigation').classList.add('black-blur');
+                document.getElementById('evidence').classList.add('black-blur');
 
-                // 4. حرق الورق والملفات (النار + إخفاء الورق تماماً)
-                const elementsToBurn = [
-                    document.getElementById('paper-doc'),
-                    document.getElementById('top-folder'),
-                    ...document.querySelectorAll('.photo-card') // الصور كمان هتولع وتختفي
-                ];
+                // 4. إظهار الهيكل العظمي في نص الشاشة
+                const skeleton = document.getElementById('skeleton-overlay');
+                skeleton.classList.add('visible');
 
-                elementsToBurn.forEach(el => {
-                    el.classList.add('on-fire', 'burn-away');
-                });
-
-                // 5. السكرول التلقائي البطيء السلس
+                // 5. السكرول التلقائي البطيء
                 function autoScrollDown() {
-                    window.scrollBy(0, 1.5); // هينزل ببطء شديد وسلاسة
+                    window.scrollBy(0, 1.5);
+                    
+                    // حساب مسافة الخاتمة من الشاشة
+                    const finaleSection = document.getElementById('finale');
+                    const finaleTop = finaleSection.getBoundingClientRect().top;
+                    
+                    // لما الخاتمة تبدأ تظهر بوضوح (قبل الجملة الختامية)، نخفي الهيكل العظمي
+                    if (finaleTop < window.innerHeight / 1.2) {
+                        skeleton.classList.remove('visible');
+                    }
                     
                     // لو لسه موصلناش لآخر الصفحة، كمل سكرول
                     if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
