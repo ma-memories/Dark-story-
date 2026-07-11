@@ -31,7 +31,13 @@
             scroll-behavior: smooth;
         }
 
-        /* ====== شاشة البداية (توجيه الهاتف) ====== */
+        /* كلاس البلور اللي بيشتغل في النهاية */
+        body.blur-mode {
+            filter: blur(1.5px) contrast(1.1) brightness(0.8);
+            transition: filter 3s ease-in-out;
+        }
+
+        /* ====== شاشة البداية ====== */
         #intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -138,6 +144,7 @@
             text-align: center;
             transform: rotate(-2deg);
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transition: all 1s;
         }
 
         .glitch-text {
@@ -168,7 +175,7 @@
             transform: rotate(15deg) scale(5);
             opacity: 0;
             animation: stampDown 0.5s forwards;
-            animation-delay: 2s; /* يبدأ بعد دخول الموقع */
+            animation-delay: 2s;
         }
 
         @keyframes stampDown {
@@ -195,7 +202,7 @@
             60% { transform: translateY(-10px) translateX(-50%); }
         }
 
-        /* ====== صفحة التحقيق (The Transcript) ====== */
+        /* ====== صفحة التحقيق ====== */
         .investigation-room {
             padding: 100px 20px;
             background: linear-gradient(to bottom, #050505, #111, #050505);
@@ -212,15 +219,35 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
             border-radius: 3px;
             position: relative;
+            overflow: hidden;
+            transition: all 1s;
         }
 
-        /* تأثير حرق في الأطراف */
         .transcript-paper::after {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             box-shadow: inset 0 0 80px rgba(100, 50, 0, 0.4);
             pointer-events: none;
+        }
+
+        /* كلاس النار اللي بيضاف للورق */
+        .on-fire::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            /* استخدام صورة نار متحركة بخلفية سوداء مع خاصية الدمج */
+            background: url('https://media.giphy.com/media/nrXif9YExO9EI/giphy.gif') center bottom / cover;
+            mix-blend-mode: screen; 
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            animation: fireIgnite 3s ease-in forwards;
+        }
+
+        @keyframes fireIgnite {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 0.95; transform: translateY(0); }
         }
 
         .scene-desc {
@@ -284,7 +311,7 @@
             letter-spacing: 1px;
         }
 
-        /* ====== لوحة الأدلة (Evidence Board) ====== */
+        /* ====== لوحة الأدلة ====== */
         .evidence-section {
             min-height: 100vh;
             background: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg') center/cover no-repeat fixed;
@@ -325,7 +352,6 @@
             max-width: 1000px;
         }
 
-        /* تأثير الـ 3D للصور */
         .photo-card {
             background: #fff;
             padding: 10px 10px 30px 10px;
@@ -347,9 +373,8 @@
             transform: translateY(0) rotate(3deg);
         }
 
-        /* ده كلاس بيتحط بالجافاسكريبت لحركة الماوس */
         .photo-card.tilting {
-            transition: none; /* عشان الحركة تكون ناعمة مع الماوس */
+            transition: none; 
             z-index: 10;
             box-shadow: 0 25px 50px rgba(0,0,0,1);
         }
@@ -387,7 +412,39 @@
             text-transform: uppercase;
         }
 
-        /* ====== الخاتمة السينمائية ====== */
+        /* ====== Lightbox CSS (مكبر الصور) ====== */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90vh;
+            border: 5px solid #fff;
+            box-shadow: 0 0 40px rgba(255,255,255,0.2);
+            transform: scale(0.7);
+            transition: transform 0.4s ease;
+        }
+
+        .lightbox-overlay.active img {
+            transform: scale(1);
+        }
+
+        /* ====== الخاتمة ====== */
         .finale-section {
             height: 100vh;
             background: #000;
@@ -402,12 +459,12 @@
             font-size: 2.5em;
             text-align: center;
             line-height: 1.6;
-            opacity: 0; /* بيظهر بالـ JS */
+            opacity: 0;
             text-shadow: 0 0 20px rgba(255,0,0,0.5);
             max-width: 80%;
+            z-index: 10;
         }
 
-        /* تأثير النبض للخاتمة */
         .heartbeat {
             animation: heartbeat 1.5s infinite;
         }
@@ -420,7 +477,6 @@
             40%, 100% { transform: scale(1); }
         }
 
-        /* شاشات الموبايل */
         @media (max-width: 768px) {
             .glitch-text { font-size: 2.5em; }
             .subtitle { font-size: 1.2em; }
@@ -430,6 +486,14 @@
     </style>
 </head>
 <body>
+
+    <!-- ملف الأغنية -->
+    <audio id="finale-music" src="Frank Sinatra - Fly Me To The Moon (Audio) ft. Count Basie And His Orchestra(MP3_160K).mp3" preload="auto"></audio>
+
+    <!-- شاشة مكبر الصور -->
+    <div class="lightbox-overlay" id="lightbox">
+        <img src="" alt="" id="lightbox-img">
+    </div>
 
     <!-- شاشة التوجيه -->
     <div id="intro-screen">
@@ -441,7 +505,7 @@
     <!-- الغلاف -->
     <section class="cover-section">
         <div class="cover-overlay"></div>
-        <div class="file-folder">
+        <div class="file-folder" id="top-folder">
             <div class="top-secret-stamp">CLASSIFIED</div>
             <h1 class="glitch-text">CONFIDENTIAL</h1>
             <p class="subtitle">PATIENT FILE: ALI SAKR<br>SESSION 14</p>
@@ -451,7 +515,7 @@
 
     <!-- التحقيق -->
     <section class="investigation-room">
-        <div class="transcript-paper">
+        <div class="transcript-paper" id="paper-doc">
             <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14 - هندسة الحبر والولادة الجديدة</h2>
             
             <div class="scene-desc reveal-on-scroll">
@@ -551,7 +615,25 @@
             }, 1500);
         }
 
-        // انيميشن الظهور عند السكرول (Scroll Reveal)
+        // --- كود الـ Lightbox (تكبير الصور) ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const allImages = document.querySelectorAll('.photo-card img');
+
+        allImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation(); // عشان الماوس ميعملش تداخل
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        // قفل الصورة عند الضغط في أي مكان
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // --- الانيميشن والآلة الكاتبة ---
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -575,10 +657,9 @@
             observer.observe(el);
         });
         
-        // مراقبة قسم النهاية
         observer.observe(document.getElementById('finale'));
 
-        // تأثير الآلة الكاتبة للنهاية
+        // تأثير الآلة الكاتبة وتفعيل الحدث الأخير
         const finalQuote = '"وفي النهاية.. كان معكم المريض النفسي.. وشكراً."';
         let i = 0;
         function typeWriter() {
@@ -589,26 +670,65 @@
                 i++;
                 setTimeout(typeWriter, 100);
             } else {
-                // إضافة نبض بعد انتهاء الكتابة
+                // لما الجملة تخلص
                 setTimeout(() => {
                     textElement.classList.add('heartbeat');
-                    textElement.style.color = '#8b0000'; // يتحول لدموي
+                    textElement.style.color = '#8b0000'; // اللون الأحمر
+                    
+                    // تشغيل الحدث الجنوني الأخير
+                    triggerFinaleMadness();
+
                 }, 1000);
             }
         }
 
-        // تأثير الـ 3D للصور بالماوس (Tilt Effect)
+        // --- دالة الحدث الأخير (النار، السكرول، المزيكا، البلور) ---
+        function triggerFinaleMadness() {
+            // 1. رجوع لأول الموقع بسرعة
+            window.scrollTo({ top: 0, behavior: 'auto' }); 
+
+            // 2. تشغيل الأغنية
+            const music = document.getElementById('finale-music');
+            music.play().catch(e => console.log("المتصفح منع التشغيل التلقائي للصوت:", e));
+
+            setTimeout(() => {
+                // 3. تفعيل البلور الخفيف
+                document.body.classList.add('blur-mode');
+
+                // 4. حرق الورق والملفات
+                document.getElementById('paper-doc').classList.add('on-fire');
+                document.getElementById('top-folder').classList.add('on-fire');
+
+                // 5. السكرول التلقائي البطيء لتحت كأنه تتر سينمائي
+                let currentScroll = 0;
+                function autoScrollDown() {
+                    currentScroll += 0.8; // سرعة النزول (تقدر تزودها أو تقللها)
+                    window.scrollTo(0, currentScroll);
+                    
+                    // لو لسه موصلناش لآخر الصفحة، كمل سكرول
+                    if (currentScroll < document.body.scrollHeight - window.innerHeight) {
+                        requestAnimationFrame(autoScrollDown);
+                    }
+                }
+                
+                // نبدأ السكرول التلقائي
+                autoScrollDown();
+
+            }, 500); // استنى نص ثانية بس بعد ما يترفع لفوق
+        }
+
+        // --- تأثير الـ 3D للصور بالماوس ---
         const cards = document.querySelectorAll('.tilt-effect');
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element.
-                const y = e.clientY - rect.top;  // y position within the element.
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
                 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -15; // Max rotation 15deg
+                const rotateX = ((y - centerY) / centerY) * -15; 
                 const rotateY = ((x - centerX) / centerX) * 15;
                 
                 card.classList.add('tilting');
@@ -617,8 +737,7 @@
             
             card.addEventListener('mouseleave', () => {
                 card.classList.remove('tilting');
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`; // هيرجع للوضع الافتراضي بتاع الـ CSS
-                // بنمسح الستايل المباشر عشان كلاس visible يرجع يشتغل
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`; 
                 setTimeout(() => {
                     card.style.transform = ''; 
                 }, 300);
