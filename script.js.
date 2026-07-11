@@ -1,1 +1,1129 @@
+/* ==========================================================
+   DARK STORY
+   script.js
+   PART 1
+========================================================== */
 
+const loading = document.getElementById("loading");
+
+const openBtn = document.getElementById("openBtn");
+
+const pages = document.querySelectorAll(".page");
+
+const book = document.getElementById("book");
+
+const nextButtons = document.querySelectorAll(".next-btn");
+
+const tickSound = document.getElementById("tickSound");
+
+const paperSound = document.getElementById("paperSound");
+
+const stampSound = document.getElementById("stampSound");
+
+let currentPage = -1;
+
+let typingSpeed = 20;
+
+/* ==========================
+   Loading Screen
+========================== */
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+loading.style.opacity="0";
+
+loading.style.pointerEvents="none";
+
+setTimeout(()=>{
+
+loading.style.display="none";
+
+},800);
+
+},2500);
+
+});
+
+/* ==========================
+   Open File
+========================== */
+
+openBtn.addEventListener("click",()=>{
+
+document.querySelector(".cover").style.display="none";
+
+pages[0].classList.add("active");
+
+currentPage=0;
+
+if(tickSound){
+
+tickSound.volume=.25;
+
+tickSound.play().catch(()=>{});
+
+}
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+});
+
+/* ==========================
+   Next Pages
+========================== */
+
+nextButtons.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+nextPage();
+
+});
+
+});
+
+function nextPage(){
+
+if(currentPage>=pages.length-1){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+pages[currentPage].classList.add("page-turn");
+
+currentPage++;
+
+pages[currentPage].classList.add("active");
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+scrollToTop();
+
+}
+
+/* ==========================
+   Scroll Top
+========================== */
+
+function scrollToTop(){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+/* ==========================
+   Type Writer
+========================== */
+
+function typeWriter(page){
+
+const elements=page.querySelectorAll(".typewriter");
+
+elements.forEach(element=>{
+
+const text=element.dataset.text||element.textContent;
+
+element.dataset.text=text;
+
+element.textContent="";
+
+let i=0;
+
+const timer=setInterval(()=>{
+
+element.textContent+=text.charAt(i);
+
+i++;
+
+if(i>=text.length){
+
+clearInterval(timer);
+
+}
+
+},typingSpeed);
+
+});
+
+}
+
+/* ==========================
+   Fade Effect
+========================== */
+
+pages.forEach(page=>{
+
+page.classList.add("fade-in");
+
+});
+/* ==========================================================
+   DARK STORY
+   script.js
+   PART 2
+========================================================== */
+
+/* ==========================
+   Previous Button
+========================== */
+
+const prevButtons = document.querySelectorAll(".prev-btn");
+
+prevButtons.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+previousPage();
+
+});
+
+});
+
+function previousPage(){
+
+if(currentPage<=0){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+currentPage--;
+
+pages[currentPage].classList.add("active");
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+scrollToTop();
+
+typeWriter(pages[currentPage]);
+
+}
+
+/* ==========================
+   Keyboard Navigation
+========================== */
+
+document.addEventListener("keydown",(event)=>{
+
+switch(event.key){
+
+case "ArrowRight":
+
+nextPage();
+
+break;
+
+case "ArrowLeft":
+
+previousPage();
+
+break;
+
+}
+
+});
+
+/* ==========================
+   Page Counter
+========================== */
+
+const pageCounter=document.createElement("div");
+
+pageCounter.id="pageCounter";
+
+document.body.appendChild(pageCounter);
+
+function updateCounter(){
+
+pageCounter.innerHTML=
+
+`PAGE ${currentPage+1} / ${pages.length}`;
+
+}
+
+updateCounter();
+
+const oldNext=nextPage;
+
+nextPage=function(){
+
+if(currentPage>=pages.length-1){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+currentPage++;
+
+pages[currentPage].classList.add("active");
+
+updateCounter();
+
+scrollToTop();
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+};
+
+const oldPrevious=previousPage;
+
+previousPage=function(){
+
+if(currentPage<=0){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+currentPage--;
+
+pages[currentPage].classList.add("active");
+
+updateCounter();
+
+scrollToTop();
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+};
+
+/* ==========================
+   Escape Key
+========================== */
+
+document.addEventListener("keydown",(event)=>{
+
+if(event.key==="Escape"){
+
+document.querySelector(".cover").style.display="flex";
+
+pages.forEach(page=>{
+
+page.classList.remove("active");
+
+});
+
+currentPage=-1;
+
+updateCounter();
+
+if(tickSound){
+
+tickSound.pause();
+
+tickSound.currentTime=0;
+
+}
+
+}
+
+});
+
+/* ==========================
+   Reading Progress
+========================== */
+
+const progress=document.createElement("div");
+
+progress.id="progressBar";
+
+document.body.appendChild(progress);
+
+function updateProgress(){
+
+const percentage=
+
+((currentPage+1)/pages.length)*100;
+
+progress.style.width=
+
+percentage+"%";
+
+}
+
+updateProgress();
+
+const nextOriginal=nextPage;
+
+nextPage=function(){
+
+if(currentPage>=pages.length-1){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+currentPage++;
+
+pages[currentPage].classList.add("active");
+
+scrollToTop();
+
+updateCounter();
+
+updateProgress();
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+};
+
+const previousOriginal=previousPage;
+
+previousPage=function(){
+
+if(currentPage<=0){
+
+return;
+
+}
+
+pages[currentPage].classList.remove("active");
+
+currentPage--;
+
+pages[currentPage].classList.add("active");
+
+scrollToTop();
+
+updateCounter();
+
+updateProgress();
+
+if(paperSound){
+
+paperSound.currentTime=0;
+
+paperSound.play().catch(()=>{});
+
+}
+
+typeWriter(pages[currentPage]);
+
+};
+
+/* ==========================
+   Auto Focus
+========================== */
+
+window.addEventListener("click",()=>{
+
+document.body.focus();
+
+});
+/* ==========================================================
+   DARK STORY
+   script.js
+   PART 3
+========================================================== */
+
+/* ==========================
+   Gallery Animation
+========================== */
+
+const galleryImages = document.querySelectorAll(".gallery img");
+
+function revealGallery() {
+
+    galleryImages.forEach((image,index)=>{
+
+        image.style.opacity="0";
+        image.style.transform="translateY(80px) scale(.8)";
+
+        setTimeout(()=>{
+
+            image.style.transition=".8s ease";
+
+            image.style.opacity="1";
+            image.style.transform="translateY(0) scale(1)";
+
+        },(index+1)*700);
+
+    });
+
+}
+
+/* ==========================
+   Stamp Animation
+========================== */
+
+const stamp=document.querySelector(".case-stamp");
+
+function showStamp(){
+
+    if(!stamp) return;
+
+    stamp.style.opacity="0";
+
+    setTimeout(()=>{
+
+        stamp.classList.add("stamp-animation");
+
+        stamp.style.opacity="1";
+
+        if(stampSound){
+
+            stampSound.currentTime=0;
+            stampSound.play().catch(()=>{});
+
+        }
+
+    },3200);
+
+}
+
+/* ==========================
+   Final Evidence Trigger
+========================== */
+
+function checkFinalPage(){
+
+    const finalPage=document.getElementById("page10");
+
+    if(!finalPage) return;
+
+    if(finalPage.classList.contains("active")){
+
+        revealGallery();
+
+        showStamp();
+
+    }
+
+}
+
+/* ==========================
+   Enhance nextPage()
+========================== */
+
+const originalNextPage = nextPage;
+
+nextPage = function(){
+
+    originalNextPage();
+
+    updateCounter();
+
+    updateProgress();
+
+    checkFinalPage();
+
+}
+
+/* ==========================
+   Progress Save
+========================== */
+
+function saveProgress(){
+
+    localStorage.setItem(
+
+        "darkStoryPage",
+
+        currentPage
+
+    );
+
+}
+
+function loadProgress(){
+
+    const saved=
+
+    localStorage.getItem("darkStoryPage");
+
+    if(saved!==null){
+
+        currentPage=parseInt(saved);
+
+    }
+
+}
+
+window.addEventListener("beforeunload",saveProgress);
+
+/* ==========================
+   Resume Reading
+========================== */
+
+window.addEventListener("load",()=>{
+
+    loadProgress();
+
+});
+
+/* ==========================
+   Background Flicker
+========================== */
+
+setInterval(()=>{
+
+    document.body.classList.toggle("shadowFlash");
+
+},12000);
+
+/* ==========================
+   Clock Volume
+========================== */
+
+function setClockVolume(value){
+
+    if(!tickSound) return;
+
+    tickSound.volume=value;
+
+}
+
+setClockVolume(.25);
+
+/* ==========================
+   Space Key
+========================== */
+
+document.addEventListener("keydown",(event)=>{
+
+    if(event.code==="Space"){
+
+        event.preventDefault();
+
+        nextPage();
+
+    }
+
+});
+/* ==========================================================
+   DARK STORY
+   script.js
+   PART 4
+========================================================== */
+
+/* ==========================
+   FINAL SCREEN
+========================== */
+
+const finalScreen=document.createElement("div");
+
+finalScreen.className="black-screen";
+
+finalScreen.innerHTML=`
+
+<h1>DARK STORY</h1>
+
+<p>
+
+"I was not born
+
+the day I came
+
+into this world.
+
+I was born
+
+the day I buried
+
+the old version
+
+of myself."
+
+</p>
+
+<p>
+
+— NEW BIRTH —
+
+</p>
+
+`;
+
+document.body.appendChild(finalScreen);
+
+/* ==========================
+   Type Final Text
+========================== */
+
+function finalTypeWriter(){
+
+const paragraph=
+
+finalScreen.querySelector("p");
+
+const text=paragraph.innerText;
+
+paragraph.innerHTML="";
+
+let i=0;
+
+const timer=setInterval(()=>{
+
+paragraph.innerHTML+=text.charAt(i);
+
+i++;
+
+if(i>=text.length){
+
+clearInterval(timer);
+
+}
+
+},35);
+
+}
+
+/* ==========================
+   Ending Function
+========================== */
+
+function endingScene(){
+
+if(currentPage!==pages.length-1){
+
+return;
+
+}
+
+setTimeout(()=>{
+
+if(tickSound){
+
+tickSound.pause();
+
+}
+
+finalScreen.classList.add("show");
+
+finalTypeWriter();
+
+},4000);
+
+}
+
+/* ==========================
+   Override Next
+========================== */
+
+const nextFunction=nextPage;
+
+nextPage=function(){
+
+nextFunction();
+
+updateCounter();
+
+updateProgress();
+
+checkFinalPage();
+
+endingScene();
+
+saveProgress();
+
+};
+
+/* ==========================
+   ESC closes ending
+========================== */
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="Escape"){
+
+finalScreen.classList.remove("show");
+
+}
+
+});
+
+/* ==========================
+   Restart Story
+========================== */
+
+function restartStory(){
+
+localStorage.removeItem("darkStoryPage");
+
+currentPage=-1;
+
+pages.forEach(page=>{
+
+page.classList.remove("active");
+
+});
+
+document.querySelector(".cover").style.display="flex";
+
+updateCounter();
+
+updateProgress();
+
+}
+
+/* ==========================
+   Double Click Restart
+========================== */
+
+finalScreen.addEventListener("dblclick",()=>{
+
+restartStory();
+
+location.reload();
+
+});
+
+/* ==========================
+   Secret Command
+========================== */
+
+let secret="";
+
+document.addEventListener("keydown",(e)=>{
+
+secret+=e.key.toLowerCase();
+
+if(secret.length>20){
+
+secret=secret.slice(-20);
+
+}
+
+if(secret.includes("reborn")){
+
+alert("STATUS UPDATED : REBORN");
+
+}
+
+});
+
+/* ==========================
+   Ambient Glow
+========================== */
+
+setInterval(()=>{
+
+document.body.classList.toggle("ambient");
+
+},8000);
+
+/* ==========================
+   Window Focus
+========================== */
+
+window.addEventListener("blur",()=>{
+
+if(tickSound){
+
+tickSound.volume=.05;
+
+}
+
+});
+
+window.addEventListener("focus",()=>{
+
+if(tickSound){
+
+tickSound.volume=.25;
+
+}
+
+});
+
+/* ==========================
+   End Credits Delay
+========================== */
+
+function credits(){
+
+setTimeout(()=>{
+
+const footer=document.querySelector("footer");
+
+if(footer){
+
+footer.style.opacity="1";
+
+}
+
+},8500);
+
+}
+
+credits();
+/* ==========================================================
+   DARK STORY
+   script.js
+   PART 5 (FINAL)
+========================================================== */
+
+/* ==========================
+   PERFORMANCE
+========================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    console.clear();
+
+    console.log("%cDARK STORY","font-size:28px;color:#8b0000;font-weight:bold;");
+    console.log("%cCLASSIFIED FILE LOADED","color:#ffffff;");
+
+});
+
+/* ==========================
+   Disable Drag Images
+========================== */
+
+document.querySelectorAll("img").forEach(img=>{
+
+    img.setAttribute("draggable","false");
+
+});
+
+/* ==========================
+   Right Click
+========================== */
+
+document.addEventListener("contextmenu",(event)=>{
+
+    event.preventDefault();
+
+});
+
+/* ==========================
+   Image Zoom
+========================== */
+
+document.querySelectorAll(".gallery img").forEach(image=>{
+
+    image.addEventListener("click",()=>{
+
+        image.classList.toggle("zoom");
+
+    });
+
+});
+
+/* ==========================
+   Reading Time
+========================== */
+
+const startTime=Date.now();
+
+window.addEventListener("beforeunload",()=>{
+
+    const seconds=Math.floor((Date.now()-startTime)/1000);
+
+    console.log(
+
+        "Reading Time :",
+
+        seconds,
+
+        "seconds"
+
+    );
+
+});
+
+/* ==========================
+   Final Quote
+========================== */
+
+const quotes=[
+
+"Pain changes people.",
+
+"Every scar tells a story.",
+
+"Some endings become beginnings.",
+
+"Trust yourself first.",
+
+"Never Look Back.",
+
+"No Risk No Story.",
+
+"Rebirth requires sacrifice."
+
+];
+
+function randomQuote(){
+
+    return quotes[
+
+        Math.floor(
+
+            Math.random()*quotes.length
+
+        )
+
+    ];
+
+}
+
+console.log(
+
+randomQuote()
+
+);
+
+/* ==========================
+   Secret Message
+========================== */
+
+console.log(
+
+"%cAUTHORIZED PERSONNEL ONLY",
+
+"color:red;font-size:16px;font-weight:bold;"
+
+);
+
+/* ==========================
+   Finish Story
+========================== */
+
+function finishStory(){
+
+    if(currentPage===pages.length-1){
+
+        saveProgress();
+
+    }
+
+}
+
+window.addEventListener(
+
+"beforeunload",
+
+finishStory
+
+);
+
+/* ==========================
+   Accessibility
+========================== */
+
+document.querySelectorAll("button").forEach(button=>{
+
+    button.setAttribute(
+
+        "aria-label",
+
+        button.innerText
+
+    );
+
+});
+
+/* ==========================
+   Mobile Fix
+========================== */
+
+window.addEventListener("resize",()=>{
+
+    scrollToTop();
+
+});
+
+/* ==========================
+   Welcome
+========================== */
+
+setTimeout(()=>{
+
+console.log(
+
+"%cWelcome to DARK STORY",
+
+"color:#ffffff;background:#8b0000;padding:8px;"
+
+);
+
+},1000);
+
+/* ==========================
+   END
+========================== */
+
+console.log(
+
+"%cCASE CLOSED",
+
+"font-size:22px;color:#b00000;font-weight:bold;"
+
+);
+
+console.log(
+
+"%cSTATUS : REBORN",
+
+"font-size:18px;color:#ffffff;"
+
+);
+
+/* ==========================================================
+   END OF SCRIPT
+========================================================== */
