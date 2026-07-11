@@ -1,277 +1,46 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MA Memories</title>
-    <style>
-        /* التنسيقات العامة للموقع */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #0b0b0b;
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(11,11,11,1));
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: #888;
-            font-size: 1.1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* تنسيق شباتر الذكريات (5 صور في كل شابتر) */
-        .chapter-section {
-            margin-bottom: 60px;
-            padding: 20px;
-            background: #111;
-            border-radius: 16px;
-            border: 1px solid #222;
-        }
-
-        .chapter-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #e50914;
-            border-bottom: 2px solid #222;
-            padding-bottom: 10px;
-        }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .media-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 3/4;
-            background: #1a1a1a;
-        }
-
-        .media-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .media-item:hover img {
-            transform: scale(1.05);
-        }
-
-        /* --- قسم معرض التاتو الجديد --- */
-        .tattoo-title-section {
-            text-align: center;
-            margin-top: 80px;
-            margin-bottom: 40px;
-        }
-
-        .tattoo-title-section h2 {
-            font-size: 2.2rem;
-            color: #fff;
-            position: relative;
-            display: inline-block;
-        }
-
-        .tattoo-title-section h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #e50914;
-            margin: 10px auto 0;
-        }
-
-        .tattoo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .gallery-item {
-            background: #141414;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-            border: 1px solid #222;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(229, 9, 20, 0.2);
-            border-color: #333;
-        }
-
-        .image-wrapper {
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover .image-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .item-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .item-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .item-info p {
-            font-size: 0.85rem;
-            color: #aaa;
-            line-height: 1.4;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #111;
-        }
-
-        /* التوافق مع الشاشات الصغيرة */
-        @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .image-wrapper { height: 320px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Story</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="loading">
+  <h1>ACCESSING CLASSIFIED ARCHIVE...</h1>
+</div>
 
-    <header>
-        <h1>MA Memories</h1>
-        <p>توثيق اللحظات والقصص الجميلة</p>
-    </header>
+<main id="book">
+<section class="cover">
+<h1>DARK STORY</h1>
+<h2>TOP SECRET</h2>
+<p>CLASSIFIED CASE FILE</p>
+<p>SUBJECT: ALI SAKR</p>
+<p>CASE #0714</p>
+<button id="openBtn">OPEN FILE</button>
+</section>
 
-    <div class="container">
+<section class="page">
+<h2>Clinic No.14</h2>
+<p>تيك... تاك... تيك... تاك...</p>
+<p>ابدأ هنا بإضافة الفصل الأول من القصة كما اتفقنا.</p>
+</section>
 
-        <!-- الشابتر الأول: يحتوي على 5 صور بالتساوي -->
-        <section class="chapter-section">
-            <h2 class="chapter-title">الشابتر الأول</h2>
-            <div class="media-grid">
-                <div class="media-item"><img src="chapter1-img1.jpg" alt="صورة 1"></div>
-                <div class="media-item"><img src="chapter1-img2.jpg" alt="صورة 2"></div>
-                <div class="media-item"><img src="chapter1-img3.jpg" alt="صورة 3"></div>
-                <div class="media-item"><img src="chapter1-img4.jpg" alt="صورة 4"></div>
-                <div class="media-item"><img src="chapter1-img5.jpg" alt="صورة 5"></div>
-            </div>
-        </section>
+<section class="page">
+<h2>Final Evidence</h2>
+<div class="gallery">
+<img src="assets/forearm-snake.png">
+<img src="assets/forearm-roman.png">
+<img src="assets/neck-script.png">
+<img src="assets/chest-tattoo.png">
+</div>
+<h3>CASE CLOSED</h3>
+<p>Status: REBORN</p>
+<p>وفي النهاية... كان معكم المريض النفسي.. وشكرًا.</p>
+</section>
+</main>
 
-        <!-- الشابتر الثاني: يحتوي على 5 صور بالتساوي -->
-        <section class="chapter-section">
-            <h2 class="chapter-title">الشابتر الثاني</h2>
-            <div class="media-grid">
-                <div class="media-item"><img src="chapter2-img1.jpg" alt="صورة 6"></div>
-                <div class="media-item"><img src="chapter2-img2.jpg" alt="صورة 7"></div>
-                <div class="media-item"><img src="chapter2-img3.jpg" alt="صورة 8"></div>
-                <div class="media-item"><img src="chapter2-img4.jpg" alt="صورة 9"></div>
-                <div class="media-item"><img src="chapter2-img5.jpg" alt="صورة 10"></div>
-            </div>
-        </section>
-
-        <!-- عنوان قسم التاتو الجديد -->
-        <div class="tattoo-title-section">
-            <h2>Tattoo Ink Designs</h2>
-        </div>
-
-        <!-- معرض صور التاتو الأربعة المدمجة -->
-        <section class="tattoo-gallery">
-            
-            <!-- كارت 1: الساعد واليد -->
-            <div class="gallery-item">
-                <div class="image-wrapper">
-                    <img src="forearm-snake.png" alt="Forearm Snake and Eye Tattoo">
-                </div>
-                <div class="item-info">
-                    <h3>Forearm & Hand Sleeve</h3>
-                    <p>Detailed cobra design blending with realistic eye element</p>
-                </div>
-            </div>
-
-            <!-- كارت 2: الساعد (الأرقام الرومانية) -->
-            <div class="gallery-item">
-                <div class="image-wrapper">
-                    <img src="forearm-roman.png" alt="Roman Numerals Tattoo">
-                </div>
-                <div class="item-info">
-                    <h3>Forearm Script</h3>
-                    <p>Roman numerals paired with bold "No Risk No Story" lettering</p>
-                </div>
-            </div>
-
-            <!-- كارت 3: الرقبة -->
-            <div class="gallery-item">
-                <div class="image-wrapper">
-                    <img src="neck-script.png" alt="Neck Script Tattoo">
-                </div>
-                <div class="item-info">
-                    <h3>Neck Placement</h3>
-                    <p>Elegant, vertical "Never look back" script typography</p>
-                </div>
-            </div>
-
-            <!-- كارت 4: الصدر -->
-            <div class="gallery-item">
-                <div class="image-wrapper">
-                    <img src="chest-tattoo.png" alt="Chest Typography Tattoo">
-                </div>
-                <div class="item-info">
-                    <h3>Chest Statement</h3>
-                    <p>Clean script text centered perfectly on the upper chest</p>
-                </div>
-            </div>
-
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 MA Memories. All Rights Reserved.</p>
-    </footer>
-
+<script src="script.js"></script>
 </body>
 </html>
