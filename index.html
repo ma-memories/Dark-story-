@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
         
-        /* حارس الوضع الأفقي (Landscape Lock UI) */
+        /* حارس الوضع الأفقي */
         #orientation-lock {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -49,12 +49,8 @@
             0%, 100% { transform: rotate(-90deg); }
             50% { transform: rotate(0deg); }
         }
-        .lock-text {
-            font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red);
-        }
-        .lock-funny-sub {
-            font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6;
-        }
+        .lock-text { font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red); }
+        .lock-funny-sub { font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6; }
 
         .black-blur {
             filter: blur(8px) brightness(0.1) grayscale(1);
@@ -81,18 +77,15 @@
             40%, 60% { transform: rotate(-90deg); }
             90%, 100% { transform: rotate(0deg); }
         }
-        .intro-text {
-            font-size: 1.5em; letter-spacing: 2px; color: #fff; text-align: center; animation: pulse 2s infinite;
-        }
+        .intro-text { font-size: 1.5em; letter-spacing: 2px; color: #fff; text-align: center; animation: pulse 2s infinite; }
         .enter-btn {
             margin-top: 40px; padding: 10px 30px; background: transparent;
             border: 1px solid var(--blood-red); color: var(--blood-red);
             font-family: var(--font-ar); font-size: 1.2em; cursor: pointer;
             transition: all 0.3s; text-transform: uppercase; letter-spacing: 3px;
         }
-        .enter-btn:hover {
-            background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red);
-        }
+        .enter-btn:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
+        
         .cover-section {
             height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
             background: url('f607afdabb328f22ba88fe085ce2e63b.jpg') center/cover no-repeat fixed;
@@ -139,6 +132,7 @@
             40% { transform: translateY(-20px) translateX(-50%); }
             60% { transform: translateY(-10px) translateX(-50%); }
         }
+
         .investigation-room {
             padding: 100px 20px; background: linear-gradient(to bottom, #050505, #111, #050505);
             position: relative; transition: all 2s;
@@ -149,10 +143,15 @@
             padding: 60px 50px; color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
             border-radius: 3px; position: relative; overflow: hidden; transition: all 1s;
         }
-        .transcript-paper::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            box-shadow: inset 0 0 80px rgba(100, 50, 0, 0.4); pointer-events: none;
+        
+        /* تأثيرات الظهور عند النزول */
+        .reveal-on-scroll {
+            opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out;
         }
+        .reveal-on-scroll.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
         .scene-desc {
             font-style: italic; color: #444; margin-bottom: 40px; border-right: 5px solid #888;
             padding-right: 20px; font-size: 1.1em; line-height: 1.8; background: rgba(0,0,0,0.05); padding: 15px 20px;
@@ -161,11 +160,7 @@
             text-align: center; font-weight: bold; color: #111; font-size: 1.4em;
             margin: 50px 0 30px; border-bottom: 1px dashed #555; padding-bottom: 10px;
         }
-        .dialogue-block {
-            margin-bottom: 40px; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out;
-            line-height: 1.9; font-size: 1.2em;
-        }
-        .dialogue-block.visible { opacity: 1; transform: translateY(0); }
+        .dialogue-block { margin-bottom: 40px; line-height: 1.9; font-size: 1.2em; }
         .speaker { display: block; font-weight: 700; margin-bottom: 5px; font-size: 1.1em; }
         .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
         .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
@@ -182,6 +177,8 @@
             font-family: var(--font-en); background: rgba(0,0,0,0.8); color: #fff;
             padding: 2px 8px; border-radius: 3px; font-size: 0.9em; letter-spacing: 1px;
         }
+
+        /* قسم الأدلة */
         .evidence-section {
             min-height: 100vh; background: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg') center/cover no-repeat fixed;
             position: relative; padding: 100px 20px; display: flex; flex-direction: column;
@@ -195,15 +192,16 @@
         }
         .grid-container {
             position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px; width: 100%; max-width: 1000px;
+            gap: 50px; width: 100%; max-width: 1000px; padding-bottom: 100px;
         }
         .photo-card {
             background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.8);
             cursor: pointer; transition: transform 0.1s; transform-style: preserve-3d;
-            opacity: 0; transform: translateY(50px) rotate(-5deg);
         }
-        .photo-card.visible { opacity: 1; transform: translateY(0) rotate(-2deg); transition: opacity 1s, transform 1s; }
+        .photo-card.visible { transition: opacity 1s, transform 1s; }
         .photo-card:nth-child(even).visible { transform: translateY(0) rotate(3deg); }
+        .photo-card:nth-child(odd).visible { transform: translateY(0) rotate(-2deg); }
+        
         .photo-card.tilting { transition: none; z-index: 10; box-shadow: 0 25px 50px rgba(0,0,0,1); }
         .photo-card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(80%) contrast(120%); transition: filter 0.5s; }
         .photo-card:hover img { filter: grayscale(0%) contrast(100%); }
@@ -213,6 +211,7 @@
             box-shadow: -2px 5px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.5); z-index: 5;
         }
         .card-caption { text-align: center; margin-top: 15px; font-family: var(--font-en); font-weight: bold; color: #000; font-size: 1.1em; text-transform: uppercase; }
+        
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -233,14 +232,13 @@
             width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;
         }
 
-        /* سكرين 1: الاعتراف الأول */
         .confess-screen {
             display: none; opacity: 0; transition: opacity 2s ease, transform 3s ease;
             transform: scale(0.97); color: #fff; font-size: 2.2em; text-align: center;
             max-width: 80%; line-height: 1.6; font-weight: 500; text-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
 
-        /* سكرين 2: مشغل Spotify العريض */
+        /* سكرين Spotify */
         .spotify-screen {
             display: none; opacity: 0; width: 90%; max-width: 1100px; height: 80vh;
             justify-content: space-between; align-items: center; gap: 60px;
@@ -254,15 +252,14 @@
             box-shadow: 0 20px 45px rgba(0,0,0,0.8); border-radius: 12px;
             overflow: hidden; background: #111;
         }
-        /* تم التعديل هنا ليناسب الصورة */
-        .spotify-video-wrapper video, .spotify-video-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .spotify-video-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         .spotify-video-overlay {
             position: absolute; top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.5); pointer-events: none;
         }
         .spotify-info { margin-top: 25px; text-align: right; width: 100%; }
-        .spotify-title { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 5px; }
-        .spotify-artist { font-size: 1.3em; color: #b3b3b3; font-family: var(--font-en); }
+        .spotify-title { font-size: 2.5em; font-weight: 700; color: #fff; margin-bottom: 5px; font-family: var(--font-en); text-shadow: 0 0 10px rgba(255,255,255,0.2);}
+        .spotify-artist { font-size: 1.5em; color: #b3b3b3; font-family: var(--font-en); }
 
         .spotify-right {
             flex: 1.3; height: 80%; position: relative; display: flex; flex-direction: column;
@@ -274,21 +271,19 @@
         .lyric-line {
             font-size: 2em; font-weight: 700; color: rgba(255, 255, 255, 0.25);
             margin: 30px 0; transition: all 0.5s ease; transform: scale(0.95);
-            transform-origin: right center; line-height: 1.5;
+            transform-origin: right center; line-height: 1.5; font-family: var(--font-en);
         }
         .lyric-line.active {
             color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.7); transform: scale(1.05);
         }
         .lyric-line.previous { color: rgba(255, 255, 255, 0.1); }
 
-        /* سكرين 3: الوداعية الكلاسيكية الأنيقة بالخط الرفيع جداً */
         .farewell-screen {
             display: none; opacity: 0; transition: opacity 2s ease;
             color: #fff; text-align: center; font-size: 2.2em; line-height: 1.8;
             font-family: 'Courier Prime', monospace; font-weight: 300; max-width: 80%;
         }
 
-        /* سكرين 4: عداد السينما العتيق */
         .countdown-screen {
             display: none; position: absolute; top:0; left:0; width:100%; height:100%;
             background: #090909; justify-content: center; align-items: center; z-index: 10;
@@ -312,15 +307,9 @@
             75% { transform: translate(-1px, -1px); }
         }
 
-        /* سكرين 5: النهاية الكبرى الحديثة */
-        .modern-finale-screen {
-            display: none; opacity: 0; text-align: center; z-index: 12;
-        }
-        .modern-finale-text {
-            font-size: 3em; font-weight: bold; color: #fff; line-height: 1.8;
-        }
+        .modern-finale-screen { display: none; opacity: 0; text-align: center; z-index: 12; }
+        .modern-finale-text { font-size: 3em; font-weight: bold; color: #fff; line-height: 1.8; }
 
-        /* سكرين 6: صندوق التعليقات الانزلاقي الأنيق */
         .comments-screen {
             display: none; opacity: 0; transform: translateY(100px);
             transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -343,12 +332,12 @@
         .comment-submit:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
 
         @media (max-width: 1024px) {
-            .spotify-screen { flex-direction: column; height: auto; justify-content: center; gap: 30px; }
-            .spotify-video-wrapper { width: 200px; height: 200px; }
-            .spotify-title { font-size: 1.5em; }
-            .spotify-artist { font-size: 1em; }
-            .lyric-line { font-size: 1.4em; margin: 20px 0; }
-            .spotify-right { height: 180px; width: 100%; }
+            .spotify-screen { flex-direction: column; height: auto; justify-content: center; gap: 30px; margin-top: 50px;}
+            .spotify-video-wrapper { width: 250px; height: 250px; }
+            .spotify-title { font-size: 2em; }
+            .spotify-artist { font-size: 1.2em; }
+            .lyric-line { font-size: 1.6em; margin: 20px 0; }
+            .spotify-right { height: 250px; width: 100%; }
         }
         @media (max-width: 768px) {
             .glitch-text { font-size: 2.5em; }
@@ -358,14 +347,13 @@
     </style>
 </head>
 <body>
-    <!-- حارس التدوير (Landscape Lock) -->
     <div id="orientation-lock">
         <div class="lock-icon"></div>
         <div id="lock-funny-text" class="lock-text">يا عم متتعبنيش معاك ورجّع التليفون زي ما كان!</div>
         <div class="lock-funny-sub">قم بتدوير هاتفك بالعرض للاستمرار في الجلسة عريضة الأبعاد بالشكل الصحيح.</div>
     </div>
 
-    <!-- تراك الصوت الجديد لأغنية Creep -->
+    <!-- تراك الصوت لأغنية Creep -->
     <audio id="creep-audio" src="creep.mp3" preload="auto"></audio>
 
     <div class="lightbox-overlay" id="lightbox">
@@ -391,143 +379,162 @@
     <section class="investigation-room" id="investigation">
         <div class="transcript-paper" id="paper-doc">
             <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14 - فصل: هندسة الحبر والولادة الجديدة</h2>
+            
             <div class="scene-desc reveal-on-scroll">
-                المشهد: إضاءة شاحبة، مريضة، تكاد تلفظ أنفاسها وهي تصارع لتنير زوايا الغرفة الكئيبة. في المنتصف، كرسي جلدي أسود ضخم، مريح بزيادة مستفزة، يصدر أنيناً خافتاً كأنه يئن من فرط الأوجاع التي سمعها. الصمت هنا ثقيل وخانق، لا يقطعه سوى دقات ساعة حائط أثرية.. تيك.. تاك.. تيك.. تاك.. كأنها آلة قاسية تحسب العمر والروح التي تُستنزف ببطء. الغرفة تفوح برائحة الموت والتعقيم.. خليط مقبض بين "الديتول" البارد وورق المستندات القديمة التي طواها التراب وحملت أسراراً دُفنت حية.
+                المشهد: إضاءة بهتانة، مريضة، بتعافر عشان تنور زوايا الأوضة الكئيبة. في النص، كرسي جلد أسود ضخم، مريح بزيادة مستفزة، بيزيّق بصوت واطي كأنه بيئن من كتر الوجع اللي شربه في الأوضة دي. السكوت هنا تقيل بيخنق، مفيش حاجة بتكسره غير دقات ساعة حيطة قديمة.. تيك.. تاك.. كأنها آلة قاسية بتعد العمر والروح اللي بتتسحب بالبطيء. الأوضة ريحتها مقبضة.. خلطة غريبة بين "الديتول" البارد وورق الملفات القديم اللي شال أسرار إتدفنت بالحيا.
                 <br><br>
-                وراء المكتب، يجلس الدكتور، سانداً ظهره بثقة عمياء، يرتدي نظارته الطبية، ويقلم أظافره بانتظام جليدي مستفز يثير الأعصاب.. تك.. تك.. تك.. ومن تحت إطار نظارته، تنزلق نظراته كشفرة مشرط، تتفحص خريطة الوشوم المعقدة التي تلتف حول جسد "علي" كدروع حرب ممزقة.
+                ورا المكتب، قاعد الدكتور، ساند ضهره بثقة عميا، لابس نضارته، وبيقلم ضوافره ببرود جليدي بيحرق الأعصاب.. تك.. تك.. ومن تحت فريم النضارة، نظراته بتسرح زي سن المشرط، بتفلي خريطة الوشوم المعقدة اللي لافة على جسم "علي" زي دروع حرب متقطعة.
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بنبرة هادية ومدروسة، مستفزة من كتر ما هي مثالية، بيوقف الطقطقة فجأة وبيشاور بسن القلم المعدني على علي):</span>
-                "علي صقر.. الاسم في حد ذاته يحتاج إلى رخصة قيادة يا علي، ألا تراه ثقيلاً جداً، كبيراً ومخيفاً على كتفيك؟ الناس في الخارج يلهثون خلف وهم القوة، لكني قرأت جحيم ملفك السري، وأرى أمام عيني جسداً مستباحاً، مغطى بالكامل بالحبر الأسود كأنه كفن ملون. أخبرني.. هل تعاقب هذا الجلد المسكين لأنه تجرأ وستر شخصيتك القديمة؟ أم تتوهم أن رسم الأفاعي وكتابة عبارات بالإنجليزية سيصنع جداراً يحميك من غدر البشر؟ أرى في عينيك لمعة سخرية حارقة.. كأنك تحتقر هذا المكان، أو كأنك.. تضحك بأعلى صوتك لكي تمنع دموعك الساخنة من أن تفضح انكسارك؟"
+                <span class="speaker dr-name">الدكتور (بنبرة هادية ومدروسة، بيوقف الطقطقة فجأة وبيشاور بسن القلم المعدن على علي):</span>
+                "علي صقر.. الاسم لوحده محتاج رخصة سواقة يا علي، مش شايف إنه تقيل ومخيف على كتافك؟ الناس بره بتجري تلهث ورا وهم القوة، بس أنا قريت جحيم ملفك السري، وشايف قدام عيني جسم مستباح، متغطي كله بالحبر الأسود كأنه كفن متلون. قولي.. أنت بتعاقب الجلد الغلبان ده عشان اتجرأ وستر شخصيتك القديمة؟ ولا متخيل إن رسم التعابين وكتابة جمل بالإنجليزي هيعملك حيطة سد تحميك من غدر البشر؟ أنا شايف في عينيك لمعة سخرية بتحرق.. كأنك محتقر المكان ده، أو كأنك.. بتضحك بأعلى صوتك عشان تمنع دموعك السخنة إنها تفضح كسرتك؟"
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (علي يعدل جلسته ببطء، وتتحرك معه الوشوم كأنها وحوش تتنفس. ترتسم على شفتيه تلك الابتسامة الباردة، الميتة.. الضحكة التي دفع ثمنها من دمه ليشتري بها صمته، ويرفع عينيه ليخترق بنظراته المميتة عيني الدكتور مباشرة)
+                (علي بيعدل قعدته بالبطيء، والوشوم بتتحرك معاه كأنها وحوش بتتنفس. بتترسم على شفايفه الابتسامة الباردة الميتة دي.. الضحكة اللي دفع تمنها من دمه عشان يشتري بيها سكوته، وبيرفع عينيه عشان يخترق بنظراته المميتة عين الدكتور مباشرة)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (بصوت هادي، أجش، مليان بخيبة أمل عتيقة):</span>
-                "يا دكتور.. العالم منافق، يعشقون مشهد النهاية والدموع والتصفيق، لكن لا أحد يملك الشجاعة ليصغي لتراتيل الوجع في البداية. أتساءل عن سر ابتسامتي؟ هذه الضحكة الساخرة هي أرخص وسيلة أدافع بها عن كرامة وجعي بدلاً من أن أذل نفسي في شرح ألمي.. أصل مين فاضي يسمع؟ كان هناك 'علي صقر' يوزع قلبه على الطرقات، يعطي بلا حساب، يصدق بساذجة طفل، وينتظر الراحلين. وفي كل طعنة جديدة كان يقول باكياً: 'المرة دي غير'.. لكنها كانت تأتي دائماً بنسخة مطورة من الخيانة، بخيبة أمل أكثر حداثة وفتكاً. وأكثر من ربتوا على كتفي وأقسموا: 'نحن معك وفي ظهرك'.. كانوا أول من قفز من السفينة عندما التهمنا الظلام. عندها فقط، انكسر شيء داخلي للأبد، فهمت أن الوعود بضاعة رخيصة، فبدأت أضحك هذه الضحكة.. ضحكة تصرخ في وجه الخذلان وتقول: 'بالطبع.. هل كنت أحمقاً لأتوقع منكم غير ذلك؟'"
+                "يا دكتور.. العالم ده منافق، بيعشقوا مشهد النهاية والدموع والتسقيف، بس محدش عنده الشجاعة يسمع تراتيل الوجع في البداية. بتسألني عن سر ضحكتي؟ الضحكة الساخرة دي هي أرخص وسيلة أدافع بيها عن كرامة وجعي بدل ما أذل نفسي في شرح ألمي.. أصل مين فاضي يسمع؟ كان فيه 'علي صقر' بيوزع قلبه على الطُرقات، بيدي من غير حساب، بيصدق بسذاجة عيل، وبيستنى اللي رحلوا. وفي كل طعنة جديدة كان بيقول وهو بيبكي: 'المرة دي غير'.. بس كانت دايماً بتيجي بنسخة متطورة من الخيانة، بخيبة أمل أحدث وأبشع. وأكتر ناس طبطبوا على كتفي وحلفوا: 'إحنا معاك وفي ضهرك'.. كانوا أول ناس نطوا من المركب لما الضلمة بلعتنا. ساعتها بس، اتكسر حاجة جوايا للأبد، فهمت إن الوعود دي بضاعة رخيصة، فبدأت أضحك الضحكة دي.. ضحكة بتصرخ في وش الخذلان وتقول: 'أكيد طبعاً.. هو أنا كنت غبي عشان أتوقع منكم غير كده؟'"
             </div>
+            
             <div class="sub-heading reveal-on-scroll">[ جغرافية الألم وتفكيك الحبر ]</div>
+            
             <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بيقوم يقف ببطء، بيمشّي عينه على جسم علي كأنه جنرال بيقرأ خريطة حرب، ويبدأ يركز على دراعه الشمال):</span>
-                "طيب، خلينا ندخل في العمق ونسيب القشور. غريبة ومخيفة هندسة الحبر على جسدك.. هذا ليس عبثاً، بل تخطيط هندسي دقيق للألم. أرى الجملة تبدأ من أعلى ذراعك الأيسر بصراخ صامت: <span class="en-phrase">Try for yourself</span>.. وتحتها مباشرة، مرسومة عينين بواقعية مرعبة، الرموش تهتز، البريق في البؤبؤ كأنه ينبض بالحياة و يراقبني.. عينين 'مروة'، أليس كذلك؟ وتحت عينيها مباشرة كُتب <span class="en-phrase">and for me</span>.. وكلمة <span class="highlight-me">me</span> تنزف بالدم، بالأحمر الصريح الصارخ وسط هذا المحيط من السواد. العجيب، أن من قلب هذا النزف بالذات، يمتد جسد حية <span class="en-phrase">Realism</span> بتفاصيل حراشف واضحة تكاد تتحرك وتلتف على ذراعك! هل ربطت ولادتك الجديدة وانسلاخ أفعى حياتك بـ 'مروة'؟ هل هي من أيقظت هذا الوحش؟"
+                <span class="speaker dr-name">الدكتور (بيقوم يقف بالبطيء، بيمشّي عينه على جسم علي كأنه جنرال بيقرا خريطة حرب، وبيبدأ يركز على دراعه الشمال):</span>
+                "طب خلينا ندخل في الغويط ونسيبنا من القشور. غريبة ومخيفة هندسة الحبر على جسمك.. ده مش عك، ده تخطيط هندسي دقيق للألم. أنا شايف الجملة بتبدأ من أول دراعك الشمال بصراخ صامت: <span class="en-phrase">Try for yourself</span>.. وتحتها على طول، مرسوم عينين بواقعية مرعبة، الرموش بتتهز، واللمعة في النني كأنها بتنبض بالحياة وبتراقبني.. عينين 'مروة'، مش كده؟ وتحت عينيها مكتوب <span class="en-phrase">and for me</span>.. وكلمة <span class="highlight-me">me</span> بتنزف بالدم، بالأحمر الصريح الصارخ وسط بحر السواد ده. العجيب بقى، إن من قلب النزيف ده بالذات، بيمتد جسم تعبان <span class="en-phrase">Realism</span> بتفاصيل قشور واضحة تكاد تتحرك وتلف على دراعك! هو أنت رابط ولادتك الجديدة وسلخ جلد التعبان بـ 'مروة'؟ هي اللي صحت الوحش ده؟"
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (علي يقبض يده بعنف، يلمس الكلمة الحمراء بأصابع ترتجف كأنه يتحسس جرحاً غائراً لا يزال ينزف، ويسرح ببصره بعيداً كأن رائحة الماضي العطرة والسامة قد هبت فجأة في الغرفة)
+                (علي بيقفل كف إيده بعنف، بيلمس الكلمة الحمرا بصوابع بتترعش كأنه بيحسس على جرح غاير لسة بينزف، وبيسرح بعينه لبعيد كأن ريحة الماضي العطرة والسامة هبت فجأة في الأوضة)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
-                "مروة لم تكن معجزة هبطت من السماء يا دكتور، لكنها كانت الإنسانة الوحيدة التي استطاعت أن تنظر عبر ثقوب روحي الممزقة لترى الحطام المستتر خلف قناع القوة. كلمة <span class="highlight-me">me</span> الحمراء تلك لم تكن مجرد حبر، بل كانت عهداً مقدساً كتبته بدم قلبي بأنني سأحارب لأعيش من أجلي، ووعداً لها. ومن هذه الكلمة بالذات بدأت الحية.. العالم الجاهل حين يراها يقول 'رمز للشر والسم'، وأنا أبتسم في سري لسطحيتهم المقيتة. الحية هي المخلوق الوحيد الذي يملك الشجاعة ليمزق جلده القديم، ينسلخ منه بألم بشع ليواصل الحياة.. ومروة كانت اليد التي ساعدتني لأمزق جلدي القديم الذي تعفن بالخيانة، وأدفنه تحت التراب. النسخة الضعيفة ماتت هنا.. ومن رحم ذلك الألم الرهيب، ولدت الحية!"
+                "مروة مكنتش معجزة نزلت من السما يا دكتور، بس هي كانت الإنسانة الوحيدة اللي قدرت تبص من خرام روحي المتبهدلة عشان تشوف الحطام المستخبي ورا قناع القوة. كلمة <span class="highlight-me">me</span> الحمرا دي مكنتش مجرد حبر، دي كانت عهد مقدس كتبته بدم قلبي إني هحارب عشان أعيش لنفسي، ووعد ليها. ومن الكلمة دي بالذات بدأ التعبان.. العالم الجاهل لما بيشوفه بيقول 'رمز للشر والسم'، وأنا ببتسم في سري لسطحيتهم المقرفة. التعبان هو المخلوق الوحيد اللي عنده الشجاعة يمزق جلده القديم، يتسلخ منه بوجع بشع عشان يكمل حياة.. ومروة كانت الإيد اللي ساعدتني أسلخ جلدي القديم اللي عفن بالخيانة، وأدفنه تحت التراب. النسخة الضعيفة ماتت هنا.. ومن رحم الوجع الرهيب ده، اتولد التعبان!"
             </div>
+            
             <div class="sub-heading reveal-on-scroll">[ الساعد الأيمن: هندسة المخاطرة والزمن ]</div>
+            
             <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بينقل عينه بسرعة للايد اليمين، وتحديداً عند الساعد الخارجي، ملامح الانبهار بدأت تظهر عليه):</span>
-                "وماذا عن هذا التمرد الصارخ على ذراعك اليمنى؟ من الخارج كتبت بخط حاد وعنيف <span class="en-phrase">No Risk No Story</span> وفوقها مباشرة حُفر التاريخ الروماني الأسود <span class="en-phrase">II • XIV • MMXXII</span> (14 فبراير 2022).. يبدوان معاً كبيان عسكري يعلن بدء الحرب والتمرد على كل شيء!"
+                <span class="speaker dr-name">الدكتور (بينقل عينه بسرعة للإيد اليمين، وتحديداً عند الساعد من بره، ملامح الانبهار بدأت تبان عليه):</span>
+                "وأيه حكاية التمرد الفاجر ده على دراعك اليمين؟ من بره مكتوب بخط حاد وعنيف <span class="en-phrase">No Risk No Story</span> وفوقها متسجل التاريخ الروماني الأسود <span class="en-phrase">II • XIV • MMXXII</span> (14 فبراير 2022).. الاتنين مع بعض كأنهم بيان عسكري بيعلن بدء الحرب والتمرد على كل حاجة!"
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (يقبض علي على يده اليمنى بقوة حتى تبيض مفاصله، يمرر عينه على الساعد، ويموج صوته بغضب مكبوت يوشك أن ينفجر)
+                (علي بيقبض على إيده اليمين جامد لحد ما عقل صوابعه تبيض، بيمرر عينه على دراعه، وصوته بيموج بغضب مكتوم قرب ينفجر)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
-                "هذا التاريخ بالنسبة للعالم العابر مجرد يوم عادي في الروزنامة، لكن بالنسبة لي.. فهو اللحظة الصاعقة التي انقسم فيها عمري إلى نصفين متنافرين. قبلها كنت طفلاً ساذجاً يظن العالم رصيفاً من الورد، وبعدها.. ولدت كائناً شرساً لا يرحم الضعف في نفسه. وجملة <span class="en-phrase">No Risk No Story</span> هي عقيدتي الجديدة ودستور حياتي. تباً لحياة هادئة نعيشها كالفئران في جحور الخوف! إذا كان قدري أن أسقط، فسأسقط من قمة جبل شاهق. سأخاطر، سأحترق، سأتعلم من رمادي.. لكنني لن أعيش مستتراً خائفاً من وخزة إبرة الوجع.. الخوف من الألم هو الموت نفسه يا دكتور!"
+                "التاريخ ده بالنسبة للعالم العادي مجرد يوم في النتيجة، بس بالنسبة لي.. ده اللحظة الصاعقة اللي عمري اتقسم فيها نصين عكس بعض. قبلها كنت عيل ساذج فاكر العالم رصيف ورد، وبعدها.. اتولدت كائن شرس مبيرحمش الضعف في نفسه. وجملة <span class="en-phrase">No Risk No Story</span> هي عقيدتي الجديدة ودستور حياتي. ملعون أبوها حياة هادية نعيشها زي الفيران في جحور الخوف! لو قدري إني أقع، فهقع من على قمة جبل عالي. هخاطر، هتحرق، هتعلم من رمادي.. بس مش هعيش مستخبي خايف من شكة إبرة الوجع.. الخوف من الألم هو الموت نفسه يا دكتور!"
             </div>
             
             <div class="sub-heading reveal-on-scroll">[ الرقبة والصدر: الدروع الأخيرة ]</div>
+            
             <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بيرجع لورا خطوة، عينه بتيجي على رقبة علي اليمين في مكان النبض، وبعدين تنزل على صدره الشمال فوق الرئة):</span>
-                "لكن هناك قسوة مفرطة، بل وحشية موجهة ضد ذاتك وضد العالم.. على رقبتك من اليمين، فوق الشريان مباشرة، كتبت <span class="en-phrase">Never Look Back</span>.. وعلى صدرك الأيسر، فوق قلبك تماماً، حفرت بغضب أعمى <span class="en-phrase">Don't Trust Damn Humans</span>.. أي شخص سيقرأ هذا سيشعر بالرعب ويقول إنها صرخة كراهية مطلقة وسوداوية مفرطة!"
+                <span class="speaker dr-name">الدكتور (بيرجع لورا خطوة، عينه بتيجي على رقبة علي اليمين مكان النبض، وبعدين تنزل على صدره الشمال فوق الرئة):</span>
+                "بس فيه قسوة زيادة، ووحشية متوجهة لنفسك وللعالم.. على رقبتك من اليمين، فوق الشريان بالظبط، كتبت <span class="en-phrase">Never Look Back</span>.. وعلى صدرك الشمال، فوق قلبك تماماً، حفرت بغضب أعمى <span class="en-phrase">Don't Trust Damn Humans</span>.. أي حد هيقرا ده هيترعب ويقول إنها صرخة كره مطلقة وسوداوية مفرطة!"
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (يضع علي يده ببطء على رقبته اليمنى فوق مكان النبض، وتتحول ملامحه إلى حزن عميق تتبعه ضحكة ساخرة مريرة ترن في زوايا الغرفة الكئيبة)
+                (علي بيحط إيده بالبطيء على رقبته اليمين فوق مكان النبض، وملامحه بتتحول لحزن عميق بتتبعه ضحكة ساخرة مرة بترن في زوايا الأوضة الكئيبة)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
-                "الشخص الذي يجلس أمامك الآن دفع ثمن هذه الدروس قطعاً من روحه وأعصابه يا دكتور! <span class="en-phrase">Never Look Back</span> على الرقبة كُتبت لكي تمنع عضلات عنقي من الالتفات إلى الوراء.. لأن التفاتاتي الغبية للماضي هي التي سمحت لهم بطعني مراراً وتكراراً في ظهري بينما كنت أحاول المضي قدماً. أما تلك التي تصرخ فوق قلبي المسكين.. فهي ليست دعوة للكراهية، بل هي درع حديدي وثيقة مكتوبة بالدم لكي لا أنسى. الثقة ليست بضاعة رخيصة توزع مجاناً، الثقة امتياز.. ومن يُكسر مرة، يتعلم أن يدفع ثمنها غالياً. الحقيقة المرة التي صفعتني بها الحياة هي أنه لن يحمل أحد نعشك سواك، ولن يستيقظ أحد في جوف الليل ليمسح عرق خوفك. كل شخص أناني يبحث عن بطولته، ونحن لسنا سوى 'كومبارس' على مسارحهم يدهسوننا متى أرادوا. لذا توقفت عن انتظار اعتذاراتهم السخيفة.. من يعود بعد أن يضمن خسارتك، لا يعود حباً فيك، بل لأنه تضور جوعاً في الخارج ولم يجد مأوى أفضل منك. ومن يتخلى عنك وأنت تنزف في القاع، إن رجع وقت قوتك، فاعلم أنه لم يتغير.. الظروف فقط هي التي تغيرت، أما قلبه الأسود فلم ولن يتغير!"
+                "اللي قاعد قدامك ده دفع تمن الدروس دي حتت من روحه وأعصابه يا دكتور! <span class="en-phrase">Never Look Back</span> على الرقبة اتكتبت عشان تمنع عضلات رقبتي إنها تلتفت لورا.. لأن التفاتاتي الغبية للماضي هي اللي خلتهم يطعنوني كذا مرة في ضهري وأنا بحاول أمشي لقدام. أما اللي بتصرخ فوق قلبي الغلبان دي.. فدي مش دعوة للكره، دي درع حديد ووثيقة مكتوبة بالدم عشان منساش. الثقة مش بضاعة رخيصة بتتوزع ببلاش، الثقة دي امتياز.. واللي بيتكسر مرة، بيتعلم يدفع تمنها غالي. الحقيقة المرة اللي الحياة لطشتني بيها هي إن محدش هيشيل نعشك غيرك، ومحدش هيقوم في نص الليل يمسح عرق خوفك. كل واحد أناني بيدور على بطولته، وإحنا مجرد 'كومبارس' على مسارحهم بيدوسوا علينا وقت ما يحبوا. عشان كده بطلت أستنى اعتذاراتهم البايخة.. اللي بيرجع بعد ما يضمن خسارتك، مابيرجعش عشان بيحبك، ده بيرجع عشان جاع بره وملقاش مأوى أحسن منك. واللي يتخلى عنك وأنت بتنزف في القاع، لو رجع وقت قوتك، فاعرف إنه متغيرش.. الظروف بس هي اللي اتغيرت، لكن قلبه الأسود لا اتغير ولا هيتغير!"
             </div>
+            
             <div class="sub-heading reveal-on-scroll">[ الصفحة الأخيرة: هندسة الصمت ]</div>
+            
             <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (يسقط القلم من يد الدكتور على المكتب بدون وعي، يعدل نظارته بيد مرتجفة ويقترب بكرسيه، ملامح الاستعلاء والبرود اختفت تماماً وحل مكانها انبهار وذهول تام أمام فلسفة هذا الجسد الممزق):</span>
-                "يعني.. كل هذا الدرع الحبري، كل هذا الألم تحت سن الإبرة.. هل كان مجرد محاولة يائسة للهروب من واقعك؟"
+                <span class="speaker dr-name">الدكتور (القلم بيقع من إيده على المكتب من غير ما يحس، بيعدل نضارته بإيد بتترعش وبيقرب بكرسيه، ملامح التناكة والبرود اختفت تماماً وحل مكانها انبهار وذهول تام قدام فلسفة الجسم المتمزق ده):</span>
+                "يعني.. كل درع الحبر ده، وكل الوجع تحت سن الإبرة.. كان مجرد محاولة يائسة للهروب من واقعك؟"
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (يقف علي بهدوء قاتل، يتجه نحو الباب بخطوات واثقة، لكنه يتوقف فجأة.. يولي ظهره للباب ويلتفت للدكتور، وتكسر جمود وجهه ابتسامة طفولية بريئة وحزينة، تخفي خلفها انهيارات مروعة وفوضى لا تنتهي)
+                (علي بيقوم بهدوء قاتل، بيمشي ناحية الباب بخطوات واثقة، بس بيقف فجأة.. بيدي ضهره للباب ويلتفت للدكتور، وبيكسر جمود وشه بابتسامة طفولية بريئة وحزينة، بتخبي وراها انهيارات مرعبة وفوضى مبتخلصش)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
-                "كلا يا دكتور.. أنت لم تفهم بعد. كل رشة حبر على هذا الجسد كانت بمثابة مراسم دفن وجنازة مهيبة لنسخة ماتت مني. كل حرف كُتب كان اعتذاراً صارخاً لروحي التي أهدرتها معهم. كل خط أسود كان محاولة بائسة لخياطة جرح ينزف منذ سنوات طويلة ولم يندمل. السقوط ليس نهاية العالم.. المصيبة الكبرى هي أن تألف القاع وتستسلم للتراب كأنك جثة حية. نحن كبشر، يتراكم الكلام في صدورنا كالجبال.. كلمات حارقة لو نطقناها لهدّت جبالاً وأبكت صخوراً. لكن المأساة، أننا عندما نفتح أفواهنا لنتكلم ونعبر عن هذا الجحيم.. لا يخرج شيء. يخرج على شكل صمت مطبق طويل.. وابتسامة ساذجة حمقاء لا تعني سوى أننا نستر عورات خيبتنا بأناقة مفرطة."
+                "تؤ.. أنت لسة مفهمتش يا دكتور. كل رشة حبر على الجسم ده كانت بمثابة مراسم دفن وجنازة مهيبة لنسخة ماتت مني. كل حرف اتكتب كان اعتذار صارخ لروحي اللي بهدلتها معاهم. كل خط أسود كان محاولة بائسة عشان أخيط جرح بينزف بقاله سنين ومبيلمش. السقوط مش نهاية العالم.. المصيبة الكبيرة إنك تاخد على القاع وتستسلم للتراب كأنك جثة عايشة. إحنا كبشر، الكلام بيتكوم في صدورنا زي الجبال.. كلام بيحرق لو نطقناه هيهد جبال ويبكي صخر. بس المأساة، إننا لما بنفتح بوقنا عشان نتكلم ونعبر عن الجحيم ده.. مبيطلعش حاجة. بيطلع على شكل سكوت مطبق طويل.. وابتسامة عبيطة ملهاش معنى غير إننا بنداري عورات خيبتنا بشياكة كدابة."
             </div>
+            
             <div class="scene-desc reveal-on-scroll">
-                (يمسك علي بياقة قميصه، يشدها بقوة وغضب مكبوت يوشك أن ينفجر، يبتسم بسخرية مريرة تكاد تتحول إلى بكاء حاد)
+                (علي بيمسك ياقة قميصه، بيشدها بقوة وغضب مكتوم قرب ينفجر، بيبتسم بسخرية مرة تكاد تقلب بعياط حاد)
             </div>
+            
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
-                "لكنني عجزت عن الصمت! الكلام في داخلي كان وحشاً ثائراً يخنق حنجرتي، يمزق أحشائي لكي يخرج ولم أستطع صياغته للدنيا. أتعلم ماذا حدث لي من فرط هذا الكبت والعجز؟ بمجرد أن خلعت قميصي ذات ليلة، وجدت أن تلك الكلمات الحبيسة قد حفرت مجراها بقوة خارقة، وطبعت نفسها رغماً عني على جلدي! هذا الحبر يا دكتور ليس رسومات للزينة أو فناً.. هذه هي الكلمات المبتورة التي عجز لساني عن الصراخ بها والآهات التي ابتلعتها، فقررت أن تخرج وتشقق جلدي وتحفر نفسها بالنار عليه ليراها العالم كله غصباً عنه. أنا لم أولد في اليوم الذي سجلته دفاتر المواليد الباهتة.. أنا ولدت في اليوم الذي وقفت فيه بملء إرادتي على قبر الشخص القديم، دفنته بيدي، وسميتها: الولادة الجديدة."
+                "بس أنا عجزت عن السكوت! الكلام جوايا كان وحش ثاير بيخنق حنجرتي، بيمزع مصاريني عشان يطلع ومعرفتش أصيغه للدنيا. عارف حصل لي إيه من كتر الكبت والعجز ده؟ بمجرد ما قلعت قميصي في ليلة، لقيت إن الكلام المحبوس ده حفر مجراه بقوة خارقة، وطبع نفسه غصب عني على جلدي! الحبر ده يا دكتور مش رسومات زينة ولا فن.. دي الكلمات المبتورة اللي لساني عجز يصرخ بيها والآهات اللي بلعتها، فقررت تطلع وتشقق جلدي وتحفر نفسها بالنار عليه عشان العالم كله يشوفها غصب عنه. أنا متولدتش في اليوم اللي اتسجل في دفاتر المواليد البهتانة.. أنا اتولدت في اليوم اللي وقفت فيه بإرادتي على قبر الشخص القديم، دفنته بإيدي، وسميتها: الولادة الجديدة."
             </div>
         </div>
     </section>
 
     <section class="evidence-section" id="evidence">
         <div class="evidence-overlay"></div>
-        <h2 class="evidence-title reveal-on-scroll">EVIDENCE BOARD</h2>
+        <h2 class="evidence-title reveal-on-scroll">لوحة الأدلة</h2>
         <div class="grid-container">
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="forearm-snake.png" alt="The Serpent">
-                <div class="card-caption">EVIDENCE A: The Serpent</div>
+                <div class="card-caption">دليل 1: الثعبان</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="forearm-roman.png" alt="Roman Date">
-                <div class="card-caption">EVIDENCE B: The Date</div>
+                <div class="card-caption">دليل 2: التاريخ الأسود</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="neck-script.png" alt="Neck Script">
-                <div class="card-caption">EVIDENCE C: No Looking Back</div>
+                <div class="card-caption">دليل 3: مفيش رجوع</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
                 <img src="chest-tattoo.png" alt="Chest Tattoo">
-                <div class="card-caption">EVIDENCE D: No Risk</div>
+                <div class="card-caption">دليل 4: انعدام الثقة</div>
             </div>
         </div>
-        <!-- نقطة تفعيل النهاية التفاعلية -->
-        <div id="ending-trigger"></div>
+        <!-- نقطة تفعيل النهاية التفاعلية مخفية بالأسفل لضمان الوصول إليها -->
+        <div id="ending-trigger" style="height: 50px; width: 100%;"></div>
     </section>
 
     <!-- شاشة السيناريو السينمائي والتفاعلي الجديد -->
     <div id="cinematic-container">
         <div class="cinematic-stage">
             
-            <!-- سكرين 1: الاعتراف الصامت -->
             <div class="confess-screen" id="confess-text">
-                "استنا انا جوايا كلام تاني عاوز اقولو بس مش عارف اطلعو"
+                "استنا.. انا جوايا كلام تاني عاوز اقولو بس مش عارف اطلعو"
             </div>
 
-            <!-- سكرين 2: واجهة الـ Spotify الأفقي التفاعلية -->
+            <!-- واجهة Spotify الأفقي -->
             <div class="spotify-screen" id="spotify-player">
                 <div class="spotify-left">
-                    
-                        <!-- تم التغيير من فيديو لـ صورة -->
-                        <img id="creep-image" src="hamo.jpg" alt="Hamo">
-                        
+                    <div class="spotify-video-wrapper">
+                        <!-- صورة الأغنية -->
+                        <img id="creep-image" src="hamo.jpg" alt="Hamo Cover">
+                        <div class="spotify-video-overlay"></div>
                     </div>
                     <div class="spotify-info">
+                        <!-- اسم الأغنية والفرقة -->
                         <div class="spotify-title">Creep</div>
                         <div class="spotify-artist">Radiohead</div>
                     </div>
                 </div>
                 <div class="spotify-right">
                     <div class="lyrics-scroll" id="lyrics-scroller">
-                        <!-- سيتم بناء الكلمات برمجياً هنا بالتزامن الدقيق -->
+                        <!-- سيتم بناء الكلمات برمجياً هنا -->
                     </div>
                 </div>
             </div>
 
-            <!-- سكرين 3: التحية بتأثير الخط الرفيع جداً الكلاسيكي -->
             <div class="farewell-screen" id="typewriter-farewell"></div>
 
-            <!-- سكرين 4: عداد بروجكتور السينما العتيق -->
             <div class="countdown-screen" id="cinema-countdown">
                 <div class="grain-overlay"></div>
                 <div class="cinema-circle">
@@ -537,12 +544,10 @@
                 </div>
             </div>
 
-            <!-- سكرين 5: رسالة النهاية ثنائية الأجزاء الحديثة -->
             <div class="modern-finale-screen" id="modern-finale-screen">
                 <div class="modern-finale-text" id="modern-finale-text"></div>
             </div>
 
-            <!-- سكرين 6: صندوق التعليقات السلس والراقي -->
             <div class="comments-screen" id="comments-box">
                 <div class="comment-prompt">"شجعني علي اني اكون احسن من النسخه الي فاتت و لو بكلمه بس."</div>
                 <div class="comment-input-area">
@@ -555,7 +560,7 @@
     </div>
 
     <script>
-        // مصفوفة الكلمات بتوقيتاتها الدقيقة كما أرسلتها بالملي ثانية
+        // مصفوفة الكلمات
         const lyricsData = [
             { time: 18, text: "When you were here before" },
             { time: 23, text: "Couldn't look you in the eye" },
@@ -598,39 +603,21 @@
             { time: 226, text: "I don't belong here" }
         ];
 
-        // الرسائل الكوميدية الخاصة بحارس الوضع العرضي
-        const funnyPhrases = [
-            "يا عم متتعبنيش معاك ورجّع التليفون زي ما كان!",
-            "هو إحنا مش اتفقنا على العرض؟ لف الشاشة يا صاحبي 😂",
-            "الشاشة بالطول كئيبة.. لِف الموبايل وخلينا نعيش اللحظة!",
-            "طب والله ما هكمل غير لما تلف الفون بالعرض 😤",
-            "بتعند معايا؟ لفه بالعرض أرجوك عشان الجلسة تكمل!"
-        ];
-
         let cinematicTriggered = false;
         let isMediaPlaying = false;
         let pausedByOrientation = false;
-
         const creepAudio = document.getElementById('creep-audio');
-        // تم إزالة تعريف creepVideo من الجافاسكريبت عشان ميضربش errors مع الصورة
 
-        // دالة فحص اتجاه دوران الجهاز لفرض الوضع العرضي
         function checkOrientation() {
             const lockScreen = document.getElementById('orientation-lock');
-            const funnyText = document.getElementById('lock-funny-text');
             const isPortrait = window.innerHeight > window.innerWidth;
             const isMobile = window.innerWidth < 1025; 
 
             if (isPortrait && isMobile) {
-                if (lockScreen.style.display !== 'flex') {
-                    const randomPhrase = funnyPhrases[Math.floor(Math.random() * funnyPhrases.length)];
-                    funnyText.innerText = randomPhrase;
-                    lockScreen.style.display = 'flex';
-                    
-                    if (isMediaPlaying) {
-                        creepAudio.pause();
-                        pausedByOrientation = true;
-                    }
+                lockScreen.style.display = 'flex';
+                if (isMediaPlaying) {
+                    creepAudio.pause();
+                    pausedByOrientation = true;
                 }
             } else {
                 lockScreen.style.display = 'none';
@@ -653,11 +640,22 @@
             }, 1500);
         }
 
-        // Lightbox التفاعل مع الصور
+        // --- إضافة كود ظهور العناصر الذي كان مفقوداً (Scroll Reveal) ---
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealObserver.observe(el));
+        // -------------------------------------------------------------
+
+        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const allImages = document.querySelectorAll('.photo-card img');
-        allImages.forEach(img => {
+        document.querySelectorAll('.photo-card img').forEach(img => {
             img.addEventListener('click', (e) => {
                 e.stopPropagation(); 
                 lightboxImg.src = img.src;
@@ -666,7 +664,7 @@
         });
         lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 
-        // مراقبة الوصول لنهاية لوحة الأدلة لبدء الـ Cinematic Sequence
+        // مراقبة الوصول لنهاية الصفحة لتشغيل السينمائي
         const endObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !cinematicTriggered) {
@@ -675,12 +673,10 @@
                 }
             });
         }, { threshold: 0.1 });
-
         endObserver.observe(document.getElementById('ending-trigger'));
 
-        // تأثيرات الـ 3D Tilt لكروت الصور
-        const cards = document.querySelectorAll('.tilt-effect');
-        cards.forEach(card => {
+        // Tilt effect
+        document.querySelectorAll('.tilt-effect').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -699,10 +695,8 @@
             });
         });
 
-        // ==================== تسلسل محركات النهاية السينمائية المذهلة ====================
-
+        // تسلسل النهاية السينمائية
         function startCinematicEnding() {
-            // كتم والتهيئة المسبقة للأعمدة الأساسية
             document.getElementById('cover').classList.add('black-blur');
             document.getElementById('investigation').classList.add('black-blur');
             document.getElementById('evidence').classList.add('black-blur');
@@ -711,7 +705,6 @@
             container.style.display = 'flex';
             setTimeout(() => { container.style.opacity = '1'; }, 100);
 
-            // خطوة 1: الاعتراف الأول "استنا انا جوايا كلام..."
             setTimeout(() => {
                 const confess = document.getElementById('confess-text');
                 confess.style.display = 'block';
@@ -720,7 +713,6 @@
                     confess.style.transform = 'scale(1.03)';
                 }, 100);
 
-                // تلاشي الجملة الأولى بعد 5 ثواني
                 setTimeout(() => {
                     confess.style.opacity = '0';
                     confess.style.transform = 'scale(0.97)';
@@ -728,19 +720,16 @@
                 }, 5000);
             }, 2500);
 
-            // خطوة 2: تشغيل Spotify بعد اختفاء الاعتراف بالكامل
             setTimeout(() => {
                 buildSpotifyPlayer();
             }, 10000);
         }
 
-        // بناء ومزامنة مشغل Spotify الأفقي
         function buildSpotifyPlayer() {
             const player = document.getElementById('spotify-player');
             player.style.display = 'flex';
             setTimeout(() => { player.style.opacity = '1'; }, 100);
 
-            // توليد قائمة الكلمات في الـ DOM
             const scroller = document.getElementById('lyrics-scroller');
             scroller.innerHTML = '';
             lyricsData.forEach((line, index) => {
@@ -751,15 +740,13 @@
                 scroller.appendChild(p);
             });
 
-            // بدء الميديا والتأثيرات الصوتية
             creepAudio.play().then(() => {
                 isMediaPlaying = true;
             }).catch(err => {
-                console.log("استجابة المتصفح منعت التشغيل التلقائي المباشر، جاري الإجبار:", err);
-                isMediaPlaying = true;
+                console.log("استجابة المتصفح منعت التشغيل التلقائي المباشر:", err);
+                isMediaPlaying = true; // يمكن إضافة زر تشغيل إجباري للمستخدم هنا لو لزم الأمر
             });
 
-            // تحديث ومزامنة الكلمات ببطء انسيابي يتنفس مع النغمات
             creepAudio.addEventListener('timeupdate', () => {
                 const curTime = creepAudio.currentTime;
                 let activeIndex = -1;
@@ -773,7 +760,6 @@
                 }
 
                 if (activeIndex !== -1) {
-                    // تحديث الحالة النشطة للسطر النشط
                     document.querySelectorAll('.lyric-line').forEach((line, idx) => {
                         line.classList.remove('active', 'previous');
                         if (idx === activeIndex) {
@@ -783,18 +769,16 @@
                         }
                     });
 
-                    // حساب الارتفاع للاسكرول التلقائي السلس
                     const activeElement = document.getElementById(`lyric-line-${activeIndex}`);
-                    const offset = activeElement.offsetTop - (document.querySelector('.spotify-right').offsetHeight / 2) + (activeElement.offsetHeight / 2);
-                    scroller.style.transform = `translateY(${-offset}px)`;
+                    if(activeElement) {
+                        const offset = activeElement.offsetTop - (document.querySelector('.spotify-right').offsetHeight / 2) + (activeElement.offsetHeight / 2);
+                        scroller.style.transform = `translateY(${-offset}px)`;
+                    }
                 }
             });
 
-            // تتبع لحظة انتهاء الأغنية للانتقال للمشهد التالي
             creepAudio.addEventListener('ended', () => {
                 isMediaPlaying = false;
-                
-                // تلاشي مشغل الموسيقى بالكامل
                 player.style.opacity = '0';
                 setTimeout(() => {
                     player.style.display = 'none';
@@ -803,7 +787,6 @@
             });
         }
 
-        // خطوة 3: عرض التحية بتأثير الخط الرفيع جداً (Courier Monospace)
         function triggerTypewriterFarewell() {
             const screen = document.getElementById('typewriter-farewell');
             screen.style.display = 'block';
@@ -819,7 +802,6 @@
                     charIdx++;
                     setTimeout(typeChar, 110);
                 } else {
-                    // تثبيت الجملة لـ 3 ثواني ثم التلاشي التدريجي
                     setTimeout(() => {
                         screen.style.opacity = '0';
                         setTimeout(() => {
@@ -832,7 +814,6 @@
             typeChar();
         }
 
-        // خطوة 4: العداد الدائري لسينما الأفلام العتيقة
         function triggerCinemaCountdown() {
             const screen = document.getElementById('cinema-countdown');
             const numContainer = document.getElementById('countdown-num');
@@ -855,7 +836,6 @@
             }, 1000);
         }
 
-        // خطوة 5: رسالة النهاية ثنائية الأجزاء بتصميم مودرن كبير ومنتصف الشاشة
         function triggerModernFinale() {
             const screen = document.getElementById('modern-finale-screen');
             const textElement = document.getElementById('modern-finale-text');
@@ -876,7 +856,7 @@
                 } else {
                     textElement.innerHTML += "<br><br>";
                     idx = 0;
-                    setTimeout(typePart2, 1200); // مهلة زمنية ممتازة بين الجملتين للفصل الشعوري
+                    setTimeout(typePart2, 1200); 
                 }
             }
 
@@ -892,7 +872,6 @@
                     }
                     setTimeout(typePart2, 120);
                 } else {
-                    // تثبيت الرسالة الأخيرة لثوانٍ ثم التلاشي لإظهار التعليقات
                     setTimeout(() => {
                         screen.style.opacity = '0';
                         setTimeout(() => {
@@ -906,7 +885,6 @@
             typePart1();
         }
 
-        // خطوة 6: الانزلاق السلس والراقي لصندوق التعليقات الصامت
         function triggerCommentsSection() {
             const comments = document.getElementById('comments-box');
             comments.classList.add('slide-up');
