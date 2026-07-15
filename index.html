@@ -240,7 +240,7 @@
             display: none; opacity: 0; width: 95%; max-width: 1100px; height: 85vh;
             justify-content: space-between; align-items: center; gap: 40px;
             transition: opacity 2s ease; z-index: 5;
-            direction: ltr; /* اتجاه الشاشة للإنجليزي لتعديل الكلمات */
+            direction: ltr; 
         }
 
         .spotify-left {
@@ -277,22 +277,24 @@
         .spotify-artist { font-size: 1.3em; color: #b3b3b3; font-family: var(--font-en); }
 
         .spotify-right {
-            flex: 1.5; height: 100%; position: relative; display: flex; flex-direction: column;
-            justify-content: center; overflow: hidden;
+            flex: 1.5; height: 100%; position: relative; overflow: hidden;
+            /* تم إزالة flex و center لضبط مسافات الحسابات صح */
             mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
         }
 
         .lyrics-scroll { 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: transform 0.5s ease-out; /* حركة أنعم */
             text-align: left; width: 100%;
+            position: absolute; /* التحكم المطلق في الحركة */
+            top: 50%; /* البداية من منتصف الشاشة */
         }
 
         .lyric-line {
             font-size: 1.8em; font-weight: 700; color: rgba(255, 255, 255, 0.25);
             margin: 25px 0; transition: all 0.5s ease; transform: scale(0.95);
             transform-origin: left center; line-height: 1.5; font-family: var(--font-en);
-            white-space: nowrap; /* يمنع قص الكلمات وتداخلها */
+            white-space: nowrap; 
         }
 
         .lyric-line.active { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.7); transform: scale(1.05); }
@@ -401,9 +403,7 @@
             
             <div class="scene-desc reveal-on-scroll">
                 ...تيك...<br>...تاك...<br>...تيك...<br>...تاك...<br><br>
-                الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس. كل تيكة كانت كأنها بتعد وقت ضاع... وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها.<br><br>
-                العيادة هادية بطريقة مستفزة. ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.<br><br>
-                الدكتور كان قاعد في آخر الأوضة، ساند ضهره لورا، حاطط رجل على رجل، ونظارته نازلة سنة صغيرة على مناخيره. بين كل كام ثانية... تك... تك... تك... يقلم ضوافره بمنتهى البرود. كأن مفيش قدامه بني آدم. كأن اللي قدامه مجرد ملف جديد هيتقفل آخر اليوم.
+                الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس. كل تيكة كانت كأنها بتعد وقت ضاع... وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها.
             </div>
 
             <div class="scene-desc reveal-on-scroll">
@@ -424,135 +424,6 @@
                 "يا دكتور... الغريب في البشر إنهم بيعشقوا يشوفوا النهاية... بس أول ما تبدأ تحكيلهم البداية... يبصوا في الساعة. ولو كملت... يبصوا في الموبايل. ولو اتوجعت... يقولولك: شد حيلك. ولو وقعت... يسألوك: هتقوم إمتى؟ ولو قومت... يتعاملوا كأنك عمرك ما وقعت. فبطلت أحكي. مش عشان الكلام خلص... لأ... عشان محدش أصلًا كان بيسمع."
             </div>
 
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيبص للأرض بوجع مكتوم):</span>
-                "زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك. وكل اللي يطمنك هيكمل معاك. وكل وعد بيتقال... لازم يتنفذ. كنت غبي... أيوة... غبي. بس الغباء الحقيقي مش إنك تثق. الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة. كل مرة كنت أقول: المرة دي غير. وأرجع ألاقي نفسي بضحك. مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي. هو أنا لسه بتفاجئ؟ هو أنا لسه مستني حاجة من حد؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيرفع عينه للدكتور بنظرة تعب):</span>
-                "عارف يا دكتور... أصعب حاجة مش إن الناس تخذلك. أصعب حاجة... إنك تفضل تدور على سبب. تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... يمكن... يمكن... لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله ]</div>
-            
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور كان ساكت. أول مرة بطل يقلم ضوافره. القلم نزل من بين صوابعه. وبدأ يبص لعلي بنفس الطريقة اللي الدكتور بيبص بيها للمريض... لما يحس إن اللي قدامه مش بيقول كلام... ده بيطلع حاجة مدفونة بقالها سنين. عين الدكتور نزلت على الدراع الشمال. وقف قدام أول تاتو.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بابتسامة خفيفة):</span>
-                "واضح إن هنا... القصة بتبتدي. <span class="en-phrase">Try for yourself</span>... والعينين اللي تحتها. عينين مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية. فيهم هدوء غريب... وفيهم أمان مش راكب مع باقي جسمك... مين دي؟"
-            </div>
-            
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيلمس العينين بحنين وابتسامة صادقة):</span>
-                "مروة. هي فيه ناس بتخلص يا دكتور؟ فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه. الناس كلها كانت بتبص على علي اللي واقف قدامها. إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه. الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان. الناس كانت تقول: ده قوي. هي كانت تقول: لا... ده شايل فوق طاقته. الناس كانت تسمع كلامي... هي كانت تسمع السكوت اللي بين الكلام."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "كانت حبيبتك؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "لأ... كانت رزقي. فيه ناس بتدخل حياتك صدفة. وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة. وأنا... ربنا رزقني بمروة. أنا مش بقول إنها ملاك علشان بحبها. أنا بقول إنها ملاك... لأنها كانت أول إنسانة شافت جوايا حاجة حلوة... في الوقت اللي أنا نفسي كنت شايف إني مستاهلش أي حاجة حلوة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بيبص للكلمة الحمرا تحت العينين):</span>
-                "وليه كلمة <span class="highlight-me">me</span> بس بالأحمر من جملة <span class="en-phrase">and for me</span>؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟ ...أنا. كنت بعمل كل حاجة علشان الناس. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تقوللي... عيش لنفسك شوية. عشان كده... <span class="highlight-me">me</span> اتكتبت بالدم. وعد لمروة، ووعد لنفسي. إن الشخص النضيف اللي هي آمنت بيه... ميعرفش يرجع يضيع نفسه تاني."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (متعجباً وهو يبص على الحية):</span>
-                "يبقى الحية بدأت من هنا... الناس أول ما تشوفها تقول... شر... سم... خيانة..."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية. الحية كل فترة بتخلع جلدها. بتسيب النسخة القديمة... وتمشي. عمرها ما بترجع تلبسه. وأنا... لما قررت أتولد من جديد... مكنتش عايز أرجع للشخص اللي مات. أجمل رزق ممكن الإنسان ياخده... مش فلوس ولا شهرة. أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الأوضة رجعت تسكت. الدكتور لف على الساعد اليمين وقرأ الجملة بصوت واطي: <span class="en-phrase">No Risk No Story</span>. وبعدها التاريخ: <span class="en-phrase">II • XIV • MMXXII</span>. 
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "دي مفهومة... اللي ميخاطرش، معندوش قصة تتحكي. بس التاريخ ده.. أنا كنت فاكر ده تاريخ الولادة الجديدة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (عينيه بتلمع):</span>
-                "لأ. الولادة الجديدة ليها حكاية تانية. أما التاريخ ده... ده أغلى تاريخ اتحفر على جسمي. عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي. الغريب إن الناس فاكرة إن الحب بيغير الإنسان. لا... الإنسان الصح... هو اللي بيغير الإنسان. هي مغيرتنيش بالعافية. هي عملت حاجة أصعب بكتير. خلتني أحب الشخص اللي كنت طول عمري بكرهه."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيكمل بشجن):</span>
-                "عارف يعني إيه حد يخليك تحس إنك كفاية... من غير ما تطلب منه؟ الإحساس ده... فلوس الدنيا كلها متشتريهوش. ربنا... لما يحب يجبر قلب واحد مكسور... بيبعتله شخص. وأنا... ربنا جبر خاطري بمروة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "يعني المخاطرة في <span class="en-phrase">No Risk No Story</span>... كانت إنها تدخل حياتك؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "لأ يا دكتور. المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه. وأجمل مخاطرة أخدتها في حياتي... إني صدقتها. التاريخ ده اتحفر عشان كل يوم أصحى وأفتكر إن مهما الدنيا علمتني أقسى الدروس... ربنا لسه قادر يبعت للإنسان رزق ينسّيه وجعه كله في لحظة واحدة."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور أخد نفس عميق وراح ناحية الرقبة اليمين. الجملة كانت سودا، حادة، وكأنها محفورة بسكينة: <span class="en-phrase">Never Look Back</span>.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "دي بقى أكتر واحدة بشوفها. تحفيز... سيب الماضي... الحاجات المعتادة يعني."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "أنت فاكرها جملة... وأنا شايفها أمر. الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك. كنت أقول يمكن الرسالة تتبعت، يمكن اللي راح يرجع. الغريب إن كلمة (يمكن)... دمرت ناس أكتر من كلمة (مستحيل)."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيشاور على رقبته):</span>
-                "الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته. فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى. بطلت أقول بكرة أحسن. وبطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل. أصعب حاجة مكانتش الخذلان، دي إني كنت كل مرة أدي فرصة زيادة. أنا بسامح يا دكتور... بس مبفتحش نفس الباب مرتين."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الخامس: فاتورة الثقة ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور حول عينه ناحية الصدر الشمال. الحروف كانت أقسى وأتقل: <span class="en-phrase">Don't Trust Damn Humans</span>. قرأها مرتين وبص لعلي كأنه مصدوم.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها. مين خلاك توصل للمرحلة دي يا علي؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ أنا مش بكره البشر يا دكتور. دي مش دعوة.. دي تذكرة بالتمن اللي دفعته. زمان كنت بثق بسهولة، فاكر اللي يضحك في وشك لازم يبقى بيحبك. المخذول بيستنى اللي كسره يعتذر، أما اللي اتعلم بيعرف إن الاعتذار مش هيغير اللي حصل."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيكمل وعينه على الشباك):</span>
-                "أصعب حاجة إن حد يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك ويمشي. ساعتها بتفهم إن الثقة... مش حاجة تتوزع ببلاش. الثقة بقت امتياز. اللي عايزها... يتعب عشان ياخدها. وعشان كده التاتو ده على صدري.. لأن القلب تحته. عشان أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس. الزعل بيخلص يا دكتور... إنما الدروس... بتعيش."
-            </div>
-
             <div class="sub-heading reveal-on-scroll">[ الفصل الأخير: الكلمات اللي معرفتش تتقال ]</div>
 
             <div class="scene-desc reveal-on-scroll">
@@ -567,11 +438,6 @@
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (بابتسامة يقين):</span>
                 "لأ. كل رسمة هنا... جنازة. مدفونة تحتها نسخة قديمة مني. أنا اخترت الحبر.. لأن الكلام خذلني. كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص. وكل مرة حد يسألني (مالك؟) وأرد (مفيش)، كان يبقى جوايا ألف حكاية وألف وجع. الغريب إن الناس كانت مصدقة كلمة (مفيش) أكتر مني. عشت سنين بكلام بيموت في زوري، لحد ما اكتشفت إن الكلام مش لازم يطلع من اللسان... ممكن يطلع من الجلد."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيرفع دراعه):</span>
-                "كل نقطة حبر... كانت كلمة. كل خط... كان صرخة. كل تاتو... كان اعتراف. أنا معرفتش أقول اللي جوايا... فجسمي قاله بالنيابة عني."
             </div>
 
             <div class="scene-desc reveal-on-scroll">
@@ -837,6 +703,9 @@
             }, 10000);
         }
 
+        // متغير الحالة لمنع التحديث المستمر
+        let currentActiveIndex = -1;
+
         function buildSpotifyPlayer() {
             const player = document.getElementById('spotify-player');
             player.style.display = 'flex';
@@ -878,7 +747,16 @@
                     }
                 }
 
-                if (activeIndex !== -1) {
+                // الكود ده هيتنفذ بس لو الوقت جاب السطر الجديد (عشان نمنع التهنيج)
+                if (activeIndex !== currentActiveIndex) {
+                    currentActiveIndex = activeIndex;
+
+                    if (activeIndex === -1) {
+                        document.querySelectorAll('.lyric-line').forEach(line => line.classList.remove('active', 'previous'));
+                        if(scroller) scroller.style.transform = `translateY(0px)`;
+                        return;
+                    }
+
                     document.querySelectorAll('.lyric-line').forEach((line, idx) => {
                         line.classList.remove('active', 'previous');
                         if (idx === activeIndex) {
@@ -889,8 +767,9 @@
                     });
 
                     const activeElement = document.getElementById(`lyric-line-${activeIndex}`);
-                    if(activeElement) {
-                        const offset = activeElement.offsetTop - (document.querySelector('.spotify-right').offsetHeight / 2) + (activeElement.offsetHeight / 2);
+                    if(activeElement && scroller) {
+                        // الحسبة الجديدة الدقيقة اللي بتسنتر الكلمة في النص 
+                        const offset = activeElement.offsetTop + (activeElement.offsetHeight / 2);
                         scroller.style.transform = `translateY(${-offset}px)`;
                     }
                 }
