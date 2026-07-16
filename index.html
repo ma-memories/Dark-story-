@@ -760,7 +760,33 @@
             { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
         ];
 
+        // متغيرات للتحكم في خاصية منع قفل الشاشة (Wake Lock)
+        let wakeLock = null;
+        let experienceStarted = false;
+
+        // دالة لطلب منع قفل الشاشة
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
+                    
+                    // في حال تحررت الميزة لأي سبب (مثل انخفاض البطارية الشديد)
+                    wakeLock.addEventListener('release', () => {
+                        console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
+                        wakeLock = null;
+                    });
+                } catch (err) {
+                    console.error('فشل تفعيل ميزة منع قفل الشاشة:', err);
+                }
+            } else {
+                console.log('هذا المتصفح لا يدعم ميزة الـ Screen Wake Lock.');
+            }
+        }
+
         function startExperience() {
+            experienceStarted = true;
+            
             // حل مشكلة حظر تشغيل الصوت التلقائي على أجهزة iOS Safari والآيفون
             const audio = document.getElementById('creep-audio');
             audio.play().then(() => {
@@ -768,11 +794,21 @@
                 audio.currentTime = 0;
             }).catch(e => console.log("iOS audio unlock status:", e));
 
+            // تفعيل ميزة منع قفل الشاشة مباشرة عند الضغط على الزر
+            requestWakeLock();
+
             document.getElementById('intro-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('intro-screen').style.display = 'none';
             }, 1500);
         }
+
+        // استعادة ميزة منع قفل الشاشة تلقائياً إذا خرج الزرار من المتصفح وعاد إليه ثانية
+        document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible' && experienceStarted) {
+                await requestWakeLock();
+            }
+        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -902,7 +938,6 @@
                             el.className = 'lyric-line active';
                             const containerHeight = document.querySelector('.spotify-right').clientHeight;
                             const lyricOffset = el.offsetTop + (el.clientHeight / 2);
-                            // تم تعديل هذا السطر تحديداً ليصبح السطر النشط في المنتصف تماماً وبشكل مثالي
                             scroller.style.transform = `translateY(-${lyricOffset}px)`;
                         } else if (idx < activeIndex) {
                             el.className = 'lyric-line previous';
@@ -965,7 +1000,6 @@
             finaleScreen.style.display = 'flex';
             setTimeout(() => {
                 finaleScreen.style.opacity = '1';
-                // كتابة الجملة المطلوبة بدقة متناهية على مرتين
                 typeWriter("دي مش نهاية القصة..", 'modern-finale-part1', 120, () => {
                     setTimeout(() => {
                         part2.style.opacity = '1';
@@ -1065,18 +1099,6 @@
             lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
             lockScreen.style.display = 'flex';
         }
-
-        textarea.addEventListener('focus', () => {
-            if (window.innerWidth > window.innerHeight) {
-                showPortraitPrompt();
-                textarea.blur(); // إلغاء التركيز مؤقتاً لحين تعديل اتجاه الهاتف
-            } else {
-                const stage = document.querySelector('.cinematic-stage');
-                stage.style.alignItems = 'flex-start';
-                stage.style.overflowY = 'auto';
-                document.getElementById('comments-box').style.marginTop = '15px';
-            }
-        });
 
         textarea.addEventListener('focus', () => {
             if (window.innerWidth > window.innerHeight) {
