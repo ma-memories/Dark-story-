@@ -207,6 +207,8 @@
             line-height: 1.8;
             color: #d1d1d6;
             min-height: 150px;
+            max-height: 65vh;
+            overflow-y: auto;
             border-right: 2px solid var(--accent-cyan);
             padding-right: 15px;
             margin-bottom: 25px;
@@ -565,7 +567,7 @@
                 </div>
                 <h2 class="glow-text-cyan" style="font-size: 1.4rem; margin-bottom: 15px;">أضف رأيك أو اكتب رسالتك للمريض رقم ١٤:</h2>
                 <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px; line-height: 1.6;">
-                    المريض (علي صقر) يقبع بمفرده، ومذكراته مليئة بالحكايات المحفورة بالحبر.. ما الذي يمكن لطبيب أو لزائر مثلك أن يكتبه له ليخفف من وحدته العميقة؟
+                    المريض يقبع بمفرده، ويردد أنه غريب عن هذا الكون.. ما الذي يمكن لطبيب أو لزائر مثلك أن يكتبه له ليخفف من وحدته العميقة؟
                 </p>
                 
                 <textarea class="input-terminal" id="doctor-note" placeholder="اكتب تشخيصك أو كلماتك الدافئة للمريض هنا... (تأكد من تدوير هاتفك إذا طُلِب منك ذلك ليستمر القفل بشكل صحيح)"></textarea>
@@ -584,16 +586,11 @@
                 <h2 class="glow-text-cyan" style="font-size: 1.8rem; margin-bottom: 15px;">رد المريض رقم ١٤:</h2>
                 
                 <div style="text-align: right; background: rgba(0, 243, 255, 0.05); padding: 20px; border-radius: 8px; border-right: 3px solid var(--accent-cyan); margin-bottom: 25px; font-family: 'Amiri', serif; font-size: 1.25rem; line-height: 1.8; font-style: italic; color: #e1e1e6;">
-                    "لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه."
-                </div>
-
-                <!-- Styled Cinematic Box -->
-                <div dir="rtl" align="center" style="background-color: #f4ebd8; color: #5c4d3c; font-family: 'Amiri', 'Traditional Arabic', serif; font-size: 26px; font-weight: bold; padding: 25px; border: 1px dashed #b5a68b; box-shadow: inset 0 0 10px #d3c5b3; border-radius: 3px; margin: 20px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
-                    «وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»
+                    "قريت رسالتك.. مكنتش فاكر إن حد هيهتم يسمع وجعي ولا يحاول يفهمه للدرجة دي. ماتقلقش، أنا مش زعلان من الدنيا، أنا بس حسيت للحظة إني غريب وتائه.. بس كلماتك دفّت روحي شوية.. شكراً لإنك كنت هنا معايا."
                 </div>
 
                 <p style="font-size: 14px; line-height: 1.7; color: var(--text-muted); margin-bottom: 30px;">
-                    لقد تركت أثراً طيباً في نفسية علي صقر (المريض ١٤). يمكنك الآن إغلاق الملف، أو إعادة التجربة من جديد.
+                    لقد تركت أثراً طيباً في نفسية المريض ١٤. يمكنك الآن إغلاق الملف، أو إرسال كلمات دافئة لغيره.. تذكر دائماً ألا تترك وحيداً دون مواساة.
                 </p>
 
                 <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
@@ -698,11 +695,12 @@
             startMedicalTypewriter();
         });
 
-        // 2. Clinical Diagnosis Typewriter Effect (Ali Sakr Narrative)
+        // 2. Clinical Diagnosis Typewriter Effect with HTML support
         function startMedicalTypewriter() {
             const container = document.getElementById('typewriter-medical');
             const text = `العيادة رقم 14
-الفصل الأول: هندسة الحبر... والإنسان اللي اختفى
+
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 20px 0 10px 0;">الفصل الأول: هندسة الحبر... والإنسان اللي اختفى</h3>
 ...تيك...
 ...تاك...
 ...تيك...
@@ -760,10 +758,9 @@
 هو كان سامع صوت تاني...
 صوت قديم...
 ناس كانت بتقول:
-"إحنا معاك."
+<blockquote style="border-right: 3px solid var(--accent-cyan); padding-right: 12px; margin: 15px 0; font-style: italic; color: var(--text-muted);">"إحنا معاك."
 "إحنا عمرنا ما هنسيبك."
-"اطمن."
-
+"اطمن."</blockquote>
 الغريب...
 إن كل الأصوات دي اختفت أول ما الدنيا قلبت.
 رجع للدكتور.
@@ -841,14 +838,14 @@
 "واضح إن هنا...
 القصة بتبتدي."
 وعينه استقرت على أول كلمة محفورة بالحبر...
-Try for yourself...
+<em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">Try for yourself...</em>
 
-الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 30px 0 10px 0;">الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله</h3>
 الدكتور قرب خطوة.
 ببطء...
 كأنه خايف يقرب زيادة.
 عينه كانت واقفة على أول سطر.
-Try for yourself.
+<em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">Try for yourself.</em>
 قرأها مرة...
 واتنين...
 وبعدين نزل بعينه لتحت.
@@ -883,7 +880,7 @@ Try for yourself.
 "مروة."
 الدكتور رفع حاجبه.
 "واضح إنها كانت مهمة."
-علي ضحك ضحكة صغيرة.
+علي ضحك ضحكة قصيرة.
 "كانت؟"
 سكت ثانيتين.
 "هي فيه ناس بتخلص يا دكتور؟
@@ -949,43 +946,45 @@ Try for yourself.
 لأ.
 الحبر جه بعدين.
 أما البداية الحقيقية...
-فكانت يوم ربنا بعتلي مروة."
+كانت يوم ربنا بعتلي مروة."
 عين الدكتور نزلت تحت العينين. وقف قدام التكملة:
-and for me
-لكن كلمة me كانت لوحدها باللون الأحمر والدم العتيق.
+<em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">and for me</em>
+لكن كلمة...
+<span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span>
+كانت لوحدها باللون الأحمر.
 الدكتور قرب أكتر، وقال:
 "ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها؟"
 علي لمس الكلمة بصوابعه، وبرغم برودة الأوضة، كان واضح إن نبرة صوته اتهزت بحمل أتقل وشجن أعمق:
-"علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. and for me.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
+"علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. <em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">and for me</em>.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
 "...أنا."
 "كنت بعمل كل حاجة علشان الناس. أرضي ده، وأساعد ده، وأستحمل ده، وأجي على نفسي علشان الكل.. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تخليني ألتفت لنفسي.. أول واحدة تقوللي: عيش لنفسك شوية."
 بص للكلمة الحمرا، وأخد نفس حاد وكأنه بيستجمع روحه:
-"وحتى لو الدنيا لفت بينا.. ومبقناش مع بعض دلوقتي.. وحتى لو الظروف كانت أقوى مننا وكل واحد راح في طريق.. فـ me اتكتبت بالدم عشان تفضل ثابتة ومتموتش. دي وعد ليها، ووعد لنفسي.. إن علي اللي هي تعبت عشان تخليه يشوف نفسه ويحبها، مش هسمحله يضيع تاني. أنا هفضل أحاول، وهفضل أعافر وأقوم.. علشاني، وعلشان الروح النضيفة اللي هي أحيتها جوايا."
-وفجأة.. عين الدكتور انتبهت لراس وجسم الحية (التعبان) اللي طالع وممتد مباشرة من تحت حرف الـ (e) في كلمة me. جلدها مرسوم بتفاصيل دقيقة ومرعبة، كأنها بتشق طريقها وتزحف خارجة من قلب الكلمة دي بالذات.
+"وحتى لو الدنيا لفت بينا.. ومبقناش مع بعض دلوقتي.. وحتى لو الظروف كانت أقوى مننا وكل واحد راح في طريق.. فـ <span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span> اتكتبت بالدم عشان تفضل ثابتة ومتموتش. دي وعد ليها، ووعد لنفسي.. إن علي اللي هي تعبت عشان تخليه يشوف نفسه ويحبها، مش هسمحله يضيع تاني. أنا هفضل أحاول، وهفضل أعافر وأقوم.. علشاني، وعلشان الروح النضيفة اللي هي أحيتها جوايا."
+وفجأة.. عين الدكتور انتبهت لراس وجسم الحية (التعبان) اللي طالع وممتد مباشرة من تحت حرف الـ (e) في كلمة <span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span>. جلدها مرسوم بتفاصيل دقيقة ومرعبة، كأنها بتشق طريقها وتزحف خارجة من قلب الكلمة دي بالذات.
 الدكتور مال براسه وقال بذهول:
 "يعني التعبان.. بدأ يخرج من هنا؟ منك أنت.. وبسببها؟"
 علي هز راسه، وابتسامته رجعت بس المرة دي كانت دافية وموجوعة في نفس الوقت:
-"بالظبط يا دكتور. التعبان بدأ من هنا.. من لحظة التعب والولادة الجديدة اللي هي كانت سبب فيها. الناس أول ما تشوف التعبان تقول شر, سم, خيانة.. وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية."
+"بالظبط يا دكتور. التعبان بدأ من هنا.. من لحظة التعب والولادة الجديدة اللي هي كانت سبب فيها. الناس أول ما تشوف التعبان تقول شر، سم، خيانة.. وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية."
 "ليه؟"
-"لأن التعبان هنا مش رمز للشر. التعبان هو الكائن الوحيد اللي لما الدنيا تضيق عليه وجلده يقدم ويتبهدل من الجروح، بيعمل إيه؟ بيخلع جلده كله. بيسيب النسخة القديمة، الضعيفة، المكسورة اللي اتأذت من الناس.. وبيمشي بنسخة جديدة قوية. مروة هي اللي خلتني أبدأ أخلع جلدي القديم. هي اللي زرعت جوايا القوة إني اتولد من جديد ومستسلمش للوجع. وعشان كده التعبان طالع من كلمة me.. لأن ولادتي الجديدة كانت بسببها، ومكملة علشاني وعلشانها.. حتى لو مبقناش مع بعض."
+"لأن التعبان هنا مش رمز للشر. التعبان هو الكائن الوحيد اللي لما الدنيا تضيق عليه وجلده يقدم ويتبهدل من الجروح، بيعمل إيه؟ بيخلع جلده كله. بيسيب النسخة القديمة، الضعيفة، المكسورة اللي اتأذت من الناس.. وبيمشي بنسخة جديدة قوية. مروة هي اللي خلتني أبدأ أخلع جلدي القديم. هي اللي زرعت جوايا القوة إني اتولد من جديد ومستسلمش للوجع. وعشان كده التعبان طالع من كلمة <span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span>.. لأن ولادتي الجديدة كانت بسببها، ومكملة علشاني وعلشانها.. حتى لو مبقناش مع بعض."
 سكت.. وبص لمروة المرسومة على دراعه، وقال بابتسامة هادية:
 "لو فيه حاجة واحدة في حياتي مستحيل أعتبرها صدفة... فهتبقى مروة. لأن في عز ما كنت فاكر إن الدنيا قفلت بابها في وشي... ربنا فتحلي باب على هيئة إنسانة. وأجمل رزق ممكن الإنسان ياخده... مش فلوس... ولا شهرة... ولا نجاح... أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
 
-الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 30px 0 10px 0;">الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين</h3>
 الأوضة رجعت تسكت.
 محدش اتكلم.
 الدكتور كان واقف قدام دراع علي، كأنه نسي إنه في جلسة علاج.
-بص على الحية وهي خارجة من كلمة me...
+بص على الحية وهي خارجة من كلمة <span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span>...
 وبعدين لف على الساعد اليمين.
 وقف.
 قرأ الجملة المكتوبة هناك بصوت واطي:
-No Risk No Story.
+<em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">No Risk No Story.</em>
 ابتسم ابتسامة خفيفة.
 "دي مفهومة...
 اللي ميخاطرش، معندوش قصة تتحكي."
 لكن بعدها بعينه مباشرة...
 كان التاريخ.
-II • XIV • MMXXII
+<strong style="color: var(--accent-cyan); letter-spacing: 2px;">II • XIV • MMXXII</strong>
 فضل يبصله كام ثانية.
 وبعدين قال:
 "بصراحة...
@@ -1094,7 +1093,7 @@ II • XIV • MMXXII
 وكأنه بيتكلم عن نعمة.
 بعد ثواني...
 رجع الدكتور يبص للجملة المكتوبة فوق التاريخ.
-No Risk No Story.
+<em style="color: var(--accent-cyan); font-family: 'Courier Prime', monospace;">No Risk No Story.</em>
 وقال:
 "يعني المخاطرة دي...
 كانت إنها تدخل حياتك؟"
@@ -1122,13 +1121,13 @@ No Risk No Story.
 الجملة كانت واضحة...
 سودا...
 وحادة...
-Never Look Back.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Never Look Back.</em>
 ابتسم ابتسامة خفيفة...
 وقال:
 "واضح إن من هنا...
 القصة هتبدأ توجع."
 
-الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 30px 0 10px 0;">الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك</h3>
 الدكتور فضل واقف قدام علي.
 عينه اتحركت ببطء...
 لحد ما وقفت على الرقبة اليمين.
@@ -1136,7 +1135,7 @@ Never Look Back.
 واضحة...
 كأنها متكتبتش بالحبر.
 كأنها محفورة بسكينة.
-Never Look Back.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Never Look Back.</em>
 الدكتور ابتسم وقال:
 "دي بقى أكتر واحدة بشوفها.
 أي حد بيعمل تاتوهات بيحب الجمل دي.
@@ -1259,7 +1258,7 @@ Never Look Back.
 الحروف كانت أوضح.
 وأقسى.
 وأتقل.
-Don't Trust Damn Humans.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Don't Trust Damn Humans.</em>
 وقف قدامها كام ثانية.
 وبعدين قال:
 "دي...
@@ -1270,11 +1269,11 @@ Don't Trust Damn Humans.
 "لأ يا دكتور...
 دي فاتورة."
 
-الفصل الخامس: فاتورة الثقة
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 30px 0 10px 0;">الفصل الخامس: فاتورة الثقة</h3>
 الأوضة رجعت تسكت...
 لدرجة إن صوت التكييف بقى مسموع.
 الدكتور كان واقف قدام تاتو الصدر الشمال.
-Don't Trust Damn Humans.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Don't Trust Damn Humans.</em>
 قرأها مرة...
 وبعدين مرة تانية.
 وبعدين بص لعلي.
@@ -1340,7 +1339,7 @@ Don't Trust Damn Humans.
 علي بصله.
 "لا...
 اتعلمت."
-"إيه الفرق?"
+"إيه الفرق؟"
 "المخذول...
 بيستنى اللي كسره يعتذر.
 أما اللي اتعلم...
@@ -1466,7 +1465,7 @@ Don't Trust Damn Humans.
 مرة واحدة في حياته...
 حد يفهمه من غير ما يضطر يشرح.
 
-الفصل الأخير: الكلمات اللي معرفتش تتقال
+<h3 class="glow-text-cyan" style="font-size: 1.4rem; margin: 30px 0 10px 0;">الفصل الأخير: الكلمات اللي معرفتش تتقال</h3>
 الأوضة ساكتة...
 لأول مرة من أول الجلسة...
 محدش بيتكلم.
@@ -1511,7 +1510,7 @@ Don't Trust Damn Humans.
 "ودي...
 فكرتني إن ربنا ممكن يرزق الإنسان بحد يشوفه وهو مكسور...
 ويعامله كأنه كامل."
-نزل بإيده على كلمة me.
+نزل بإيده على كلمة <span style="color: var(--accent-red); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);">me</span>.
 "ودي...
 أول مرة في حياتي أقرر إن علي يستحق يعيش هو كمان."
 لمس الحية.
@@ -1520,17 +1519,17 @@ Don't Trust Damn Humans.
 دي شهادة وفاة...
 للنسخة اللي كانت كل يوم تموت وهي بتحاول ترضي الناس."
 وبعدين حط إيده على التاريخ.
-II • XIV • MMXXII
+<strong style="color: var(--accent-cyan); letter-spacing: 2px;">II • XIV • MMXXII</strong>
 ابتسم.
 "وده...
 أجمل يوم ربنا كتبهولي."
 وأخيرًا...
 لمس رقبته.
-Never Look Back.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Never Look Back.</em>
 "وده...
 الوعد اللي كل يوم بحاول أوفي بيه."
 ونزل بإيده على صدره.
-Don't Trust Damn Humans.
+<em style="color: var(--accent-red); font-family: 'Courier Prime', monospace; text-shadow: 0 0 5px rgba(255, 42, 95, 0.5);">Don't Trust Damn Humans.</em>
 ابتسم بسخرية.
 "ودي...
 أغلى فاتورة دفعتها في حياتي."
@@ -1629,15 +1628,48 @@ Don't Trust Damn Humans.
 قبل ما تسمعه."
 سكت ثانية.
 وبعدين ابتسم نفس الابتسامة اللي بدأ بيها الجلسة.
-وقال:`;
+وقال:
 
+<div dir="rtl" align="center" style="background-color: #f4ebd8; color: #5c4d3c; font-family: 'Amiri', 'Traditional Arabic', serif; font-size: 26px; font-weight: bold; padding: 25px; border: 1px dashed #b5a68b; box-shadow: inset 0 0 10px #d3c5b3; border-radius: 3px; margin: 20px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+«وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»
+</div>
+
+فتح الباب...
+وخرج.
+الباب اتقفل بهدوء.
+ورجع صوت الساعة تاني...
+...تيك...
+...تاك...
+...تيك...
+...تاك...
+كأنها بتقول...
+إن الحكايات مبتخلصش...
+هي بس...
+بتسيب أثر.`;
+            
             let i = 0;
             container.innerHTML = "";
             function type() {
                 if (i < text.length) {
-                    container.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 1); // Peak cyberpunk streaming speed for massive texts
+                    // Fast skip tags during typing to render HTML correctly
+                    if (text.charAt(i) === '<') {
+                        let tagClose = text.indexOf('>', i);
+                        if (tagClose !== -1) {
+                            container.innerHTML += text.substring(i, tagClose + 1);
+                            i = tagClose + 1;
+                        } else {
+                            container.innerHTML += text.charAt(i);
+                            i++;
+                        }
+                    } else {
+                        container.innerHTML += text.charAt(i);
+                        i++;
+                    }
+                    
+                    // Auto scroll container down to keep up with typewriter
+                    container.scrollTop = container.scrollHeight;
+                    
+                    setTimeout(type, 12); // Slightly optimized speed for long narrative
                 }
             }
             type();
@@ -1646,6 +1678,7 @@ Don't Trust Damn Humans.
         // Start Therapy Music Scene
         btnStartTherapy.addEventListener('click', () => {
             medicalScreen.classList.add('hidden');
+            therapyScreen.remove('hidden');
             therapyScreen.classList.remove('hidden');
             
             // Start playing synced audio
@@ -1692,7 +1725,7 @@ Don't Trust Damn Humans.
             { time: 248, en: "I'm a weirdo...", ar: "أنا غريب الأطوار..." },
             { time: 254, en: "What the hell am I doing here?...", ar: "أنا إيه اللي جابني هنا؟" },
             { time: 260, en: "I don't belong here...", ar: "أنا ما أنتميش للمكان ده..." },
-            { time: 267, en: "I don't belong here...", ar: "ما أنتميش لهنا..." }
+            { time: 267, en: "I don't belong here...", ar: "ما أنتميش ل هنا..." }
         ];
 
         function updatePlayButton(isPlaying) {
