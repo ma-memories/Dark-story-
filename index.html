@@ -290,10 +290,10 @@
         }
 
         .lyric-line {
-            font-size: 1.8em; font-weight: 700; color: rgba(255, 255, 255, 0.25);
-            margin: 25px 0; transition: all 0.5s ease; transform: scale(0.95);
-            transform-origin: left center; line-height: 1.5; font-family: var(--font-en);
-            white-space: nowrap; 
+            font-size: clamp(1.1rem, 3vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.25);
+            margin: 30px 0; transition: all 0.5s ease; transform: scale(0.9);
+            transform-origin: left center; line-height: 1.4; font-family: var(--font-en);
+            white-space: normal; word-break: break-word;
         }
 
         .lyric-line.active { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.7); transform: scale(1.05); }
@@ -302,9 +302,10 @@
         .farewell-screen {
             display: none; opacity: 0; transition: opacity 1.5s ease;
             color: var(--paper-color);
-            text-align: right; font-size: 2.5em; line-height: 1.8;
-            font-family: var(--font-ar); font-weight: 700; max-width: 80%;
-            direction: rtl; width: 100%; padding-right: 10%; margin-right: auto;
+            text-align: center; font-size: clamp(1.3rem, 4vw, 2.5em); line-height: 1.5;
+            font-family: var(--font-ar); font-weight: 700; max-width: 95%;
+            direction: rtl; width: 100%; margin: 0 auto;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
         .countdown-screen {
@@ -330,8 +331,12 @@
             75% { transform: translate(-1px, -1px); }
         }
 
-        .modern-finale-screen { display: none; opacity: 0; text-align: center; z-index: 12; }
-        .modern-finale-text { font-size: 3em; font-weight: bold; color: #fff; line-height: 1.8; }
+        .modern-finale-screen { 
+            display: none; opacity: 0; text-align: center; z-index: 12; 
+            flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; max-width: 800px; padding: 20px; transition: opacity 1.5s ease;
+        }
+        .modern-finale-text { font-size: clamp(1.5rem, 5vw, 3em); font-weight: bold; color: #fff; line-height: 1.8; font-family: var(--font-ar); }
 
         .comments-screen {
             display: none; opacity: 0; transform: translateY(100px);
@@ -353,6 +358,49 @@
             border-radius: 6px; transition: all 0.3s;
         }
         .comment-submit:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
+
+        /* Real Comments Container & Items Stylings */
+        .comments-list-container {
+            margin-top: 30px;
+            text-align: right;
+            max-height: 220px;
+            overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            padding-right: 5px;
+        }
+        .comments-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .comments-list-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .comments-list-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+        .comment-item {
+            background: rgba(255, 255, 255, 0.04);
+            border-right: 3px solid var(--blood-red);
+            padding: 12px 15px;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            direction: rtl;
+            animation: commentFadeIn 0.5s ease forwards;
+        }
+        .comment-date {
+            font-size: 0.75em;
+            color: #777;
+            margin-top: 5px;
+            text-align: left;
+        }
+        @keyframes commentFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         @media (max-width: 1024px) {
             .spotify-screen { flex-direction: row; gap: 20px; }
@@ -606,15 +654,24 @@
             </div>
 
             <div class="modern-finale-screen" id="modern-finale-screen">
-                <div class="modern-finale-text" id="modern-finale-text"></div>
+                <div class="modern-finale-text" id="modern-finale-part1"></div>
+                <div class="modern-finale-text" id="modern-finale-part2" style="margin-top: 15px; opacity: 0; transition: opacity 1s;"></div>
+                <div id="modern-finale-signature" style="margin-top: 30px; font-family: var(--font-ar); font-size: clamp(1.2rem, 3vw, 1.8em); color: var(--blood-red); opacity: 0; transition: opacity 1s; font-weight: bold; font-style: italic;"></div>
             </div>
 
             <div class="comments-screen" id="comments-box">
                 <div class="comment-prompt">"شجعني علي اني اكون احسن من النسخه الي فاتت و لو بكلمه بس."</div>
                 <div class="comment-input-area">
-                    <textarea class="comment-textarea" placeholder="اكتب أثرك الطيب هنا..."></textarea>
+                    <textarea class="comment-textarea" id="comment-text" placeholder="اكتب أثرك الطيب هنا..."></textarea>
                 </div>
                 <button class="comment-submit" onclick="submitMessage()">إرسال الرسالة الأخيرة</button>
+
+                <div class="comments-list-container">
+                    <h4 style="color: #aaa; margin-bottom: 15px; font-size: 1.1em; font-family: var(--font-ar); text-align: right;">الأثر الطيب للآخرين:</h4>
+                    <div id="comments-list">
+                        <!-- Comments rendered dynamically -->
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -659,6 +716,12 @@
             { time: 211, text: "What the hell am I doing here?" },
             { time: 217, text: "I don't belong here" },
             { time: 223, text: "I don't belong here" }
+        ];
+
+        const defaultComments = [
+            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", date: "منذ ساعة" },
+            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", date: "منذ ساعتين" },
+            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
         ];
 
         function startExperience() {
@@ -795,7 +858,7 @@
                         if (idx === activeIndex) {
                             el.className = 'lyric-line active';
                             const containerHeight = document.querySelector('.spotify-right').clientHeight;
-                            const lyricOffset = el.offsetTop;
+                            const lyricOffset = el.offsetTop + (el.clientHeight / 2);
                             scroller.style.transform = `translateY(${(containerHeight / 2) - lyricOffset}px)`;
                         } else if (idx < activeIndex) {
                             el.className = 'lyric-line previous';
@@ -843,23 +906,103 @@
                     farewell.style.opacity = '0';
                     setTimeout(() => {
                         farewell.style.display = 'none';
-                        showComments();
+                        showModernFinale();
                     }, 1500);
                 }, 3000);
             });
         }
 
+        function showModernFinale() {
+            const finaleScreen = document.getElementById('modern-finale-screen');
+            const part1 = document.getElementById('modern-finale-part1');
+            const part2 = document.getElementById('modern-finale-part2');
+            const signature = document.getElementById('modern-finale-signature');
+            
+            finaleScreen.style.display = 'flex';
+            setTimeout(() => {
+                finaleScreen.style.opacity = '1';
+                typeWriter("نهاية القصة دي..", 'modern-finale-part1', 120, () => {
+                    setTimeout(() => {
+                        part2.style.opacity = '1';
+                        typeWriter("ولادة فصل جديد.", 'modern-finale-part2', 120, () => {
+                            setTimeout(() => {
+                                signature.innerText = "— الولادة الجديدة";
+                                signature.style.opacity = '1';
+                                setTimeout(() => {
+                                    finaleScreen.style.transition = 'opacity 1.5s ease';
+                                    finaleScreen.style.opacity = '0';
+                                    setTimeout(() => {
+                                        finaleScreen.style.display = 'none';
+                                        showComments();
+                                    }, 1500);
+                                }, 3500);
+                            }, 1000);
+                        });
+                    }, 1000);
+                });
+            }, 500);
+        }
+
         function showComments() {
             const comments = document.getElementById('comments-box');
             comments.style.display = 'block';
+            loadComments();
             setTimeout(() => {
                 comments.classList.add('slide-up');
                 comments.style.opacity = '1';
             }, 100);
         }
 
+        function loadComments() {
+            let comments = localStorage.getItem('patient14_comments');
+            if (!comments) {
+                comments = JSON.stringify(defaultComments);
+                localStorage.setItem('patient14_comments', comments);
+            }
+            const listArr = JSON.parse(comments);
+            const listContainer = document.getElementById('comments-list');
+            listContainer.innerHTML = '';
+            listArr.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'comment-item';
+                item.innerHTML = `
+                    <div>${c.text}</div>
+                    <div class="comment-date">${c.date || 'الآن'}</div>
+                `;
+                listContainer.appendChild(item);
+            });
+            const container = document.querySelector('.comments-list-container');
+            container.scrollTop = container.scrollHeight;
+        }
+
         function submitMessage() {
-            alert('تم إرسال رسالتك الأخيرة بنجاح.');
+            const textarea = document.getElementById('comment-text');
+            const text = textarea.value.trim();
+            if (!text) {
+                alert('من فضلك اكتب كلمة طيبة أولاً.');
+                return;
+            }
+            let comments = localStorage.getItem('patient14_comments');
+            const listArr = comments ? JSON.parse(comments) : [];
+            listArr.push({ text: text, date: "الآن" });
+            localStorage.setItem('patient14_comments', JSON.stringify(listArr));
+            
+            loadComments();
+            textarea.value = '';
+            
+            const submitBtn = document.querySelector('.comment-submit');
+            submitBtn.innerText = 'تم ترك الأثر الطيب ✓';
+            submitBtn.style.background = '#27ae60';
+            submitBtn.style.borderColor = '#27ae60';
+            submitBtn.style.color = '#fff';
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                submitBtn.innerText = 'إرسال الرسالة الأخيرة';
+                submitBtn.style.background = 'transparent';
+                submitBtn.style.borderColor = 'var(--blood-red)';
+                submitBtn.style.color = 'var(--blood-red)';
+                submitBtn.disabled = false;
+            }, 3000);
         }
 
         window.addEventListener("orientationchange", () => {
