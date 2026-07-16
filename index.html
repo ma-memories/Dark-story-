@@ -58,12 +58,12 @@
         .lock-text { font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red); }
         .lock-funny-sub { font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6; }
 
-        /* إخفاء المحتوى تماماً في الوضع الطولي */
+        /* إخفاء المحتوى تماماً في الوضع الطولي فقط عندما يكون القفل نشطاً */
         @media (orientation: portrait) {
-            #orientation-lock {
+            body.lock-active #orientation-lock {
                 display: flex !important;
             }
-            body > *:not(#orientation-lock):not(#creep-audio) {
+            body.lock-active > *:not(#orientation-lock):not(#creep-audio) {
                 display: none !important;
             }
         }
@@ -306,23 +306,36 @@
             top: 50%; 
         }
 
+        /* تعديل نظام التنوير والتمويه المخصص للكلمات */
         .lyric-line {
-            font-size: clamp(1.1rem, 4vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.25);
+            font-size: clamp(1.1rem, 4vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.15);
             margin: 25px 0; transition: all 0.5s ease; transform: scale(0.9);
             transform-origin: left center; line-height: 1.4; font-family: var(--font-en);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            filter: blur(1.5px);
         }
 
-        .lyric-line.active { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.7); transform: scale(1.05); }
-        .lyric-line.previous { color: rgba(255, 255, 255, 0.1); }
+        .lyric-line.active { 
+            color: #fff; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
+            transform: scale(1.05); 
+            filter: none; 
+            opacity: 1;
+        }
+        
+        .lyric-line.previous { 
+            color: rgba(255, 255, 255, 0.08); 
+            filter: blur(2px);
+        }
 
+        /* تعديل جملة النهاية لمنع القص وتصغيرها بمرونة */
         .farewell-screen {
             display: none; opacity: 0; transition: opacity 1.5s ease;
             color: var(--paper-color);
-            text-align: center; font-size: clamp(1.3rem, 4vw, 2.5em); line-height: 1.5;
-            font-family: var(--font-ar); font-weight: 700; max-width: 95%;
+            text-align: center; font-size: clamp(1rem, 3.2vw, 1.8em); line-height: 1.5;
+            font-family: var(--font-ar); font-weight: 700; max-width: 98%;
             direction: rtl; width: 100%; margin: 0 auto;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .countdown-screen {
@@ -435,7 +448,7 @@
         }
     </style>
 </head>
-<body>
+<body class="lock-active">
     <!-- شاشة قفل التدوير المتطورة والاجبارية -->
     <div id="orientation-lock">
         <div class="lock-icon"></div>
@@ -748,6 +761,13 @@
         ];
 
         function startExperience() {
+            // حل مشكلة حظر تشغيل الصوت التلقائي على أجهزة iOS Safari والآيفون
+            const audio = document.getElementById('creep-audio');
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(e => console.log("iOS audio unlock status:", e));
+
             document.getElementById('intro-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('intro-screen').style.display = 'none';
@@ -968,6 +988,9 @@
         }
 
         function showComments() {
+            // إلغاء كلاس فرض العرض الصارم للسماح للزائر بالتحويل للوضع الرأسي والكتابة بحرية
+            document.body.classList.remove('lock-active');
+            
             const comments = document.getElementById('comments-box');
             comments.style.display = 'block';
             loadComments();
@@ -1029,19 +1052,47 @@
             }, 3000);
         }
 
-        // تحسين سلوك حقل النص لحل مشكلة اختفاء الكيبورد في الهواتف الذكية أثناء العرض الأفقي
+        // تحسين سلوك حقل النص لحل مشكلة اختفاء الكيبورد في الهواتف الذكية وتوجيه المستخدم بالعامية
         const textarea = document.getElementById('comment-text');
+        
+        function showPortraitPrompt() {
+            const lockScreen = document.getElementById('orientation-lock');
+            const lockText = document.getElementById('lock-funny-text');
+            const lockSub = document.querySelector('.lock-funny-sub');
+            
+            lockText.innerHTML = "يا صاحبي، اعمل التليفون بالطول عشان تكتب أثرك وروق علينا! 😉";
+            lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
+            lockScreen.style.display = 'flex';
+        }
+
         textarea.addEventListener('focus', () => {
-            const stage = document.querySelector('.cinematic-stage');
-            stage.style.alignItems = 'flex-start';
-            stage.style.overflowY = 'auto';
-            document.getElementById('comments-box').style.marginTop = '15px';
+            if (window.innerWidth > window.innerHeight) {
+                showPortraitPrompt();
+                textarea.blur(); // إلغاء التركيز مؤقتاً لحين تعديل اتجاه الهاتف
+            } else {
+                const stage = document.querySelector('.cinematic-stage');
+                stage.style.alignItems = 'flex-start';
+                stage.style.overflowY = 'auto';
+                document.getElementById('comments-box').style.marginTop = '15px';
+            }
         });
+
         textarea.addEventListener('blur', () => {
             const stage = document.querySelector('.cinematic-stage');
             stage.style.alignItems = 'center';
             stage.style.overflowY = 'hidden';
             document.getElementById('comments-box').style.marginTop = '0';
+        });
+
+        // متابعة التغيير الفوري لأبعاد الشاشة لإغلاق التنبيه والتركيز على الكتابة
+        window.addEventListener('resize', () => {
+            const lockScreen = document.getElementById('orientation-lock');
+            if (!document.body.classList.contains('lock-active')) {
+                if (window.innerWidth < window.innerHeight) {
+                    lockScreen.style.display = 'none';
+                    setTimeout(() => { textarea.focus(); }, 300);
+                }
+            }
         });
     </script>
 </body>
