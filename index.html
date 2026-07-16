@@ -902,7 +902,8 @@
                             el.className = 'lyric-line active';
                             const containerHeight = document.querySelector('.spotify-right').clientHeight;
                             const lyricOffset = el.offsetTop + (el.clientHeight / 2);
-                            scroller.style.transform = `translateY(${(containerHeight / 2) - lyricOffset}px)`;
+                            // تم تعديل هذا السطر تحديداً ليصبح السطر النشط في المنتصف تماماً وبشكل مثالي
+                            scroller.style.transform = `translateY(-${lyricOffset}px)`;
                         } else if (idx < activeIndex) {
                             el.className = 'lyric-line previous';
                         } else {
@@ -1064,6 +1065,18 @@
             lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
             lockScreen.style.display = 'flex';
         }
+
+        textarea.addEventListener('focus', () => {
+            if (window.innerWidth > window.innerHeight) {
+                showPortraitPrompt();
+                textarea.blur(); // إلغاء التركيز مؤقتاً لحين تعديل اتجاه الهاتف
+            } else {
+                const stage = document.querySelector('.cinematic-stage');
+                stage.style.alignItems = 'flex-start';
+                stage.style.overflowY = 'auto';
+                document.getElementById('comments-box').style.marginTop = '15px';
+            }
+        });
 
         textarea.addEventListener('focus', () => {
             if (window.innerWidth > window.innerHeight) {
