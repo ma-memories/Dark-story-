@@ -761,6 +761,17 @@
                 <span class="speaker ali-name">علي (ابتسم):</span>
                 "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
             </div>
+</div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور:</span>
+                "للدرجة دي الماضي كان وحش؟"
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (ابتسم):</span>
+                "الماضي عمر ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
+            </div>
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (بص في الأرض وضحك بسخرية):</span>
@@ -844,7 +855,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (بص للسقف كأنه بيدور على إجابة حافظها):</span>
-                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ الناس بتحب تعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
+                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ الناس بتحب اعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
             </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -864,7 +875,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (باصص في الأرض وصوت الساعة تيك تاك):</span>
-                "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك... وإإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
+                "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك... وإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
             </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -889,7 +900,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (ضحك وسكت ثم لف ناحية الشباك وبص برا):</span>
-                "زعلان؟ لا يا دكتور. الزعل بيخلص. إنما الدروس... بتعيش. عارف أكتر حاجة ضحكتني؟ إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا. ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
+                "زعلان? لا يا دكتور. الزعل بيخلص. إنما الدروس... بتعيش. عارف أكتر حاجة ضحكتني؟ إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا. ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
             </div>
 
             <div class="scene-desc reveal-on-scroll">
@@ -982,7 +993,7 @@
 
     <div id="cinematic-container">
         <div class="cinematic-stage">
-            
+
             <div class="confess-screen" id="confess-text">
                 "استنا.. انا جوايا كلام تاني عاوز اقولو بس مش عارف اطلعو"
             </div>
@@ -1083,11 +1094,60 @@
             { time: 226, text: "I don't belong here" }
         ];
 
+        // مصفوفة التعليقات الافتراضية مع إضافة طوابع زمنية وهمية متوافقة مع النظام الجديد
         const defaultComments = [
-            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", date: "منذ ساعة" },
-            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", date: "منذ ساعتين" },
-            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
+            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", timestamp: Date.now() - 3600000 }, 
+            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", timestamp: Date.now() - 7200000 }, 
+            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", timestamp: Date.now() - 86400000 } 
         ];
+
+        // دالة مخصصة لحساب فارق الوقت تلقائياً وإرجاع النص بالعامية/العربية المفهومة
+        function formatTimeAgo(timestamp) {
+            if (!timestamp) return "الآن";
+            const now = Date.now();
+            const diff = now - timestamp;
+            
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+
+            if (seconds < 60) return "الآن";
+            if (minutes === 1) return "منذ دقيقة";
+            if (minutes === 2) return "منذ دقيقتين";
+            if (minutes < 11) return `منذ ${minutes} دقائق`;
+            if (minutes < 60) return `منذ ${minutes} دقيقة`;
+            
+            if (hours === 1) return "منذ ساعة";
+            if (hours === 2) return "منذ ساعتين";
+            if (hours < 11) return `منذ ${hours} ساعات`;
+            if (hours < 24) return `منذ ${hours} ساعة`;
+            
+            if (days === 1) return "منذ يوم";
+            if (days === 2) return "منذ يومين";
+            if (days < 11) return `منذ ${days} أيام`;
+            if (days < 30) return `منذ ${days} يوم`;
+            
+            if (months === 1) return "منذ شهر";
+            if (months === 2) return "منذ شهرين";
+            return `منذ ${months} أشهر`;
+        }
+
+        // دالة الأدمن لتنفيذ الحذف وطلب كلمة السر
+        window.triggerDelete = function(index) {
+            let passwordInput = prompt("أدخل كلمة سر الأدمن لحذف هذا التعليق:");
+            if (passwordInput === "MA14222") {
+                let comments = localStorage.getItem('patient14_comments');
+                const listArr = comments ? JSON.parse(comments) : [];
+                listArr.splice(index, 1);
+                localStorage.setItem('patient14_comments', JSON.stringify(listArr));
+                alert("تم الحذف بنجاح");
+                loadComments();
+            } else if (passwordInput !== null) {
+                alert("كلمة السر خاطئة! لا يمكن الحذف.");
+            }
+        };
 
         // متغيرات للتحكم في خاصية منع قفل الشاشة (Wake Lock)
         let wakeLock = null;
@@ -1099,7 +1159,7 @@
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
                     console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
-                    
+
                     // في حال تحررت الميزة لأي سبب (مثل انخفاض البطارية الشديد)
                     wakeLock.addEventListener('release', () => {
                         console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
@@ -1115,7 +1175,7 @@
 
         function startExperience() {
             experienceStarted = true;
-            
+
             // حل مشكلة حظر تشغيل الصوت التلقائي على أجهزة iOS Safari والآيفون
             const audio = document.getElementById('creep-audio');
             audio.play().then(() => {
@@ -1195,7 +1255,7 @@
             document.getElementById('cover').classList.add('black-blur');
             document.getElementById('investigation').classList.add('black-blur');
             document.getElementById('evidence').classList.add('black-blur');
-            
+
             const cinematic = document.getElementById('cinematic-container');
             cinematic.style.display = 'flex';
             setTimeout(() => {
@@ -1240,7 +1300,7 @@
             const spotify = document.getElementById('spotify-player');
             spotify.style.display = 'flex';
             setTimeout(() => { spotify.style.opacity = '1'; }, 100);
-            
+
             const scroller = document.getElementById('lyrics-scroller');
             lyricsData.forEach((line, index) => {
                 const div = document.createElement('div');
@@ -1325,7 +1385,7 @@
             const part1 = document.getElementById('modern-finale-part1');
             const part2 = document.getElementById('modern-finale-part2');
             const signature = document.getElementById('modern-finale-signature');
-            
+
             finaleScreen.style.display = 'flex';
             setTimeout(() => {
                 finaleScreen.style.opacity = '1';
@@ -1354,7 +1414,7 @@
         function showComments() {
             // إلغاء كلاس فرض العرض الصارم للسماح للزائر بالتحويل للوضع الرأسي والكتابة بحرية
             document.body.classList.remove('lock-active');
-            
+
             const comments = document.getElementById('comments-box');
             comments.style.display = 'block';
             loadComments();
@@ -1364,6 +1424,7 @@
             }, 100);
         }
 
+        // تم تعديل الدالة بالكامل لتدعم الدوسة الطويلة وبناء أزرار الحذف وعرض الوقت تلقائياً
         function loadComments() {
             let comments = localStorage.getItem('patient14_comments');
             if (!comments) {
@@ -1373,19 +1434,48 @@
             const listArr = JSON.parse(comments);
             const listContainer = document.getElementById('comments-list');
             listContainer.innerHTML = '';
-            listArr.forEach(c => {
+            
+            listArr.forEach((c, index) => {
                 const item = document.createElement('div');
                 item.className = 'comment-item';
+                item.style.position = 'relative'; 
+                
+                // حساب وعرض الوقت تلقائياً بناءً على وقت الإنشاء النسبي
+                const displayTime = formatTimeAgo(c.timestamp);
+                
                 item.innerHTML = `
                     <div>${c.text}</div>
-                    <div class="comment-date">${c.date || 'الآن'}</div>
+                    <div class="comment-date">${displayTime}</div>
+                    <button id="delete-btn-${index}" style="display: none; background: #c0392b; color: #fff; border: none; padding: 6px 12px; margin-top: 8px; border-radius: 4px; cursor: pointer; font-family: var(--font-ar); font-size: 0.85em; width: fit-content;" onclick="triggerDelete(${index})">حذف التعليق</button>
                 `;
+
+                // منطق استشعار الدوسة الطويلة (Long Press) لمدة 800 ملي ثانية
+                let pressTimer;
+                const startPress = () => {
+                    pressTimer = setTimeout(() => {
+                        const btn = document.getElementById(`delete-btn-${index}`);
+                        if (btn) btn.style.display = 'block';
+                    }, 800);
+                };
+                const cancelPress = () => {
+                    clearTimeout(pressTimer);
+                };
+
+                // تفعيل الأحداث على الماوس واللمس للهواتف
+                item.addEventListener("mousedown", startPress);
+                item.addEventListener("touchstart", startPress);
+                item.addEventListener("mouseup", cancelPress);
+                item.addEventListener("touchend", cancelPress);
+                item.addEventListener("mouseleave", cancelPress);
+
                 listContainer.appendChild(item);
             });
+            
             const container = document.querySelector('.comments-list-container');
             container.scrollTop = container.scrollHeight;
         }
 
+        // تم تعديل الدالة لتسجيل طابع الوقت الفعلي تلقائياً للحاسب
         function submitMessage() {
             const textarea = document.getElementById('comment-text');
             const text = textarea.value.trim();
@@ -1395,12 +1485,14 @@
             }
             let comments = localStorage.getItem('patient14_comments');
             const listArr = comments ? JSON.parse(comments) : [];
-            listArr.push({ text: text, date: "الآن" });
-            localStorage.setItem('patient14_comments', JSON.stringify(listArr));
             
+            // تخزين الوقت الحالي تلقائياً لحظة الإرسال بالملي ثانية
+            listArr.push({ text: text, timestamp: Date.now() });
+            localStorage.setItem('patient14_comments', JSON.stringify(listArr));
+
             loadComments();
             textarea.value = '';
-            
+
             const submitBtn = document.querySelector('.comment-submit');
             submitBtn.innerText = 'تم ترك الأثر الطيب ✓';
             submitBtn.style.background = '#27ae60';
@@ -1418,12 +1510,12 @@
 
         // تحسين سلوك حقل النص لحل مشكلة اختفاء الكيبورد في الهواتف الذكية وتوجيه المستخدم بالعامية
         const textarea = document.getElementById('comment-text');
-        
+
         function showPortraitPrompt() {
             const lockScreen = document.getElementById('orientation-lock');
             const lockText = document.getElementById('lock-funny-text');
             const lockSub = document.querySelector('.lock-funny-sub');
-            
+
             lockText.innerHTML = "يا صاحبي، اعمل التليفون بالطول عشان تكتب أثرك وروق علينا! 😉";
             lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
             lockScreen.style.display = 'flex';
