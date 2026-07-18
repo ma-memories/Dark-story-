@@ -26,7 +26,7 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
-        
+
         /* قفل التدوير الصارم باستخدام CSS */
         #orientation-lock {
             position: fixed;
@@ -101,7 +101,7 @@
             transition: all 0.3s; text-transform: uppercase; letter-spacing: 3px;
         }
         .enter-btn:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
-        
+
         .cover-section {
             height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
             background: url('f607afdabb328f22ba88fe085ce2e63b.jpg') center/cover no-repeat fixed;
@@ -159,7 +159,7 @@
             padding: 60px 50px; color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
             border-radius: 3px; position: relative; overflow: hidden; transition: all 1s;
         }
-        
+
         .reveal-on-scroll {
             opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out;
         }
@@ -230,7 +230,7 @@
         .photo-card.visible { transition: opacity 1s, transform 1s; }
         .photo-card:nth-child(even).visible { transform: translateY(0) rotate(3deg); }
         .photo-card:nth-child(odd).visible { transform: translateY(0) rotate(-2deg); }
-        
+
         .photo-card.tilting { transition: none; z-index: 10; box-shadow: 0 25px 50px rgba(0,0,0,1); }
         .photo-card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(80%) contrast(120%); transition: filter 0.5s; }
         .photo-card:hover img { filter: grayscale(0%) contrast(100%); }
@@ -240,7 +240,7 @@
             box-shadow: -2px 5px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.5); z-index: 5;
         }
         .card-caption { text-align: center; margin-top: 15px; font-family: var(--font-en); font-weight: bold; color: #000; font-size: 1.1em; text-transform: uppercase; }
-        
+
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -337,7 +337,7 @@
             filter: none; 
             opacity: 1;
         }
-        
+
         .lyric-line.previous { 
             color: rgba(255, 255, 255, 0.08); 
             filter: blur(2px);
@@ -391,7 +391,7 @@
         }
         .comments-screen.slide-up { display: block; opacity: 1; transform: translateY(0); }
         .comment-prompt { font-size: 1.2em; color: #ccc; margin-bottom: 15px; line-height: 1.6; font-weight: 300; }
-        
+
         .comment-textarea {
             width: 100%; height: 90px; background: rgba(20, 20, 20, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
@@ -400,7 +400,7 @@
             -webkit-user-select: text; user-select: text; pointer-events: auto !important;
         }
         .comment-textarea:focus { outline: none; border-color: var(--blood-red); box-shadow: 0 0 20px rgba(139,0,0,0.4); }
-        
+
         .comment-submit {
             background: transparent; border: 1px solid var(--blood-red); color: var(--blood-red);
             padding: 10px 35px; font-family: var(--font-ar); font-size: 1.1em; cursor: pointer;
@@ -496,9 +496,9 @@
     <section class="investigation-room" id="investigation">
         <div class="transcript-paper" id="paper-doc">
             <h2 style="text-align: center; font-size: 2.2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14</h2>
-            
+
             <div class="sub-heading reveal-on-scroll">[ الفصل الأول: هندسة الحبر... والإنسان اللي اختفى ]</div>
-            
+
             <div class="scene-desc reveal-on-scroll">
                 ...تيك...<br>
                 ...تاك...<br>
@@ -523,7 +523,7 @@
             <div class="scene-desc reveal-on-scroll">
                 أما علي... فكان قاعد ساكت. هادئ بشكل يخوف. إيده متشابكة قدام بعض، ورجله بتهز الأرض هزة بسيطة جدًا، الهزة الوحيدة اللي كانت بتفضح إن جواه إعصار. وشه مفيهوش أي تعبير. إلا الابتسامة دي... الابتسامة اللي الناس فاكرة إنها ثقة... وهي في الحقيقة أرخص طريقة اخترعها الإنسان عشان يخبي إنه خلاص مبقاش عنده طاقة يشرح.
             </div>
-            
+
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker dr-name">الدكتور (رفع عينه من الملف وبص على جسم علي كأنه بيقرأ اعترافات مكتوبة بالحبر، ثم قال بهدوء مستفز):</span>
                 "علي صقر... حتى اسمك عامل دوشة. اسم تقيل... كبير... تحسه داخل أي مكان قبلك. بس الغريبة إن اللي قاعد قدامي دلوقتي... مش باين عليه أي حاجة من الاسم ده."
@@ -533,7 +533,7 @@
                 <span class="speaker dr-name">الدكتور (سكت ثانيتين وقفل الملف):</span>
                 "أنا شوفت ناس كتير عاملة تاتوهات... بس أنت... أنت عامل متحف كامل. كل رسمة ليها مكان... كل كلمة محسوبة... كل خط متعملش كده وخلاص. وده معناه إن الحبر عندك مش للمنظر. الحبر عندك بيتكلم. السؤال بقى... بتحاول تقول إيه؟"
             </div>
-            
+
             <div class="scene-desc reveal-on-scroll">
                 الصمت نزل على الأوضة. حتى صوت الساعة اختفى من ودن علي. هو كان سامع صوت تاني... صوت قديم... ناس كانت بتقول:<br>
                 <blockquote style="border-right: 3px solid var(--blood-red); padding-right: 15px; margin: 10px 0; font-style: italic; color: #555;">
@@ -543,7 +543,7 @@
                 </blockquote>
                 الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت. رجع للدكتور. ونفس الابتسامة لسه على وشه. ابتسامة باردة... باردة لدرجة إن اللي يشوفها يحلف إن صاحبها معندوش مشاعر. بس الحقيقة... إنها كانت آخر حاجة فاضلة واقفة بعد ما كل حاجة جواه وقعت. ابتسم أكتر... وقال:
             </div>
-            
+
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي:</span>
                 "يا دكتور... الغريب في البشر إنهم بيعشقوا يشوفوا النهاية... بس أول ما تبدأ تحكيلهم البداية... يبصوا في الساعة. ولو كملت... يبصوا في الموبايل. ولو اتوجعت... يقولولك: شد حيلك. ولو وقعت... يسألوك: هتقوم إمتى؟ ولو قومت... يتعاملوا كأنك عمرك ما وقعت."
@@ -572,7 +572,7 @@
             </div>
 
             <div class="sub-heading reveal-on-scroll">[ الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله ]</div>
-            
+
             <div class="scene-desc reveal-on-scroll">
                 الدكتور قرب خطوة. ببطء... كأنه خايف يقرب زيادة. عينه كانت واقفة على أول سطر: <span class="en-phrase">Try for yourself.</span> قرأها مرة... واتنين... وبعدين نزل بعينه لتحت. وساعتها... سكت.<br><br>
                 العينين. مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية. فيهم لمعة خفيفة... وفيهم هدوء غريب... بس أكتر حاجة شدت الدكتور... إن العينين دول كانوا مختلفين عن باقي الحبر. كل التاتوهات كان فيها تحدي... غضب... وجع... إنما العينين... كان فيهم أمان. حاجة مكنتش راكبة مع باقي جسم علي.
@@ -750,17 +750,6 @@
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (هز راسه ولمس الحروف على رقبته):</span>
                 "أيوة... أمر. كل يوم أصحى... وأشوفها. مش عشان أفكر نفسي أكون قوي... لا. عشان أفكر نفسي... مبصش ورا."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "للدرجة دي الماضي كان وحش؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم):</span>
-                "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
-            </div>
 </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -770,7 +759,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (ابتسم):</span>
-                "الماضي عمر ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
+                "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
             </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -855,7 +844,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (بص للسقف كأنه بيدور على إجابة حافظها):</span>
-                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ الناس بتحب اعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
+                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ الناس بتحب تعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
             </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -875,7 +864,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (باصص في الأرض وصوت الساعة تيك تاك):</span>
-                "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك... وإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
+                "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك... وإإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
             </div>
 
             <div class="dialogue-block reveal-on-scroll">
@@ -900,7 +889,7 @@
 
             <div class="dialogue-block reveal-on-scroll">
                 <span class="speaker ali-name">علي (ضحك وسكت ثم لف ناحية الشباك وبص برا):</span>
-                "زعلان? لا يا دكتور. الزعل بيخلص. إنما الدروس... بتعيش. عارف أكتر حاجة ضحكتني؟ إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا. ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
+                "زعلان؟ لا يا دكتور. الزعل بيخلص. إنما الدروس... بتعيش. عارف أكتر حاجة ضحكتني؟ إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا. ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
             </div>
 
             <div class="scene-desc reveal-on-scroll">
@@ -1094,60 +1083,11 @@
             { time: 226, text: "I don't belong here" }
         ];
 
-        // مصفوفة التعليقات الافتراضية مع إضافة طوابع زمنية وهمية متوافقة مع النظام الجديد
         const defaultComments = [
-            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", timestamp: Date.now() - 3600000 }, 
-            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", timestamp: Date.now() - 7200000 }, 
-            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", timestamp: Date.now() - 86400000 } 
+            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", date: "منذ ساعة" },
+            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", date: "منذ ساعتين" },
+            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
         ];
-
-        // دالة مخصصة لحساب فارق الوقت تلقائياً وإرجاع النص بالعامية/العربية المفهومة
-        function formatTimeAgo(timestamp) {
-            if (!timestamp) return "الآن";
-            const now = Date.now();
-            const diff = now - timestamp;
-            
-            const seconds = Math.floor(diff / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
-            const months = Math.floor(days / 30);
-
-            if (seconds < 60) return "الآن";
-            if (minutes === 1) return "منذ دقيقة";
-            if (minutes === 2) return "منذ دقيقتين";
-            if (minutes < 11) return `منذ ${minutes} دقائق`;
-            if (minutes < 60) return `منذ ${minutes} دقيقة`;
-            
-            if (hours === 1) return "منذ ساعة";
-            if (hours === 2) return "منذ ساعتين";
-            if (hours < 11) return `منذ ${hours} ساعات`;
-            if (hours < 24) return `منذ ${hours} ساعة`;
-            
-            if (days === 1) return "منذ يوم";
-            if (days === 2) return "منذ يومين";
-            if (days < 11) return `منذ ${days} أيام`;
-            if (days < 30) return `منذ ${days} يوم`;
-            
-            if (months === 1) return "منذ شهر";
-            if (months === 2) return "منذ شهرين";
-            return `منذ ${months} أشهر`;
-        }
-
-        // دالة الأدمن لتنفيذ الحذف وطلب كلمة السر
-        window.triggerDelete = function(index) {
-            let passwordInput = prompt("أدخل كلمة سر الأدمن لحذف هذا التعليق:");
-            if (passwordInput === "MA14222") {
-                let comments = localStorage.getItem('patient14_comments');
-                const listArr = comments ? JSON.parse(comments) : [];
-                listArr.splice(index, 1);
-                localStorage.setItem('patient14_comments', JSON.stringify(listArr));
-                alert("تم الحذف بنجاح");
-                loadComments();
-            } else if (passwordInput !== null) {
-                alert("كلمة السر خاطئة! لا يمكن الحذف.");
-            }
-        };
 
         // متغيرات للتحكم في خاصية منع قفل الشاشة (Wake Lock)
         let wakeLock = null;
@@ -1424,7 +1364,6 @@
             }, 100);
         }
 
-        // تم تعديل الدالة بالكامل لتدعم الدوسة الطويلة وبناء أزرار الحذف وعرض الوقت تلقائياً
         function loadComments() {
             let comments = localStorage.getItem('patient14_comments');
             if (!comments) {
@@ -1434,48 +1373,19 @@
             const listArr = JSON.parse(comments);
             const listContainer = document.getElementById('comments-list');
             listContainer.innerHTML = '';
-            
-            listArr.forEach((c, index) => {
+            listArr.forEach(c => {
                 const item = document.createElement('div');
                 item.className = 'comment-item';
-                item.style.position = 'relative'; 
-                
-                // حساب وعرض الوقت تلقائياً بناءً على وقت الإنشاء النسبي
-                const displayTime = formatTimeAgo(c.timestamp);
-                
                 item.innerHTML = `
                     <div>${c.text}</div>
-                    <div class="comment-date">${displayTime}</div>
-                    <button id="delete-btn-${index}" style="display: none; background: #c0392b; color: #fff; border: none; padding: 6px 12px; margin-top: 8px; border-radius: 4px; cursor: pointer; font-family: var(--font-ar); font-size: 0.85em; width: fit-content;" onclick="triggerDelete(${index})">حذف التعليق</button>
+                    <div class="comment-date">${c.date || 'الآن'}</div>
                 `;
-
-                // منطق استشعار الدوسة الطويلة (Long Press) لمدة 800 ملي ثانية
-                let pressTimer;
-                const startPress = () => {
-                    pressTimer = setTimeout(() => {
-                        const btn = document.getElementById(`delete-btn-${index}`);
-                        if (btn) btn.style.display = 'block';
-                    }, 800);
-                };
-                const cancelPress = () => {
-                    clearTimeout(pressTimer);
-                };
-
-                // تفعيل الأحداث على الماوس واللمس للهواتف
-                item.addEventListener("mousedown", startPress);
-                item.addEventListener("touchstart", startPress);
-                item.addEventListener("mouseup", cancelPress);
-                item.addEventListener("touchend", cancelPress);
-                item.addEventListener("mouseleave", cancelPress);
-
                 listContainer.appendChild(item);
             });
-            
             const container = document.querySelector('.comments-list-container');
             container.scrollTop = container.scrollHeight;
         }
 
-        // تم تعديل الدالة لتسجيل طابع الوقت الفعلي تلقائياً للحاسب
         function submitMessage() {
             const textarea = document.getElementById('comment-text');
             const text = textarea.value.trim();
@@ -1485,9 +1395,7 @@
             }
             let comments = localStorage.getItem('patient14_comments');
             const listArr = comments ? JSON.parse(comments) : [];
-            
-            // تخزين الوقت الحالي تلقائياً لحظة الإرسال بالملي ثانية
-            listArr.push({ text: text, timestamp: Date.now() });
+            listArr.push({ text: text, date: "الآن" });
             localStorage.setItem('patient14_comments', JSON.stringify(listArr));
 
             loadComments();
