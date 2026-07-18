@@ -3,115 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>العيادة رقم 14 | علي صقر</title>
-    <!-- استدعاء خطوط جوجل للغة العربية -->
+    <title>ملف العيادة رقم 14 | السجل السري</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --card-bg: #141414;
-            --text-color: #e5e5e5;
-            --text-muted: #a0a0a0;
-            --accent-color: #8b0000;
-            --accent-hover: #b30000;
-            --border-color: #222;
+            --desk-bg: #1e1a15; /* خلفية المكتب الخشبي الداكن */
+            --paper-bg: #f4ebd8; /* لون الورق العتيق المحروق */
+            --ink-color: #2c251e; /* لون الحبر القديم */
+            --accent-blood: #800000; /* أحمر داكن للأدلة والملاحظات */
+            --border-vintage: #d3c5b3;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--desk-bg);
+            color: var(--ink-color);
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             line-height: 1.8;
-            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0auto;
-            padding: 20px;
+        /* ملف القضية الرئيسي - شكل الفولدر القديم */
+        .case-file-container {
+            max-width: 850px;
+            margin: 30px auto;
+            background-color: var(--paper-bg);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 40px rgba(181,166,139,0.3);
+            border: 1px solid #b5a68b;
+            position: relative;
+        }
+
+        /* تبويب الملف الإداري أعلى الصفحة */
+        .file-tag {
+            position: absolute;
+            top: -25px;
+            right: 40px;
+            background: #b5a68b;
+            color: #2c251e;
+            padding: 5px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 -3px 5px rgba(0,0,0,0.2);
         }
 
         header {
             text-align: center;
-            padding: 60px 0 40px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 3px double var(--accent-blood);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         header h1 {
             font-family: 'Amiri', serif;
-            font-size: 3rem;
-            color: #fff;
-            margin: 0 0 10px;
-            letter-spacing: 1px;
+            font-size: 3.2rem;
+            color: var(--accent-blood);
+            margin: 0;
         }
 
-        header .subtitle {
-            font-size: 1.1rem;
-            color: var(--accent-color);
-            font-weight: 600;
-            text-transform: uppercase;
+        .file-status {
+            font-size: 0.95rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #555;
+            margin-top: 5px;
         }
 
+        /* لوحة الأدلة والقرائن المصورة */
+        .evidence-board {
+            background: rgba(44, 37, 30, 0.05);
+            border: 2px dashed #b5a68b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        .evidence-board-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: var(--accent-blood);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #b5a68b;
+            padding-bottom: 5px;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        /* الصور داخل لوحة الأدلة (ستايل البولاروايد القديم) */
+        .evidence-photo {
+            background: #fff;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            border: 1px solid #ddd;
+            transition: transform 0.3s;
+            max-width: 140px;
+        }
+
+        .evidence-photo:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .evidence-photo img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            filter: sepia(0.3) contrast(1.1);
+        }
+
+        .evidence-caption {
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        /* فصول الرواية */
         .chapter-section {
-            margin: 60px 0;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s forwards ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            margin-bottom: 50px;
+            position: relative;
         }
 
         .chapter-title {
             font-family: 'Amiri', serif;
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 25px;
-            border-right: 4px solid var(--accent-color);
-            padding-right: 15px;
+            font-size: 2.2rem;
+            color: var(--accent-blood);
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #b5a68b;
+            padding-bottom: 10px;
         }
 
+        /* أمر الالتفاف الإجباري والتحجيم الصارم للنصوص لمنع تدمير المحاذاة */
         .story-text {
+            font-family: 'Cairo', sans-serif;
             font-size: 1.15rem;
-            color: var(--text-color);
             text-align: justify;
-            white-space: pre-line;
+            white-space: pre-line; /* احترام المسافات والأسطر المرسومة */
+            word-wrap: break-word; /* تفكيك الكلمات الطويلة إجبارياً */
+            word-break: break-word; /* منع الخروج عن إطار محتوى الورقة */
         }
 
         blockquote {
-            background: rgba(139, 0, 0, 0.05);
-            border-right: 3px solid var(--accent-color);
+            background: rgba(128, 0, 0, 0.03);
+            border-right: 4px solid var(--accent-blood);
             margin: 20px 0;
-            padding: 15px 25px;
+            padding: 10px 20px;
             font-style: italic;
-            color: #d8d8d8;
         }
 
-        /* منطقة التفاعلات والتعليقات */
+        /* قسم الملاحظات والتعليقات بستايل الحبر القديم والقصاصات المضافة للملف */
         .comments-section {
-            margin-top: 80px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            margin-top: 60px;
+            border-top: 3px double var(--accent-blood);
+            padding-top: 30px;
         }
 
         .comments-section h3 {
-            font-size: 1.5rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
             margin-top: 0;
-            margin-bottom: 25px;
-            color: #fff;
+            color: var(--accent-blood);
         }
 
         .comment-form {
@@ -119,100 +183,127 @@
             flex-direction: column;
             gap: 15px;
             margin-bottom: 40px;
+            background: rgba(255,255,255,0.4);
+            padding: 20px;
+            border: 1px solid var(--border-vintage);
+            border-radius: 4px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px;
-            background: #1c1c1c;
-            border: 1px solid var(--border-color);
+            background: #fff;
+            border: 1px solid var(--border-vintage);
             border-radius: 4px;
-            color: #fff;
+            color: #000;
             font-family: 'Cairo', sans-serif;
             box-sizing: border-box;
         }
 
         .form-group textarea {
+            height: 90px;
             resize: vertical;
-            height: 100px;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent-color);
+            border-color: var(--accent-blood);
+            box-shadow: 0 0 5px rgba(128,0,0,0.1);
         }
 
         .submit-btn {
-            background: var(--accent-color);
+            background: var(--accent-blood);
             color: #fff;
             border: none;
             padding: 12px 25px;
             font-size: 1rem;
             font-weight: 600;
-            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.3s;
+            border-radius: 4px;
             align-self: flex-start;
+            transition: background 0.3s;
         }
 
         .submit-btn:hover {
-            background: var(--accent-hover);
+            background: #600000;
         }
 
         .comments-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
+        /* كروت التعليقات كأنها أوراق ملاحظات صفراء مدبسة في الملف */
         .comment-card {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            border-right: 3px solid #444;
+            background: #fbf7ed;
+            padding: 15px 20px;
+            border: 1px solid #e3d3ba;
+            border-right: 5px solid #b5a68b;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
             position: relative;
-            user-select: none;
-            -webkit-user-select: none; /* لمنع الاختيار الافتراضي في الهواتف أثناء الضغط المطول */
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .comment-card:active {
-            transform: scale(0.99);
-            background: #222;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .comment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #e3d3ba;
+            padding-bottom: 4px;
         }
 
         .comment-author {
-            font-weight: 700;
-            color: #fff;
+            font-weight: bold;
+            color: var(--accent-blood);
         }
 
         .comment-time {
-            color: var(--text-muted);
+            color: #777;
         }
 
         .comment-body {
-            font-size: 1rem;
-            color: #d5d5d5;
-            word-break: break-word;
+            font-size: 0.95rem;
+            color: #333;
+            white-space: pre-wrap;
+            word-wrap: break-word; /* التزام كامل بالالتفاف الإجباري للتعليقات */
         }
 
         .comment-hint {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.7rem;
+            color: #999;
+            display: block;
             text-align: left;
             margin-top: 5px;
-            display: block;
         }
 
-        /* نافذة العرض السينمائي للنهاية */
+        /* زر تفعيل النهاية العتيق */
+        .trigger-end-btn {
+            display: block;
+            width: 100%;
+            margin: 40px auto 10px;
+            padding: 15px;
+            background: var(--accent-blood);
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.15rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .trigger-end-btn:hover {
+            background: #600000;
+            transform: translateY(-2px);
+        }
+
+        /* شاشة النهاية السينمائية */
         #cinematic-overlay {
             position: fixed;
             top: 0;
@@ -238,10 +329,10 @@
         }
 
         #cinematic-image {
-            max-width: 100%;
+            max-width: 90%;
             max-height: 60vh;
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+            border: 5px solid #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             opacity: 0;
             transform: scale(0.95);
             transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
@@ -263,35 +354,36 @@
         #cinematic-text-container.visible {
             opacity: 1;
         }
-
-        .trigger-end-btn {
-            display: block;
-            width: 100%;
-            margin: 40px auto 0;
-            padding: 15px;
-            background: transparent;
-            border: 2px dashed var(--accent-color);
-            color: #fff;
-            font-size: 1.2rem;
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .trigger-end-btn:hover {
-            background: var(--accent-color);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
-        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="case-file-container">
+        <div class="file-tag">ملف سري للغاية - ج١٤</div>
+        
         <header>
             <h1>العيادة رقم 14</h1>
-            <div class="subtitle">جلسة تحليل معمقة للروح والحبر</div>
+            <div class="file-status">الحالة العقلية والروحية: علي صقر</div>
         </header>
+
+        <!-- لوحة الأدلة والقرائن المصورة التي تم إعادتها بناءً على طلبك -->
+        <div class="evidence-board">
+            <p class="evidence-board-title">📌 لوحة الأدلة والقرائن المرفقة بالملف:</p>
+            <div class="evidence-grid">
+                <div class="evidence-photo">
+                    <img src="hamo.jpg" alt="قرينة رقم 1">
+                    <div class="evidence-caption">الضحية المفترضة</div>
+                </div>
+                <div class="evidence-photo">
+                    <img src="hamo.jpg" alt="قرينة رقم 2">
+                    <div class="evidence-caption">مخطط الوشم</div>
+                </div>
+                <div class="evidence-photo">
+                    <img src="hamo.jpg" alt="قرينة رقم 3">
+                    <div class="evidence-caption">مسرح الجلسة 14</div>
+                </div>
+            </div>
+        </div>
 
         <!-- الفصل الأول -->
         <section class="chapter-section">
@@ -516,7 +608,7 @@
 علي ابتسم.
 "لأ...
 كانت رزقي."
-الدكتور بصله باستغراب.
+الدكتور بصله باستغرب.
 فعلي كمل وهو بيبص للعينين.
 "فيه ناس بتدخل حياتك صدفة.
 وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة.
@@ -538,7 +630,7 @@
 لحد النهارده...
 مش عارف هي كانت شايفة إيه."
 الدكتور قال:
-"وإنت شايف إنها غيرت حياتك؟"
+"وإنت شايف إنها غيرت حياتك?"
 علي هز راسه.
 "لا...
 دي غيرتني أنا."
@@ -551,10 +643,10 @@
 عين الدكتور نزلت تحت العينين. وقف قدام التكملة:
 *and for me*
 لكن كلمة...
-<span style="color: darkred; font-weight: bold; font-size: 1.2em;">me</span>
+<span style="color: var(--accent-blood); font-weight: bold; font-size: 1.2em;">me</span>
 كانت لوحدها باللون الأحمر.
 الدكتور قرب أكتر، وقال:
-"ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها?"
+"ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها؟"
 علي لمس الكلمة بصوابعه، وبرغم برودة الأوضة، كان واضح إن نبرة صوته اتهزت بحمل أتقل وشجن أعمق:
 "علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. *and for me*.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
 "...أنا."
@@ -782,7 +874,7 @@ II • XIV • MMXXII
 سكت.
 وبعدين قال:
 "عارف يعني إيه تمشي خمس خطوات لقدام...
-وبعدين ترجع عشرة?
+وبعدين ترجع عشرة؟
 مش عشان الطريق قفلك...
 لأ...
 عشان قلبك هو اللي رجعك."
@@ -960,7 +1052,7 @@ II • XIV • MMXXII
 بيستنى اللي كسره يعتذر.
 أما اللي اتعلم...
 بيعرف إن الاعتذار مش هيغير اللي حصل."
-الأوضة غرقت in الصمت.
+الأوضة غرقت في الصمت.
 ...تيك...
 ...تاك...
 قال علي وهو باصص في الأرض:
@@ -1048,7 +1140,7 @@ II • XIV • MMXXII
 ضحك.
 "وساعتها...
 فهمت إن الكلام...
-أرخص عملة في الدنيا."
+أرخص عملة in الدنيا."
 رجع بص للدكتور.
 "ومن يومها...
 بطلت أصدق اللي بيتقال.
@@ -1153,7 +1245,7 @@ II • XIV • MMXXII
 *Don't Trust Damn Humans.*
 ابتسم بسخرية.
 "ودي...
-أغلى فاتورة دفعتها in حياتي."
+أغلى فاتورة دفعتها في حياتي."
 الدكتور قال:
 "بس برضه...
 إنت مقولتليش ليه اخترت الحبر."
@@ -1255,11 +1347,11 @@ II • XIV • MMXXII
             <button class="trigger-end-btn" onclick="startCinematicEnding()">مشاهدة الخاتمة النهائية للرواية 🎬</button>
             
             <div style="margin-top:20px; text-align:center;">
-                <small style="color:var(--text-muted);">الباب اتقفل بهدوء. ورجع صوت الساعة تاني... تيك... تاك... كأنها بتقول إن الحكايات مبتخلصش... هي بس... بتسيب أثر.</small>
+                <small style="color:#555; font-weight: bold;">الباب اتقفل بهدوء. ورجع صوت الساعة تاني... تيك... تاك... كأنها بتقول إن الحكايات مبتخلصش... هي بس... بتسيب أثر.</small>
             </div>
         </section>
 
-        <!-- صندوق التعليقات المحسن هيدروليكياً وبصيغة الـ LocalStorage المتقدمة -->
+        <!-- قسم الملاحظات والتعليقات بالثيم العتيق والالتفاف الصارم -->
         <section class="comments-section">
             <h3>آراء وتأملات حول الجلسة 💬</h3>
             <form class="comment-form" onsubmit="submitMessage(event)">
@@ -1269,34 +1361,29 @@ II • XIV • MMXXII
                 <div class="form-group">
                     <textarea id="commentText" placeholder="ما الذي حركته فيك حكاية علي صقر؟ اكتب تأملك هنا..." required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">نشر التأمل</button>
+                <button type="submit" class="submit-btn">نشر التأمل في السجل</button>
             </form>
 
             <div class="comments-list" id="commentsContainer">
-                <!-- يتم توليد التعليقات برمجياً هنا -->
+                <!-- تحميل التعليقات برمجياً -->
             </div>
         </section>
     </div>
 
-    <!-- واجهة السينماتيك المخفية -->
+    <!-- واجهة السينماتيك الكاملة المغلقة -->
     <div id="cinematic-overlay">
-        <!-- يتم تحميل ملف الصوت creep.mp3 المرفق محلياً -->
         <audio id="cinematic-audio" src="creep.mp3" preload="auto"></audio>
         <img id="cinematic-image" src="hamo.jpg" alt="Cinematic Asset">
         
         <div id="cinematic-text-container">
-            <div dir="rtl" align="center" style="background-color: #f4ebd8; color: #5c4d3c; font-family: 'Amiri', 'Traditional Arabic', serif; font-size: 26px; font-weight: bold; padding: 25px; border: 1px dashed #b5a68b; box-shadow: inset 0 0 10px #d3c5b3; border-radius: 3px; margin: 20px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+            <div dir="rtl" align="center" style="background-color: #f4ebd8; color: #5c4d3c; font-family: 'Amiri', serif; font-size: 28px; font-weight: bold; padding: 25px; border: 1px dashed #b5a68b; box-shadow: inset 0 0 10px #d3c5b3; border-radius: 3px; margin: 20px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
                 «وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»
             </div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // أولاً: نظام إدارة حساب التوقيت وحفظ التعليقات
-        // ==========================================
-        
-        // دالة ذكية لحساب التوقيت النسبي بدقة متناهية وديناميكية بدل الكلمة الثابتة
+        // دالة حساب الوقت الديناميكي للتعليقات
         function calculateRelativeTime(timestamp) {
             const now = Date.now();
             const difference = now - timestamp;
@@ -1317,7 +1404,7 @@ II • XIV • MMXXII
             }
         }
 
-        // دالة تحميل وعرض التعليقات من الـ LocalStorage مع تفعيل مستمعات أحداث الضغط المطول
+        // تحميل التعليقات من المتصفح مع ستايل الالتفاف الإجباري والضغط المطول للحذف بالباسورد
         function loadComments() {
             const container = document.getElementById('commentsContainer');
             container.innerHTML = '';
@@ -1325,7 +1412,7 @@ II • XIV • MMXXII
             const comments = JSON.parse(localStorage.getItem('clinic_comments')) || [];
             
             if (comments.length === 0) {
-                container.innerHTML = `<p style="color: var(--text-muted); text-align: center; font-size: 0.95rem;">لا توجد تعليقات أو تأملات مكتوبة بعد. كن أول من يترك أثراً.</p>`;
+                container.innerHTML = `<p style="color: #666; text-align: center; font-size: 0.95rem;">لا توجد تعليقات أو تأملات مكتوبة بعد في السجل العتيق.</p>`;
                 return;
             }
 
@@ -1334,7 +1421,6 @@ II • XIV • MMXXII
                 card.className = 'comment-card';
                 card.setAttribute('data-id', comment.id);
                 
-                // حساب الوقت النسبي فوراً عند البناء
                 const relativeTime = calculateRelativeTime(comment.timestamp);
 
                 card.innerHTML = `
@@ -1343,70 +1429,56 @@ II • XIV • MMXXII
                         <span class="comment-time" data-timestamp="${comment.timestamp}">${relativeTime}</span>
                     </div>
                     <div class="comment-body">${escapeHTML(comment.text)}</div>
-                    <small class="comment-hint">* اضغط مطولاً للحذف</small>
+                    <small class="comment-hint">* اضغط مطولاً للتحقق والحذف</small>
                 `;
 
-                // ربط مستمعات الأحداث البرمجية للضغط المطول (للكومبيوتر والموبايل)
                 setupLongPress(card, comment.id);
-
                 container.appendChild(card);
             });
         }
 
-        // نظام معالجة أحداث الضغط المطول (Long Press Event Listener) لمسح التعليق بالباسورد
+        // إعداد هندسة الضغط المطول
         function setupLongPress(element, commentId) {
             let pressTimer;
             
-            // دالة بدء التوقيت عند النقر أو اللمس
-            const startPress = (e) => {
-                // منع التفاعلات الجانبية غير المرغوبة في الموبايل
-                if (e.type === 'touchstart') {
-                    pressTimer = setTimeout(() => triggerDeleteProtocol(commentId), 900);
-                } else {
-                    pressTimer = setTimeout(() => triggerDeleteProtocol(commentId), 900);
-                }
+            const startPress = () => {
+                pressTimer = setTimeout(() => triggerDeleteProtocol(commentId), 900);
             };
 
-            // دالة إلغاء التوقيت في حال رفع اليد أو خروج المؤشر مبكراً
             const cancelPress = () => {
                 clearTimeout(pressTimer);
             };
 
-            // أحداث الفأرة (Desktop Mouse Events)
+            // كمبيوتر
             element.addEventListener('mousedown', startPress);
             element.addEventListener('mouseup', cancelPress);
             element.addEventListener('mouseleave', cancelPress);
 
-            // أحداث اللمس للهواتف الذكية (Mobile Touch Events)
+            // موبايل
             element.addEventListener('touchstart', startPress);
             element.addEventListener('touchend', cancelPress);
             element.addEventListener('touchcancel', cancelPress);
         }
 
-        // بروتوكول التحقق من كلمة السر والمسح الفوري للتعليق
+        // بروتوكول الحذف بالباسورد MA14222
         function triggerDeleteProtocol(commentId) {
-            const password = prompt("هذا الإجراء محمي. أدخل رمز التحقق الإداري لحذف التعليق:");
-            
-            if (password === null) return; // تم إلغاء العملية من قِبل المستخدم
+            const password = prompt("أدخل الرمز الإداري السري لتعديل أو شطب هذا الأثر:");
+            if (password === null) return;
 
             if (password === "MA14222") {
                 let comments = JSON.parse(localStorage.getItem('clinic_comments')) || [];
-                // تصفية المصفوفة وحذف العنصر المحدد
                 comments = comments.filter(c => c.id !== commentId);
                 localStorage.setItem('clinic_comments', JSON.stringify(comments));
-                
-                // تحديث القائمة فوراً
                 loadComments();
-                alert("تم إعدام ومسح التعليق من قاعدة البيانات بنجاح.");
+                alert("تم شطب التعليق نهائياً من السجل.");
             } else {
-                alert("رمز التحقق غير صحيح! لا تمتلك صلاحية مسح هذا الأثر.");
+                alert("الرمز خاطئ. الأثر محمي بالكامل!");
             }
         }
 
-        // دالة إرسال وحفظ التعليق الجديد
+        // إرسال وحفظ التعليق بالبصمة الزمنية
         function submitMessage(event) {
             event.preventDefault();
-            
             const authorInput = document.getElementById('authorName');
             const textInput = document.getElementById('commentText');
             
@@ -1414,27 +1486,25 @@ II • XIV • MMXXII
                 id: 'comment_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
                 author: authorInput.value.trim(),
                 text: textInput.value.trim(),
-                timestamp: Date.now() // حفظ بصمة الوقت الحالية بالملي ثانية بدلاً من النص الثابت "الآن"
+                timestamp: Date.now()
             };
 
             const comments = JSON.parse(localStorage.getItem('clinic_comments')) || [];
-            comments.unshift(newComment); // إضافة التعليق الجديد في البداية
+            comments.unshift(newComment);
             localStorage.setItem('clinic_comments', JSON.stringify(comments));
 
-            // إعادة تعيين الحقول وتحديث الواجهة
             authorInput.value = '';
             textInput.value = '';
             loadComments();
         }
 
-        // دالة حماية لمنع حقن أكواد خبيثة (XSS Injection Prevention)
         function escapeHTML(str) {
             return str.replace(/[&<>'"]/g, 
                 tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
             );
         }
 
-        // تحديث أوقات التعليقات دورياً على الشاشة كل 30 ثانية لتظل حية وتفاعلية
+        // تحديث الفواصل الزمنية بانتظام
         setInterval(() => {
             const timeElements = document.querySelectorAll('.comment-time');
             timeElements.forEach(el => {
@@ -1445,36 +1515,27 @@ II • XIV • MMXXII
             });
         }, 30000);
 
-
-        // ==========================================
-        // ثانياً: نظام الخاتمة السينمائية (Cinematic Ending Sequence)
-        // ==========================================
+        // تشغيل النهاية السينمائية المتطابقة للملفات المرفقة بالملي ثانية
         function startCinematicEnding() {
             const overlay = document.getElementById('cinematic-overlay');
             const audio = document.getElementById('cinematic-audio');
             const img = document.getElementById('cinematic-image');
             const textContainer = document.getElementById('cinematic-text-container');
 
-            // تفعيل الشاشة السوداء الكاملة وتغطية محتوى الموقع
             overlay.classList.add('active');
-            
-            // تشغيل مسار الصوت creep.mp3
             audio.play().catch(err => {
-                console.log("تنبيه: يتطلب تشغيل الصوت التفاعل مع الصفحة أولاً.", err);
+                console.log("تنبيه الصوت المعتاد لتفاعل المستخدم الأول", err);
             });
 
-            // توقيت ظهور الصورة hamo.jpg بعد ثانيتين من بدء المقطع الصوتي
             setTimeout(() => {
                 img.classList.add('visible');
             }, 2000);
 
-            // توقيت ظهور الصندوق المزخرف والجملة الأخيرة المشكلة بعد 6 ثوانٍ من البداية
             setTimeout(() => {
                 textContainer.classList.add('visible');
             }, 6000);
         }
 
-        // تشغيل البناء الأولي عند فتح الصفحة
         window.addEventListener('DOMContentLoaded', loadComments);
     </script>
 </body>
