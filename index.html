@@ -3,1461 +3,1238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Story - Patient 14</title>
+    <title>العيادة رقم 14 - النسخة النهائية</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- NoSleep.js (لمنع قفل الشاشة أثناء المشهد السينمائي) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;500;700&family=Courier+Prime:ital,wght@0,300;0,400;0,700;1,400&family=Special+Elite&display=swap');
         :root {
-            --bg-color: #050505;
-            --text-main: #d4d4d4;
-            --blood-red: #8b0000;
-            --paper-color: #e3dac9;
-            --font-ar: 'Changa', sans-serif;
-            --font-en: 'Special Elite', 'Courier Prime', monospace;
+            --bg-color: #0a0a0a;
+            --text-color: #d1cdb7;
+            --highlight-color: #8b0000;
+            --dialogue-color: #ffffff;
+            --paper-color: #1a1a1a;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        body, html {
+
+        body {
             background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-ar);
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.8;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* قفل التدوير الصارم باستخدام CSS */
-        #orientation-lock {
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* الطباعة والآلة الكاتبة */
+        .typewriter-header {
+            font-family: 'Courier New', Courier, monospace;
+            color: #555;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            font-size: 0.9em;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* العناوين */
+        .chapter-title {
+            font-family: 'Amiri', serif;
+            color: var(--highlight-color);
+            font-size: 2.5em;
+            text-align: center;
+            margin: 60px 0 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .sub-heading {
+            font-family: 'Amiri', serif;
+            color: #a3997e;
+            font-size: 1.8em;
+            margin: 50px 0 20px;
+            border-right: 4px solid var(--highlight-color);
+            padding-right: 15px;
+        }
+
+        /* النصوص */
+        .scene-desc {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #a09d90;
+            text-align: justify;
+        }
+
+        .dialogue-block {
+            background-color: var(--paper-color);
+            border-right: 3px solid #444;
+            padding: 15px 25px;
+            margin: 25px 0;
+            font-family: 'Amiri', serif;
+            font-size: 1.3em;
+            color: var(--dialogue-color);
+            border-radius: 3px;
+            box-shadow: -5px 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* تأثير الظهور عند التمرير */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* لوحة الأدلة */
+        .evidence-board {
+            background: #111;
+            padding: 30px;
+            border: 1px solid #333;
+            margin: 60px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .evidence-board::before {
+            content: "CONFIDENTIAL";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 4em;
+            color: rgba(255, 0, 0, 0.05);
+            font-family: impact, sans-serif;
+            pointer-events: none;
+            letter-spacing: 10px;
+        }
+
+        .evidence-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .evidence-item img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #222;
+            filter: grayscale(80%) contrast(1.2);
+            transition: all 0.3s;
+            cursor: crosshair;
+        }
+
+        .evidence-item img:hover {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* المشهد السينمائي النهائي (الشاشة السوداء) */
+        #cinematic-screen {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #000;
-            z-index: 100000;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 9999;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+        }
+
+        .cinematic-lyrics {
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            font-size: 1.5em;
             text-align: center;
-            padding: 20px;
-        }
-        .lock-icon {
-            width: 50px; height: 90px; border: 4px solid #fff; border-radius: 10px;
-            margin-bottom: 25px; position: relative;
-            animation: rotateLandscape 2.5s infinite ease-in-out;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-        .lock-icon::after {
-            content: ''; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-            width: 8px; height: 8px; border-radius: 50%; background: #fff;
-        }
-        @keyframes rotateLandscape {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(-90deg); }
-        }
-        .lock-text { font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red); }
-        .lock-funny-sub { font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6; }
-
-        /* إخفاء المحتوى تماماً في الوضع الطولي فقط عندما يكون القفل نشطاً */
-        @media (orientation: portrait) {
-            body.lock-active #orientation-lock {
-                display: flex !important;
-            }
-            body.lock-active > *:not(#orientation-lock):not(#creep-audio) {
-                display: none !important;
-            }
+            min-height: 100px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            direction: ltr;
         }
 
-        .black-blur {
-            filter: blur(8px) brightness(0.1) grayscale(1);
-            transition: filter 2.5s ease-in-out;
-            pointer-events: none;
-        }
-        #intro-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: #000; z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1.5s ease-out;
-        }
-        .phone-icon-intro {
-            width: 50px; height: 90px; border: 4px solid #fff; border-radius: 10px;
-            position: relative; animation: rotatePhone 3s infinite ease-in-out;
-            margin-bottom: 30px; box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-        .phone-icon-intro::after {
-            content: ''; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-            width: 8px; height: 8px; border-radius: 50%; background: #fff;
-        }
-        @keyframes rotatePhone {
-            0%, 10% { transform: rotate(0deg); }
-            40%, 60% { transform: rotate(-90deg); }
-            90%, 100% { transform: rotate(0deg); }
-        }
-        .intro-text { font-size: 1.5em; letter-spacing: 2px; color: #fff; text-align: center; animation: pulse 2s infinite; }
-        .enter-btn {
-            margin-top: 40px; padding: 10px 30px; background: transparent;
-            border: 1px solid var(--blood-red); color: var(--blood-red);
-            font-family: var(--font-ar); font-size: 1.2em; cursor: pointer;
-            transition: all 0.3s; text-transform: uppercase; letter-spacing: 3px;
-        }
-        .enter-btn:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
-
-        .cover-section {
-            height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
-            background: url('f607afdabb328f22ba88fe085ce2e63b.jpg') center/cover no-repeat fixed;
-            overflow: hidden; transition: all 2s;
-        }
-        .cover-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
-            animation: flicker 5s infinite;
-        }
-        @keyframes flicker {
-            0%, 100% { opacity: 1; } 3% { opacity: 0.8; } 6% { opacity: 0.9; }
-            7% { opacity: 0.4; } 8% { opacity: 0.9; } 9% { opacity: 1; }
-            50% { opacity: 1; } 51% { opacity: 0.6; } 52% { opacity: 1; }
-        }
-        .file-folder {
-            position: relative; z-index: 2; background: rgba(227, 218, 201, 0.1);
-            backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.1);
-            padding: 50px 80px; text-align: center; transform: rotate(-2deg);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); transition: all 1s;
-        }
-        .glitch-text {
-            font-family: var(--font-en); font-size: 4em; color: #fff; position: relative;
-            text-shadow: 2px 2px 0 #8b0000, -2px -2px 0 #00008b; margin-bottom: 10px;
-        }
-        .subtitle { font-family: var(--font-en); font-size: 1.5em; color: #aaa; letter-spacing: 5px; }
-        .top-secret-stamp {
-            position: absolute; top: -30px; right: -40px; color: var(--blood-red);
-            font-family: var(--font-en); font-size: 2.5em; border: 4px solid var(--blood-red);
-            padding: 5px 15px; transform: rotate(15deg) scale(5); opacity: 0;
-            animation: stampDown 0.5s forwards; animation-delay: 2s;
-        }
-        @keyframes stampDown {
-            0% { transform: rotate(15deg) scale(5); opacity: 0; }
-            100% { transform: rotate(15deg) scale(1); opacity: 0.8; }
-        }
-        .scroll-indicator {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: #fff; font-family: var(--font-en); letter-spacing: 2px;
-            animation: bounce 2s infinite; z-index: 3; opacity: 0.5;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-20px) translateX(-50%); }
-            60% { transform: translateY(-10px) translateX(-50%); }
+        .cinematic-final-sentence {
+            font-family: 'Amiri', serif;
+            color: #d1cdb7;
+            font-size: 2em;
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0;
+            transition: opacity 4s ease-in-out;
         }
 
-        .investigation-room {
-            padding: 100px 20px; background: linear-gradient(to bottom, #050505, #111, #050505);
-            position: relative; transition: all 2s;
-        }
-        .transcript-paper {
-            max-width: 900px; margin: 0 auto; background-color: var(--paper-color);
-            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            padding: 60px 50px; color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.5);
-            border-radius: 3px; position: relative; overflow: hidden; transition: all 1s;
-        }
-
-        .reveal-on-scroll {
-            opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out;
-        }
-        .reveal-on-scroll.visible {
-            opacity: 1; transform: translateY(0);
-        }
-
-        .scene-desc {
-            font-style: italic; color: #444; margin-bottom: 30px; border-right: 5px solid #888;
-            padding-right: 20px; font-size: 1.15em; line-height: 1.8; background: rgba(0,0,0,0.05); padding: 15px 20px;
-        }
-        .sub-heading {
-            text-align: center; font-weight: bold; color: #111; font-size: 1.5em;
-            margin: 60px 0 30px; border-bottom: 1px dashed #555; padding-bottom: 10px;
-        }
-        .dialogue-block { margin-bottom: 30px; line-height: 1.9; font-size: 1.25em; }
-        .speaker { display: block; font-weight: 700; margin-bottom: 5px; font-size: 1.1em; }
-        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
-        .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
-        .highlight-me {
-            color: var(--blood-red); font-family: var(--font-en); font-weight: bold;
-            font-size: 1.3em; text-transform: uppercase; animation: pulse-red 2s infinite;
-        }
-        @keyframes pulse-red {
-            0% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
-            50% { text-shadow: 0 0 20px rgba(139,0,0,0.8); }
-            100% { text-shadow: 0 0 5px rgba(139,0,0,0.2); }
-        }
-        .en-phrase {
-            font-family: var(--font-en); background: rgba(0,0,0,0.8); color: #fff;
-            padding: 2px 8px; border-radius: 3px; font-size: 0.9em; letter-spacing: 1px;
-            display: inline-block; direction: ltr;
-        }
-
-        /* تنسيق اللون الأحمر الدموي مع تأثير متوهج ونابض كأنه ينبض بالحياة */
-        .blood-effect {
-            color: #8b0000 !important;
-            text-shadow: 0 0 8px rgba(139, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.4);
-            font-weight: 700;
-            display: inline-block;
-            font-family: var(--font-en);
-            animation: bloodPulse 3s infinite alternate;
-        }
-        @keyframes bloodPulse {
-            0%, 100% { text-shadow: 0 0 8px rgba(139, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.4); transform: scale(1); }
-            50% { text-shadow: 0 0 15px rgba(139, 0, 1, 1), 0 0 25px rgba(255, 0, 0, 0.7); transform: scale(1.05); }
-        }
-
-        .evidence-section {
-            min-height: 100vh; background: url('dc2ffc9a66e3205ad8c78844ad15d3ce.jpg') center/cover no-repeat fixed;
-            position: relative; padding: 100px 20px; display: flex; flex-direction: column;
-            align-items: center; overflow: hidden; transition: all 2s;
-        }
-        .evidence-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); }
-        .evidence-title {
-            position: relative; z-index: 2; color: #fff; font-family: var(--font-en);
-            font-size: 3em; margin-bottom: 60px; text-align: center; border-bottom: 2px solid var(--blood-red);
-            padding-bottom: 10px; text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-        .grid-container {
-            position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px; width: 100%; max-width: 1000px; padding-bottom: 100px;
-        }
-        .photo-card {
-            background: #fff; padding: 10px 10px 30px 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-            cursor: pointer; transition: transform 0.1s; transform-style: preserve-3d;
-        }
-        .photo-card.visible { transition: opacity 1s, transform 1s; }
-        .photo-card:nth-child(even).visible { transform: translateY(0) rotate(3deg); }
-        .photo-card:nth-child(odd).visible { transform: translateY(0) rotate(-2deg); }
-
-        .photo-card.tilting { transition: none; z-index: 10; box-shadow: 0 25px 50px rgba(0,0,0,1); }
-        .photo-card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(80%) contrast(120%); transition: filter 0.5s; }
-        .photo-card:hover img { filter: grayscale(0%) contrast(100%); }
-        .pin {
-            width: 15px; height: 15px; background: var(--blood-red); border-radius: 50%;
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            box-shadow: -2px 5px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.5); z-index: 5;
-        }
-        .card-caption { text-align: center; margin-top: 15px; font-family: var(--font-en); font-weight: bold; color: #000; font-size: 1.1em; text-transform: uppercase; }
-
-        .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10000; display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-        }
-        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
-        .lightbox-overlay img { max-width: 90%; max-height: 90vh; border: 5px solid #fff; box-shadow: 0 0 40px rgba(255,255,255,0.2); transform: scale(0.7); transition: transform 0.4s ease; }
-        .lightbox-overlay.active img { transform: scale(1); }
-
-        #cinematic-container {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #000; z-index: 9990; display: none; opacity: 0;
+        /* قسم التعليقات (الأثر الطيب) */
+        #comment-section {
+            display: none;
+            width: 80%;
+            max-width: 500px;
+            margin-top: 40px;
+            opacity: 0;
             transition: opacity 2s ease-in-out;
-            justify-content: center; align-items: center; overflow: hidden;
-        }
-        .cinematic-stage {
-            width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;
-            transition: align-items 0.3s ease;
         }
 
-        .confess-screen {
-            display: none; opacity: 0; transition: opacity 2s ease, transform 3s ease;
-            transform: scale(0.97); color: #fff; font-size: 2.2em; text-align: center;
-            max-width: 80%; line-height: 1.6; font-weight: 500; text-shadow: 0 0 15px rgba(255,255,255,0.1);
-        }
-
-        /* ==================== شاشة Spotify ==================== */
-        .spotify-screen {
-            display: none; opacity: 0; width: 95%; max-width: 1100px; height: 85vh;
-            justify-content: space-between; align-items: center; gap: 40px;
-            transition: opacity 2s ease; z-index: 5;
-            direction: ltr; 
-        }
-
-        .spotify-left {
-            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .spotify-video-wrapper {
-            width: 35vh; max-width: 240px; 
-            height: 35vh; max-height: 240px; 
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px;
-            overflow: hidden; background: #111;
-        }
-
-        .spotify-video-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .spotify-video-overlay {
-            position: absolute; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.5); pointer-events: none;
-        }
-
-        .spotify-info { 
-            margin-top: 15px; 
-            text-align: center; 
-            width: 100%; 
-        }
-
-        .spotify-title { 
-            font-size: 2.2em; font-weight: 700; color: #fff; 
-            margin-bottom: 5px; font-family: var(--font-en); 
-            text-shadow: 0 0 10px rgba(255,255,255,0.2); line-height: 1.2;
-        }
-
-        .spotify-artist { font-size: 1.3em; color: #b3b3b3; font-family: var(--font-en); }
-
-        .spotify-right {
-            flex: 1.5; height: 100%; position: relative; overflow: hidden;
-            mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
-        }
-
-        .lyrics-scroll { 
-            transition: transform 0.5s ease-out; 
-            text-align: left; width: 100%;
-            position: absolute; 
-            top: 50%; 
-        }
-
-        /* تعديل نظام التنوير والتمويه المخصص للكلمات */
-        .lyric-line {
-            font-size: clamp(1.1rem, 4vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.15);
-            margin: 25px 0; transition: all 0.5s ease; transform: scale(0.9);
-            transform-origin: left center; line-height: 1.4; font-family: var(--font-en);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            filter: blur(1.5px);
-        }
-
-        .lyric-line.active { 
-            color: #fff; 
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
-            transform: scale(1.05); 
-            filter: none; 
-            opacity: 1;
-        }
-
-        .lyric-line.previous { 
-            color: rgba(255, 255, 255, 0.08); 
-            filter: blur(2px);
-        }
-
-        /* تعديل جملة النهاية لمنع القص وتصغيرها بمرونة */
-        .farewell-screen {
-            display: none; opacity: 0; transition: opacity 1.5s ease;
-            color: var(--paper-color);
-            text-align: center; font-size: clamp(1.2rem, 3.5vw, 2.2em); line-height: 1.5;
-            font-family: var(--font-ar); font-weight: 700; max-width: 98%;
-            direction: rtl; width: 100%; margin: 0 auto;
-            white-space: nowrap;
-        }
-
-        .countdown-screen {
-            display: none; position: absolute; top:0; left:0; width:100%; height:100%;
-            background: #090909; justify-content: center; align-items: center; z-index: 10;
-        }
-        .countdown-screen.jitter { animation: cinemaJitter 0.15s infinite; }
-        .cinema-circle {
-            width: 180px; height: 180px; border: 4px solid rgba(255,255,255,0.15);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; position: relative;
-        }
-        .cinema-num { font-family: var(--font-en); font-size: 6em; color: #fff; font-weight: bold; position: relative; z-index: 2; }
-        .cinema-cross-h { position: absolute; width:120%; height:1px; background: rgba(255,255,255,0.1); }
-        .cinema-cross-v { position: absolute; height:120%; width:1px; background: rgba(255,255,255,0.1); }
-        .grain-overlay {
-            position: absolute; top:0; left:0; width:100%; height:100%;
-            background: url('https://www.transparenttextures.com/patterns/dust.png'); opacity: 0.18; pointer-events: none;
-        }
-        @keyframes cinemaJitter {
-            0%, 100% { transform: translate(0, 0); filter: brightness(1); }
-            25% { transform: translate(-1px, 1px); filter: brightness(1.05); }
-            50% { transform: translate(1px, -1px); filter: brightness(0.95); }
-            75% { transform: translate(-1px, -1px); }
-        }
-
-        .modern-finale-screen { 
-            display: none; opacity: 0; text-align: center; z-index: 12; 
-            flex-direction: column; align-items: center; justify-content: center;
-            width: 100%; max-width: 800px; padding: 20px; transition: opacity 1.5s ease;
-        }
-        .modern-finale-text { font-size: clamp(1.5rem, 5vw, 2.5em); font-weight: bold; color: #fff; line-height: 1.8; font-family: var(--font-ar); }
-
-        /* تعديل صندوق التعليقات ليناسب شاشات العرض المحدودة وظهور الكيبورد */
-        .comments-screen {
-            display: none; opacity: 0; transform: translateY(100px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 90%; max-width: 600px; text-align: center; padding: 20px 10px; z-index: 15;
-        }
-        .comments-screen.slide-up { display: block; opacity: 1; transform: translateY(0); }
-        .comment-prompt { font-size: 1.2em; color: #ccc; margin-bottom: 15px; line-height: 1.6; font-weight: 300; }
-
-        .comment-textarea {
-            width: 100%; height: 90px; background: rgba(20, 20, 20, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
-            color: #fff; font-family: var(--font-ar); padding: 12px; font-size: 1.1em;
-            resize: none; transition: border-color 0.4s, box-shadow 0.4s; margin-bottom: 15px;
-            -webkit-user-select: text; user-select: text; pointer-events: auto !important;
-        }
-        .comment-textarea:focus { outline: none; border-color: var(--blood-red); box-shadow: 0 0 20px rgba(139,0,0,0.4); }
-
-        .comment-submit {
-            background: transparent; border: 1px solid var(--blood-red); color: var(--blood-red);
-            padding: 10px 35px; font-family: var(--font-ar); font-size: 1.1em; cursor: pointer;
-            border-radius: 6px; transition: all 0.3s; pointer-events: auto !important;
-        }
-        .comment-submit:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
-
-        .comments-list-container {
-            margin-top: 20px;
-            text-align: right;
-            max-height: 160px;
-            overflow-y: auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 15px;
-            padding-right: 5px;
-        }
-        .comments-list-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .comments-list-container::-webkit-scrollbar-track {
+        .comment-box {
+            width: 100%;
             background: transparent;
-        }
-        .comments-list-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 3px;
-        }
-        .comment-item {
-            background: rgba(255, 255, 255, 0.04);
-            border-right: 3px solid var(--blood-red);
-            padding: 12px 15px;
-            border-radius: 4px;
-            color: #e0e0e0;
-            font-size: 0.95em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            direction: rtl;
-            animation: commentFadeIn 0.5s ease forwards;
-        }
-        .comment-date {
-            font-size: 0.75em;
-            color: #777;
-            margin-top: 5px;
-            text-align: left;
-        }
-        @keyframes commentFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            border: none;
+            border-bottom: 2px solid #333;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2em;
+            padding: 10px;
+            text-align: center;
+            outline: none;
+            resize: none;
+            transition: border-color 0.3s;
         }
 
-        @media (max-width: 1024px) {
-            .spotify-screen { flex-direction: row; gap: 20px; }
-            .spotify-title { font-size: 1.6em; }
-            .spotify-artist { font-size: 1em; }
-            .lyric-line { font-size: 1.3em; margin: 15px 0; }
+        .comment-box:focus {
+            border-bottom: 2px solid var(--highlight-color);
         }
-        @media (max-width: 768px) {
-            .glitch-text { font-size: 2.5em; }
-            .subtitle { font-size: 1.2em; }
-            .transcript-paper { padding: 30px 20px; }
+
+        .leave-mark-btn {
+            background: transparent;
+            color: #555;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .leave-mark-btn:hover {
+            color: white;
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+        
+        .landscape-warning {
+            color: #888;
+            font-size: 0.8em;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* مشغل الموسيقى المخفي */
+        #spotify-player {
+            display: none;
         }
     </style>
 </head>
-<body class="lock-active">
-    <!-- شاشة قفل التدوير المتطورة والاجبارية -->
-    <div id="orientation-lock">
-        <div class="lock-icon"></div>
-        <div id="lock-funny-text" class="lock-text">يا عم متتعبنيش معاك ورجّع التليفون بالعرض! 😂</div>
-        <div class="lock-funny-sub">قم بتفعيل ميزة <b>"دوران الشاشة التلقائي (Auto-Rotate)"</b> من لوحة إشعارات هاتفك ثم قم بتدويره للاستمرار في الجلسة بالشكل الصحيح.</div>
-    </div>
+<body>
 
-    <audio id="creep-audio" src="creep.mp3" preload="auto"></audio>
-
-    <div class="lightbox-overlay" id="lightbox">
-        <img src="" alt="" id="lightbox-img">
-    </div>
-
-    <div id="intro-screen">
-        <div class="phone-icon-intro"></div>
-        <div class="intro-text">لأفضل تجربة سينمائية.. استعد للغوص في الظلام</div>
-        <button class="enter-btn" onclick="startExperience()">ابدأ الجلسة</button>
-    </div>
-
-    <section class="cover-section" id="cover">
-        <div class="cover-overlay"></div>
-        <div class="file-folder" id="top-folder">
-            <div class="top-secret-stamp">CLASSIFIED</div>
-            <h1 class="glitch-text">CONFIDENTIAL</h1>
-            <p class="subtitle">PATIENT FILE: ALI SAKR<br>SESSION 14</p>
+    <div class="container" id="main-content">
+        <div class="typewriter-header">
+            CASE FILE: #14<br>
+            PATIENT: ALI SAKR<br>
+            STATUS: CLASSIFIED<br>
+            AUDIO LOG: RECORDING...
         </div>
-        <div class="scroll-indicator">SCROLL DOWN ↓</div>
-    </section>
 
-    <section class="investigation-room" id="investigation">
-        <div class="transcript-paper" id="paper-doc">
-            <h2 style="text-align: center; font-size: 2.2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14</h2>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الأول: هندسة الحبر... والإنسان اللي اختفى ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                ...تيك...<br>
-                ...تاك...<br>
-                ...تيك...<br>
-                ...تاك...<br><br>
-                الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس. كل تيكة كانت كأنها بتعد وقت ضاع... وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها.
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                العيادة هادية بطريقة مستفزة. ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور كان قاعد في آخر الأوضة، ساند ضهره لورا، حاطط رجل على رجل، ونظارته نازلة سنة صغيرة على مناخيره.<br>
-                بين كل كام ثانية...<br>
-                تك... تك... تك...<br>
-                يقلم ضوافره بمنتهى البرود.<br>
-                كأن مفيش قدامه بني آدم.<br>
-                كأن اللي قدامه مجرد ملف جديد هيتقفل آخر اليوم.
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                أما علي... فكان قاعد ساكت. هادئ بشكل يخوف. إيده متشابكة قدام بعض، ورجله بتهز الأرض هزة بسيطة جدًا، الهزة الوحيدة اللي كانت بتفضح إن جواه إعصار. وشه مفيهوش أي تعبير. إلا الابتسامة دي... الابتسامة اللي الناس فاكرة إنها ثقة... وهي في الحقيقة أرخص طريقة اخترعها الإنسان عشان يخبي إنه خلاص مبقاش عنده طاقة يشرح.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (رفع عينه من الملف وبص على جسم علي كأنه بيقرأ اعترافات مكتوبة بالحبر، ثم قال بهدوء مستفز):</span>
-                "علي صقر... حتى اسمك عامل دوشة. اسم تقيل... كبير... تحسه داخل أي مكان قبلك. بس الغريبة إن اللي قاعد قدامي دلوقتي... مش باين عليه أي حاجة من الاسم ده."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (سكت ثانيتين وقفل الملف):</span>
-                "أنا شوفت ناس كتير عاملة تاتوهات... بس أنت... أنت عامل متحف كامل. كل رسمة ليها مكان... كل كلمة محسوبة... كل خط متعملش كده وخلاص. وده معناه إن الحبر عندك مش للمنظر. الحبر عندك بيتكلم. السؤال بقى... بتحاول تقول إيه؟"
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الصمت نزل على الأوضة. حتى صوت الساعة اختفى من ودن علي. هو كان سامع صوت تاني... صوت قديم... ناس كانت بتقول:<br>
-                <blockquote style="border-right: 3px solid var(--blood-red); padding-right: 15px; margin: 10px 0; font-style: italic; color: #555;">
-                    "إحنا معاك."<br>
-                    "إحنا عمرنا ما هنسيبك."<br>
-                    "اطمن."
-                </blockquote>
-                الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت. رجع للدكتور. ونفس الابتسامة لسه على وشه. ابتسامة باردة... باردة لدرجة إن اللي يشوفها يحلف إن صاحبها معندوش مشاعر. بس الحقيقة... إنها كانت آخر حاجة فاضلة واقفة بعد ما كل حاجة جواه وقعت. ابتسم أكتر... وقال:
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "يا دكتور... الغريب في البشر إنهم بيعشقوا يشوفوا النهاية... بس أول ما تبدأ تحكيلهم البداية... يبصوا في الساعة. ولو كملت... يبصوا في الموبايل. ولو اتوجعت... يقولولك: شد حيلك. ولو وقعت... يسألوك: هتقوم إمتى؟ ولو قومت... يتعاملوا كأنك عمرك ما وقعت."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                ضحك ضحكة صغيرة... لكنها كانت ضحكة مالهاش صوت.<br>
-                "فبطلت أحكي. مش عشان الكلام خلص... لأ... عشان محدش أصلًا كان بيسمع."<br>
-                بص ناحية الأرض. وأخد نفس طويل.<br>
-                "زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك. وكل اللي يطمنك هيكمل معاك. وكل وعد بيتقال... لازم يتنفذ. كنت غبي... أيوة... غبي. بس الغباء الحقيقي مش إنك تثق. الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (حرك صوابعه بهدوء):</span>
-                "كل مرة كنت أقول: المرة دي غير. وأرجع ألاقي نفسي بضحك. مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي. هو أنا لسه بتفاجئ؟ هو أنا لسه مستني حاجة من حد؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (رفع عينه للدكتور بنظرة هادية، فيها تعب سنين):</span>
-                "عارف يا دكتور... أصعب حاجة مش إن الناس تخذلك. أصعب حاجة... إنك تفضل تدور على سبب. تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... يمكن... يمكن... لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور كان ساكت. أول مرة بطل يقلم ضوافره. القلم نزل من بين صوابعه. وبدأ يبص لعلي بنفس الطريقة اللي الدكتور بيبص بيها للمريض... لما يحس إن اللي قدامه مش بيقول كلام... ده بيطلع حاجة مدفونة بقالها سنين.<br>
-                عين الدكتور نزلت على الدراع الشمال. وقف قدام أول تاتو. ابتسم ابتسامة خفيفة... وقال: "واضح إن هنا... القصة بتبتدي." وعينه استقرت على أول كلمة محفورة بالحبر... <span class="en-phrase">Try for yourself...</span>
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور قرب خطوة. ببطء... كأنه خايف يقرب زيادة. عينه كانت واقفة على أول سطر: <span class="en-phrase">Try for yourself.</span> قرأها مرة... واتنين... وبعدين نزل بعينه لتحت. وساعتها... سكت.<br><br>
-                العينين. مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية. فيهم لمعة خفيفة... وفيهم هدوء غريب... بس أكتر حاجة شدت الدكتور... إن العينين دول كانوا مختلفين عن باقي الحبر. كل التاتوهات كان فيها تحدي... غضب... وجع... إنما العينين... كان فيهم أمان. حاجة مكنتش راكبة مع باقي جسم علي.
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (مال وشه شوية وقال وهو لسه باصص عليهم):</span>
-                "مين دي؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (مبيردش، فضل باصص على دراعه كأنه أول مرة يشوفه. ابتسم، بس الابتسامة دي المرة دي مكانش فيها سخرية. كان فيها حنين... وجع... وحاجة شبه الامتنان. رفع إيده ولمس العينين بطرف صوابعه برقة كأن الحبر ده ممكن يحس، وبص للدكتور):</span>
-                "مروة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "واضح إنها كانت مهمة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ضحك ضحكة قصيرة وسكت ثانيتين):</span>
-                "كانت؟ هي فيه ناس بتخلص يا دكتور؟ فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (رجع يبص للعينين وصوته هدي أكتر):</span>
-                "الناس كلها كانت بتبص على علي اللي واقف قدامها. إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه. فاهم الفرق؟ الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان. الناس كانت تقول: ده قوي. هي كانت تقول: لا... ده شايل فوق طاقته. الناس كانت تسمع كلامي... هي كانت تسمع السكوت اللي بين الكلام."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (أخد نفس طويل):</span>
-                "الغريب إن الإنسان طول عمره بيدور على حد يفهمه. مش يوافقه... ولا يجامله... ولا يقوله حاضر. بس يفهمه. ولما يلاقي الشخص ده... بيحس إن الدنيا بطلت تبقى تقيلة شوية."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "كانت حبيبتك؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم):</span>
-                "لأ... كانت رزقي. فيه ناس بتدخل حياتك صدفة. وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة. وأنا... ربنا رزقني بمروة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (صوته بدأ يوطى):</span>
-                "أنا مش بقول إنها ملاك علشان بحبها. أنا بقول إنها ملاك... لأنها كانت أول إنسانة شافت جوايا حاجة حلوة... في الوقت اللي أنا نفسي كنت شايف إني مستاهلش أي حاجة حلوة. تخيل؟ أنا كنت شايف نفسي شخص عادي... يمكن أقل من عادي. إنما هي... كانت بتعاملني كأني أغلى حاجة في الدنيا. وأقسم بالله يا دكتور... لحد النهارده... مش عارف هي كانت شايفة إيه."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "وإنت شايف إنها غيرت حياتك?"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه):</span>
-                "لا... دي غيرتني أنا. الولادة الجديدة اللي الناس فاكراها بدأت مع الحبر... لأ. الحبر جه بعدين. أما البداية الحقيقية... فكانت يوم ربنا بعتلي مروة."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                عين الدكتور نزلت تحت العينين. وقف قدام الجملة: <span class="en-phrase">and for <span class="blood-effect">me</span></span>.<br>
-                لكن كلمة <span class="blood-effect">me</span> كانت لوحدها باللون الأحمر الدموي المتوهج. الدكتور قرب أكتر وقال: "ليه الكلمة دي بس بالأحمر؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (لمسها بإيده، وبرغم برودة الأوضة، كان واضح إن نفسه اتغير):</span>
-                "عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟ ...أنا. كنت بعمل كل حاجة علشان الناس. أرضي ده... وأساعد ده... وأستحمل ده... وأسامح ده... وأجي على نفسي علشان ده. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تقوللي... عيش لنفسك شوية. عشان كده... <span class="blood-effect">me</span> اتكتبت بالدم."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "يعني دي وعد؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه وابتسم):</span>
-                "أيوة. وعد لمروة، ووعد لنفسي. وعد إن علي اللي هي كانت شايفاه... يفضل عايش. ووعد إن الشخص النضيف اللي هي آمنت بيه... ميعرفش يرجع يضيع نفسه تاني."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                وفجأة... عين الدكتور نزلت على جسم الحية اللي خارج من تحت الكلمة. جلدها مرسوم بتفاصيل دقيقة... كأنها بتزحف فعلًا تحت الجلد. قال وهو متعجب: "يبقى الحية بدأت من هنا..."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه):</span>
-                "أيوة. الناس أول ما تشوفها تقول... شر... سم... خيانة... وأنا كل مرة أضحك لأنهم عمرهم ما كملوا الحكاية. الحية كل فترة بتخلع جلدها. بتسيب النسخة القديمة... وتمشي. عمرها ما بترجع تلبسه. وأنا... لما قررت أتولد من جديد... مكنتش عايز أرجع للشخص اللي مات."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بص لمروة المرسومة على دراعه وقال بابتسامة هادية من غير أي سخرية):</span>
-                "لو فيه حاجة واحدة في حياتي مستحيل أعتبرها صدفة... فهتبقى مروة. لأن في عز ما كنت فاكر إن الدنيا قفلت بابها في وشي... ربنا فتحلي باب على هيئة إنسانة. وأجمل رزق ممكن الإنسان ياخده... مش فلوس... ولا شهرة... ولا نجاح... أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الأوضة رجعت تسكت. محدش اتكلم. الدكتور كان واقف قدام دراع علي، كأنه نسي إنه في جلسة علاج. بص على الحية وهي خارجة من كلمة <span class="blood-effect">me</span>... وبعدين لف على الساعد اليمين. وقف. قرأ الجملة المكتوبة هناك بصوت واطي: <span class="en-phrase">No Risk No Story.</span> ابتسم ابتسامة خفيفة: "دي مفهومة... اللي ميخاطرش، معندوش قصة تتحكي." لكن بعدها بعينه مباشرة... كان التاريخ: <span class="en-phrase">II • XIV • MMXXII</span>. فضل يبصله كام ثانية، وبعدين قال: "بصراحة... أنا كنت فاكر ده تاريخ الولادة الجديدة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (رفع راسه بسرعة، ولأول مرة الابتسامة اختفت تمامًا وهز راسه بالنفي):</span>
-                "لأ. الولادة الجديدة ليها حكاية تانية."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (sكت وبص للتاريخ، ولأول مرة الدكتور لاحظ إن عين علي لمعت بالذكرى):</span>
-                "أما التاريخ ده... ده أغلى تاريخ اتحفر على جسمي. عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي. الناس لما تبص عليه... تشوف أرقام روماني. وأنا... كل ما أشوفه... بفتكر اليوم اللي حياتي خدت نفس لأول مرة. الغريب إن الناس فاكرة إن الحب بيغير الإنسان. لا... الإنسان الصح... هو اللي بيغير الإنسان."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "يعني مروة غيرتك؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم):</span>
-                "هي مغيرتنيش بالعافية. ولا طلبت مني أبقى شخص تاني. هي عملت حاجة أصعب بكتير... خلتني أحب الشخص اللي كنت طول عمري بكرهه. كنت ببص في المراية... وأشوف واحد مليان عيوب. هي كانت تبصلي... وكأنها شايفة إن مفيش أجمل مني. لحد النهارده... مش عارف كانت شايفة إيه. يمكن ربنا كشفلها حاجة... أنا نفسي مكنتش شايفها."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (سكت لحظة):</span>
-                "عارف يعني إيه حد يخليك تحس إنك كفاية... من غير ما تطلب منه؟ عارف يعني إيه حد يحسسك إن وجودك لوحده له قيمة؟ الإحساس ده... فلوس الدنيا كلها متشتريهوش. أنا اتعلمت من الدنيا حاجات كتير. إن الناس بتبيع. وبتتغير. وبتنسى. لكن ربنا... لما يحب يجبر قلب واحد مكسور... بيبعتله شخص. وأنا... ربنا جبر خاطري بمروة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "واضح إنك بتحبها جدًا."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ضحك وبص للتاريخ مرة تانية):</span>
-                "دي أقل كلمة تتقال. أنا مؤمن إن في حاجات بتحصل صدفة. بس هي... عمرها ما كانت صدفة. أنا مؤمن إنها كانت رزق. دعوة يمكن أمي دعتها. أو سجدة أنا نسيتها. أو رحمة من ربنا... قرر ينزلها على قلبي. فيه ناس ربنا يرزقهم ببيت. وفيه ناس يرزقهم بفلوس. وفيه ناس يرزقهم بشغل. أما أنا... فربنا رزقني بإنسانة. ولو خيروني ألف مرة... هختار نفس الرزق."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور كان باصص لعلي... لكن المرة دي مش كدكتور. كان باصص لإنسان... بيتكلم عن حد بيحبه... وكأنه بيتكلم عن نعمة. بعد ثواني... رجع الدكتور يبص للجملة المكتوبة فوق التاريخ: <span class="en-phrase">No Risk No Story.</span> وقال: "يعني المخاطرة دي... كانت إنها تدخل حياتك؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ضحك لأول مرة ضحكة حقيقية):</span>
-                "لأ يا دكتور. المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه. وأجمل مخاطرة أخدتها في حياتي... إني صدقتها."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (وقف وحط إيده على الساعد اليمين وقال بصوت هادي):</span>
-                "وعشان كده التاريخ اتحفر هنا. مش عشان أفكره. أنا مستحيل أنساه. اتحفر... عشان كل يوم أصحى وأفتكر إن مهما الدنيا علمتني أقسى الدروس... ربنا لسه قادر يبعت للإنسان رزق ينسّيه وجعه كله في لحظة واحدة."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور أخد نفس عميق... وبعدين بعينه راح ناحية الرقبة اليمين. الجملة كانت واضحة... سودا... وحادة: <span class="en-phrase">Never Look Back.</span> ابتسم ابتسامة خفيفة... وقال: "واضح إن من هنا... القصة هتبدأ توجع."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور فضل واقف قدام علي. عينه اتحركت ببطء... لحد ما وقفت على الرقبة اليمين. الحروف كانت كبيرة... واضحة... كأنها متكتبتش بالحبر. كأنها محفورة بسكينة: <span class="en-phrase">Never Look Back.</span>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (ابتسم وقال):</span>
-                "دي بقى أكتر واحدة بشوفها. أي حد بيعمل تاتوهات بيحب الجمل دي. تحفيز... بداية جديدة... سيب الماضي... الحاجات المعتادة يعني."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بصله، وضحك الضحكة الباردة اللي عمرها ما كانت فرحة، وقال بهدوء):</span>
-                "أنت فاكرها جملة... وأنا شايفها أمر."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "أمر؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه ولمس الحروف على رقبته):</span>
-                "أيوة... أمر. كل يوم أصحى... وأشوفها. مش عشان أفكر نفسي أكون قوي... لا. عشان أفكر نفسي... مبصش ورا."
-</div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "للدرجة دي الماضي كان وحش؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم):</span>
-                "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بص في الأرض وضحك بسخرية):</span>
-                "كنت كل مرة أقول... يمكن الرسالة دي تتبعت. يمكن الشخص ده يتغير. يمكن الاعتذار ييجي. يمكن اللي راح يرجع. يمكن... يمكن... يمكن. الغريب إن كلمة (يمكن)... دمرت ناس أكتر من كلمة (مستحيل). كنت فاكر إن لو استنيت كفاية... كل حاجة هتتصلح. بس الحقيقة؟ في حاجات... كل ما تستناها أكتر... بتكسرك أكتر. عشان كده... الجملة دي مكانها على رقبتي."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "ليه الرقبة بالذات؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم وسكت):</span>
-                "لأن الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته. فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "واضح إنك قاسي على نفسك."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه):</span>
-                "لا يا دكتور... أنا بس بطلت أدلع نفسي بالكلام اللي مبيحصلش. يعني بطلت أقول بكرة أحسن. بطلت أقول الناس هتتغير. بطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (باصص في الفراغ وصوت الساعة يرجع تيك تاك):</span>
-                "عارف أكتر حاجة كانت بتوجعني؟ مش الخذلان... ولا الفراق... ولا الكدب."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "أمال إيه؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم وضحك ضحكة صغيرة):</span>
-                "إني كنت كل مرة... أدي فرصة زيادة. كنت فاكر إن دي طيبة. طلعت غباء."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "يعني مبقتش تسامح؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (هز راسه بالنفي وقرب من الدكتور خطوة):</span>
-                "لا... بسامح. بس مبفتحش نفس الباب مرتين. أصل الناس فاكرة إن المسامحة معناها إن كل حاجة ترجع زي الأول. لأ. أنا ممكن أسامحك... وأدعيلك... وأتمنالك الخير... بس مستحيل أرجع أحط إيدي في نفس النار وأقول يمكن المرة دي متحرقنيش."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور أخد نفس عميق. وحول عينه ناحية الصدر الشمال. الحروف كانت أوضح. وأقسى. وأتقل: <span class="en-phrase">Don't Trust Damn Humans.</span> وقف قدامها كام ثانية، وبعدين قال: "دي... شكلها مش جملة. شكلها قضية." ابتسم علي... وقال بهدوء يخوف: "لأ يا دكتور... دي فاتورة."
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الخامس: فاتورة الثقة ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الأوضة رجعت تسكت... لدرجة إن صوت التكييف بقى مسموع. الدكتور كان واقف قدام تاتو الصدر الشمال: <span class="en-phrase">Don't Trust Damn Humans.</span> قرأها مرة... وبعدين مرة تانية. وبعدين بص لعلي. "دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ضحك):</span>
-                "وده الطبيعي. لأن الحقيقة عمرها ما كانت مريحة."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (قرب خطوة):</span>
-                "بس دي جملة قاسية."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "الحياة كانت أقسى."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (حط القلم على المكتب ولأول مرة من أول الجلسة اتكلم من غير برود):</span>
-                "مين خلاك توصل للمرحلة دي يا علي؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بص للسقف كأنه بيدور على إجابة حافظها):</span>
-                "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟ الناس بتحب تعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (سكت وبص للدكتور وحط إيده على صدره فوق التاتو مباشرة):</span>
-                "أنا مش بكره البشر. دي مش دعوة. دي تذكرة... تذكرة بالتمن اللي دفعته. زمان... كنت بثق بسهولة. يمكن أسهل من اللازم. كنت فاكر إن طالما قلبي نضيف... يبقى الناس هتكون زيه. كنت فاكر إن اللي يضحك في وشك... لازم يبقى بيحبك. وإن اللي يقولك: (أنا جنبك)... هيفضل جنبك. طلع إن الدنيا مبتشتغلش كده."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "اتخذلت؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "لا... اتعلمت. المخذول... بيستنى اللي كسره يعتذر. أما اللي اتعلم... بيعرف إن الاعتذار مش هيغير اللي حصل."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (باصص في الأرض وصوت الساعة تيك تاك):</span>
-                "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك... وإإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "بس مينفعش تعاقب كل الناس بسبب كام شخص."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم ابتسامة هادية وقرب خطوة):</span>
-                "أهو... وده اللي أقصده. إن محدش بيفهم. أنا مقولتش إني هعاقب الناس. أنا قلت... إن الثقة مبقتش حق. الثقة بقت امتياز. اللي عايزها... يتعب علشان ياخدها. أنا لسه بعامل الناس باحترام. ولسه بساعد. ولسه بضحك. ولسه بسلم. بس... مبقتش بفتح قلبي لأي حد. القلب اللي اتكسر مرة... مش بيبقى جبان. بيبقى فاهم."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (حط إيده على صدره):</span>
-                "وعشان كده التاتو هنا. لأن القلب تحته. كل ما أبصله... أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "واضح إنك لسه زعلان."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ضحك وسكت ثم لف ناحية الشباك وبص برا):</span>
-                "زعلان؟ لا يا دكتور. الزعل بيخلص. إنما الدروس... بتعيش. عارف أكتر حاجة ضحكتني؟ إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا. ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الدكتور أخد نفس طويل. وبص على علي... لأول مرة من أول الجلسة... من غير ما يشوف التاتوهات. بصله هو. كإنسان. وقال بهدوء: "...واضح إنك تعبت أوي."<br><br>
-                ابتسم علي. ابتسامة صغيرة. هادية. لكن المرة دي... مكانش فيها سخرية. كان فيها استسلام بسيط. وقال: "لا يا دكتور... أنا بس... بطلت أستغرب." وسكت. الصمت المرة دي... كان أعلى من أي كلمة اتقالت في الجلسة. وفي الصمت ده... الدكتور لأول مرة حس إن اللي قدامه مش بيحاول يقنعه. هو بس... كان نفسه... مرة واحدة في حياته... حد يفهمه من غير ما يضطر يشرح.
-            </div>
-
-            <div class="sub-heading reveal-on-scroll">[ الفصل الأخير: الكلمات اللي معرفتش تتقال ]</div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الأوضة ساكتة... لأول مرة من أول الجلسة... محدش بيتكلم. لا الدكتور... ولا علي... ولا حتى صوت الساعة. الدكتور كان باصص لعلي. بس المرة دي... مش بيحلله. ولا بيقرأ التاتوهات. كان بيبص لإنسان... شكله واقف قدامه... وروحه في حتة تانية. بعد ثواني... الدكتور اتكلم بصوت هادي جدًا: "يعني... كل الحبر اللي على جسمك ده... كان مجرد طريقة للهروب؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (نزل عينه على جسمه وبص على دراعه وعيون مروة والحية والتاريخ ورقبته وصدره وابتسم):</span>
-                "لأ."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "أمال إيه؟"
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (سكت كأن السؤال ده استناه سنين ثم قال):</span>
-                "كل رسمة هنا... جنازة. كل جملة... مدفونة تحتها نسخة قديمة مني. ودي (لمس عيون مروة)... فكرتني إن ربنا ممكن يرزق الإنسان بحد يشوفه وهو مكسور... ويعامله كأنه كامل. ودي (نزل على كلمه <span class="blood-effect">me</span>)... أول مرة في حياتي أقرر إن علي يستحق يعيش هو كمان. ودي (لمس الحية)... مش رمز للشر. دي شهادة وفاة للنسخة اللي كانت كل يوم تموت وهي بتحاول ترضي الناس. وده (حط إيده على التاريخ)... أجمل يوم ربنا كتبهولي. وده (لمس رقبته)... الوعد اللي كل يوم بحاول أوفي بيه. ودي (صدره)... أغلى فاتورة دفعتها في حياتي."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                "بس برضه... إنت مقولتليش ليه اخترت الحبر."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (أخد نفس طويل وطلع زفيره براحة):</span>
-                "لأن الكلام خذلني. كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص. كل مرة أقول اللي جوايا... أحس إن نصه مات قبل ما يوصل. وكل مرة حد يسألني: (مالك؟) وأرد: (مفيش.) كان يبقى جوايا ألف حكاية... وألف وجع... وألف كلمة... محدش شاف منهم حاجة. الغريب... إن الناس كانت مصدقة كلمة (مفيش)... أكتر مني. عارف يعني إيه يبقى عندك كلام... لو خرج... يمكن يهز جبل... لكن أول ما يوصل لزورك... يموت؟ أنا عشت الإحساس ده سنين. لحد ما اكتشفت... إن الكلام مش لازم يطلع من اللسان. ممكن يطلع من الجلد. كل نقطة حبر... كانت كلمة. كل خط... كان صرخة. كل تاتو... كان اعتراف. أنا معرفتش أقول اللي جوايا... فجسمي قاله بالنيابة عني."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                الأوضة غرقت في الصمت. الدكتور نزل عينه. وقفل الملف. ببطء. من غير ما يكتب ولا كلمة. وبعد لحظات... قال: "أعتقد... إني فهمتك."
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (ابتسم، الابتسامة دي كان فيها شكر ويقين):</span>
-                "لا يا دكتور... أنت فهمت الحكاية... لكن محدش هيحسها... غير اللي عاشها."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                لف ناحية الباب ومشى كام خطوة. إيده مسكت المقبض. فتح الباب. نور الممر دخل الأوضة. وقف. من غير ما يبص وراه في الأول. كأنه بيفكر نفسه بالوعد المكتوب على رقبته. وبعدين... ابتسم. لف وشه آخر مرة. بس المرة دي... مكانش بيبص للدكتور. كان بيبص مباشرة للشخص اللي قاعد قدام الشاشة... اللي بيقرأ كل كلمة. رفع إيده بتحية مسرحية بسيطة. وانحنى انحناءة خفيفة. وقال بابتسامة ساخرة... هادية... كأنها آخر نكتة في عرض طويل من الوجع:
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                "لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه."
-            </div>
-
-            <div class="scene-desc reveal-on-scroll">
-                فتح الباب... وخرج. الباب اتقفل بهدوء. ورجع صوت الساعة تاني... تيك... تاك... تيك... تاك... كأنها بتقول... إن الحكايات مبتخلصش... هي بس... بتسيب أثر.
+        <h1 class="chapter-title reveal-on-scroll">العيادة رقم 14</h1>
+
+        <!-- الفصل الأول -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الأول: هندسة الحبر... والإنسان اللي اختفى</h2>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-weight: bold; letter-spacing: 3px;">
+            ...تيك...<br>...تاك...<br>...تيك...<br>...تاك...
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس.<br>كل تيكة كانت كأنها بتعد وقت ضاع...<br>وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها.</p>
+        <p class="scene-desc reveal-on-scroll">العيادة هادية بطريقة مستفزة.<br>ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.</p>
+        <p class="scene-desc reveal-on-scroll">الدكتور كان قاعد في آخر الأوضة، ساند ضهره لورا، حاطط رجل على رجل، ونظارته نازلة سنة صغيرة على مناخيره.</p>
+        <p class="scene-desc reveal-on-scroll">بين كل كام ثانية...<br>تك... تك... تك...<br>يقلم ضوافره بمنتهى البرود.<br>كأن مفيش قدامه بني آدم.<br>كأن اللي قدامه مجرد ملف جديد هيتقفل آخر اليوم.</p>
+        <p class="scene-desc reveal-on-scroll">أما علي...<br>فكان قاعد ساكت.<br>هادئ بشكل يخوف.<br>إيده متشابكة قدام بعض، ورجله بتهز الأرض هزة بسيطة جدًا، الهزة الوحيدة اللي كانت بتفضح إن جواه إعصار.</p>
+        <p class="scene-desc reveal-on-scroll">وشه مفيهوش أي تعبير.<br>إلا الابتسامة دي...<br>الابتسامة اللي الناس فاكرة إنها ثقة...<br>وهي في الحقيقة أرخص طريقة اخترعها الإنسان عشان يخبي إنه خلاص مبقاش عنده طاقة يشرح.</p>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور رفع عينه من الملف...<br>وبص على جسم علي.<br>عينه كانت ماشية على التاتوهات واحدة واحدة.<br>مش بيبصلها كرسومات...<br>لا...<br>كأنه بيقرأ اعترافات مكتوبة بالحبر.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "علي صقر...<br>
+            حتى اسمك عامل دوشة.<br>
+            اسم تقيل... كبير... تحسه داخل أي مكان قبلك.<br>
+            بس الغريبة إن اللي قاعد قدامي دلوقتي...<br>
+            مش باين عليه أي حاجة من الاسم ده."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت ثانيتين... وقفل الملف.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنا شوفت ناس كتير عاملة تاتوهات...<br>
+            بس أنت... أنت عامل متحف كامل."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">أشار بالقلم ناحية دراعه.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كل رسمة ليها مكان... كل كلمة محسوبة... كل خط متعملش كده وخلاص.<br>
+            وده معناه إن الحبر عندك مش للمنظر.<br>
+            الحبر عندك بيتكلم.<br><br>
+            السؤال بقى... بتحاول تقول إيه؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الصمت نزل على الأوضة.<br>حتى صوت الساعة اختفى من ودن علي.<br>هو كان سامع صوت تاني...<br>صوت قديم... ناس كانت بتقول:</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="background-color: #2a2a2a; color: #888; font-style: italic;">
+            "إحنا معاك."<br>
+            "إحنا عمرنا ما هنسيبك."<br>
+            "اطمن."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت.<br>رجع للدكتور.<br>ونفس الابتسامة لسه على وشه.<br>ابتسامة باردة... باردة لدرجة إن اللي يشوفها يحلف إن صاحبها معندوش مشاعر.<br>بس الحقيقة... إنها كانت آخر حاجة فاضلة واقفة بعد ما كل حاجة جواه وقعت.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "يا دكتور...<br>
+            الغريب في البشر إنهم بيعشقوا يشوفوا النهاية...<br>
+            بس أول ما تبدأ تحكيلهم البداية... يبصوا في الساعة.<br>
+            ولو كملت... يبصوا في الموبايل.<br>
+            ولو اتوجعت... يقولولك: شد حيلك.<br>
+            ولو وقعت... يسألوك: هتقوم إمتى؟<br>
+            ولو قومت... يتعاملوا كأنك عمرك ما وقعت."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ضحك ضحكة صغيرة... لكنها كانت ضحكة مالهاش صوت.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "فبطلت أحكي.<br>
+            مش عشان الكلام خلص... لأ... عشان محدش أصلًا كان بيسمع."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص ناحية الأرض. وأخد نفس طويل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك.<br>
+            وكل اللي يطمنك هيكمل معاك.<br>
+            وكل وعد بيتقال... لازم يتنفذ.<br>
+            كنت غبي... أيوة... غبي.<br>
+            بس الغباء الحقيقي مش إنك تثق.<br>
+            الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت... وحرك صوابعه بهدوء.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كل مرة كنت أقول: المرة دي غير.<br>
+            وأرجع ألاقي نفسي بضحك.<br>
+            مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي.<br>
+            هو أنا لسه بتفاجئ؟ هو أنا لسه مستني حاجة من حد؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">رفع عينه للدكتور. نظرة هادية... بس فيها تعب سنين.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عارف يا دكتور...<br>
+            أصعب حاجة مش إن الناس تخذلك.<br>
+            أصعب حاجة... إنك تفضل تدور على سبب.<br>
+            تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... يمكن... يمكن...<br>
+            لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور كان ساكت.<br>أول مرة بطل يقلم ضوافره.<br>القلم نزل من بين صوابعه.<br>وبدأ يبص لعلي بنفس الطريقة اللي الدكتور بيبص بيها للمريض...<br>لما يحس إن اللي قدامه مش بيقول كلام... ده بيطلع حاجة مدفونة بقالها سنين.</p>
+        
+        <p class="scene-desc reveal-on-scroll">عين الدكتور نزلت على الدراع الشمال.<br>وقف قدام أول تاتو.<br>ابتسم ابتسامة خفيفة... وقال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "واضح إن هنا... القصة بتبتدي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Courier New', Courier, monospace; font-size: 1.5em; text-align: center; color: #fff;">
+            Try for yourself...
+        </p>
+
+
+        <!-- الفصل الثاني -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور قرب خطوة.<br>ببطء... كأنه خايف يقرب زيادة.<br>عينه كانت واقفة على أول سطر.<br><i>Try for yourself.</i><br>قرأها مرة... واتنين... وبعدين نزل بعينه لتحت.<br>وساعتها... سكت.</p>
+        
+        <p class="scene-desc reveal-on-scroll">العينين.<br>مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية.<br>فيهم لمعة خفيفة... وفيهم هدوء غريب...<br>بس أكتر حاجة شدت الدكتور... إن العينين دول كانوا مختلفين عن باقي الحبر.<br>كل التاتوهات كان فيها تحدي... غضب... وجع...<br>إنما العينين... كان فيهم أمان.<br>حاجة مكنتش راكبة مع باقي جسم علي.</p>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور مال وشه شوية... وقال وهو لسه باصص عليهم:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "مين دي؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي مبيردش.<br>فضل باصص على دراعه كأنه أول مرة يشوفه.<br>ابتسم... بس الابتسامة دي المرة دي مكانش فيها سخرية.<br>كان فيها حنين... وجع... وحاجة شبه الامتنان.<br>رفع إيده ولمس العينين بطرف صوابعه... برقة... كأن الحبر ده ممكن يحس.<br>وبص للدكتور.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "مروة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور رفع حاجبه.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "واضح إنها كانت مهمة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ضحك ضحكة قصيرة.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كانت؟<br>
+            هي فيه ناس بتخلص يا دكتور؟<br>
+            فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">رجع يبص للعينين. وصوته هدي أكتر.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "الناس كلها كانت بتبص على علي اللي واقف قدامها.<br>
+            إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه.<br>
+            فاهم الفرق؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور مردش. وعلي كمل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان.<br>
+            الناس كانت تقول: ده قوي.<br>
+            هي كانت تقول: لا... ده شايل فوق طاقته.<br>
+            الناس كانت تسمع كلامي... هي كانت تسمع السكوت اللي بين الكلام."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">أخد نفس طويل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "الغريب إن الإنسان طول عمره بيدور على حد يفهمه.<br>
+            مش يوافقه... ولا يجامله... ولا يقوله حاضر.<br>
+            بس يفهمه.<br>
+            ولما يلاقي الشخص ده... بيحس إن الدنيا بطلت تبقى تقيلة شوية."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "كانت حبيبتك؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأ... كانت رزقي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور بصله باستغراب. فعلي كمل وهو بيبص للعينين.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "فيه ناس بتدخل حياتك صدفة.<br>
+            وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة.<br>
+            وأنا... ربنا رزقني بمروة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">صوته بدأ يوطى.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنا مش بقول إنها ملاك علشان بحبها.<br>
+            أنا بقول إنها ملاك... لأنها كانت أول إنسانة شافت جوايا حاجة حلوة... في الوقت اللي أنا نفسي كنت شايف إني مستاهلش أي حاجة حلوة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت. وبعدين ضحك بسخرية.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "تخيل؟<br>
+            أنا كنت شايف نفسي شخص عادي... يمكن أقل من عادي.<br>
+            إنما هي... كانت بتعاملني كأني أغلى حاجة في الدنيا.<br>
+            وأقسم بالله يا دكتور... لحد النهارده... مش عارف هي كانت شايفة إيه."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "وإنت شايف إنها غيرت حياتك؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا... دي غيرتني أنا.<br>
+            الولادة الجديدة اللي الناس فاكراها بدأت مع الحبر... لأ.<br>
+            الحبر جه بعدين.<br>
+            أما البداية الحقيقية... فكانت يوم ربنا بعتلي مروة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">عين الدكتور نزلت تحت العينين. وقف قدام التكملة:<br>
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.2em;">and for <span style="color: darkred; font-weight: bold; font-size: 1.2em;">me</span></span></p>
+        
+        <p class="scene-desc reveal-on-scroll">لكن كلمة... <span style="color: darkred; font-weight: bold; font-size: 1.2em;">me</span> كانت لوحدها باللون الأحمر.</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور قرب أكتر، وقال: "ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي لمس الكلمة بصوابعه، وبرغم برودة الأوضة، كان واضح إن نبرة صوته اتهزت بحمل أتقل وشجن أعمق:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. <i>and for me</i>.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "...أنا."<br><br>
+            "كنت بعمل كل حاجة علشان الناس. أرضي ده، وأساعد ده، وأستحمل ده، وأجي على نفسي علشان الكل.. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تخليني ألتفت لنفسي.. أول واحدة تقوللي: عيش لنفسك شوية."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص للكلمة الحمرا، وأخد نفس حاد وكأنه بيستجمع روحه:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وحتى لو الدنيا لفت بينا.. ومبقناش مع بعض دلوقتي.. وحتى لو الظروف كانت أقوى مننا وكل واحد راح في طريق.. فـ <i>me</i> اتكتبت بالدم عشان تفضل ثابتة ومتموتش. دي وعد ليها، ووعد لنفسي.. إن علي اللي هي تعبت عشان تخليه يشوف نفسه ويحبها، مش هسمحله يضيع تاني. أنا هفضل أحاول، وهفضل أعافر وأقوم.. علشاني، وعلشان الروح النضيفة اللي هي أحيتها جوايا."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وفجأة.. عين الدكتور انتبهت لراس وجسم الحية (التعبان) اللي طالع وممتد مباشرة من تحت حرف الـ (e) في كلمة <i>me</i>. جلدها مرسوم بتفاصيل دقيقة ومرعبة، كأنها بتشق طريقها وتزحف خارجة من قلب الكلمة دي بالذات.</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور مال براسه وقال بذهول: "يعني التعبان.. بدأ يخرج من هنا؟ منك أنت.. وبسببها؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي هز راسه، وابتسامته رجعت بس المرة دي كانت دافية وموجوعة في نفس الوقت:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "بالظبط يا دكتور. التعبان بدأ من هنا.. من لحظة التعب والولادة الجديدة اللي هي كانت سبب فيها. الناس أول ما تشوف التعبان تقول شر، سم، خيانة.. وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "ليه؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأن التعبان هنا مش رمز للشر. التعبان هو الكائن الوحيد اللي لما الدنيا تضيق عليه وجلده يقدم ويتبهدل من الجروح، بيعمل إيه؟ بيخلع جلده كله. بيسيب النسخة القديمة، الضعيفة، المكسورة اللي اتأذت من الناس.. وبيمشي بنسخة جديدة قوية. مروة هي اللي خلتني أبدأ أخلع جلدي القديم. هي اللي زرعت جوايا القوة إني اتولد من جديد ومستسلمش للوجع. وعشان كده التعبان طالع من كلمة <i>me</i>.. لأن ولادتي الجديدة كانت بسببها، ومكملة علشاني وعلشانها.. حتى لو مبقناش مع بعض."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت.. وبص لمروة المرسومة على دراعه، وقال بابتسامة هادية:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لو فيه حاجة واحدة في حياتي مستحيل أعتبرها صدفة... فهتبقى مروة. لأن في عز ما كنت فاكر إن الدنيا قفلت بابها في وشي... ربنا فتحلي باب على هيئة إنسانة. وأجمل رزق ممكن الإنسان ياخده... مش فلوس... ولا شهرة... ولا نجاح... أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
+        </div>
+
+        
+        <!-- لوحة الأدلة -->
+        <div class="evidence-board reveal-on-scroll">
+            <h3 style="color: #8b0000; text-align: center; margin-bottom: 20px; font-family: 'Courier New', Courier, monospace;">[مرفقات القضية رقم 14 - صور الأدلة]</h3>
+            <div class="evidence-gallery">
+                <div class="evidence-item"><img src="ior.png" alt="Evidence IOR"></div>
+                <div class="evidence-item"><img src="t2.jpeg" alt="Tattoo 2"></div>
+                <div class="evidence-item"><img src="t3.jpeg" alt="Tattoo 3"></div>
+                <div class="evidence-item"><img src="t4.jpeg" alt="Tattoo 4"></div>
             </div>
         </div>
-    </section>
 
-    <section class="evidence-section" id="evidence">
-        <div class="evidence-overlay"></div>
-        <h2 class="evidence-title reveal-on-scroll">لوحة الأدلة</h2>
-        <div class="grid-container">
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="forearm-snake.png" alt="The Serpent">
-                <div class="card-caption">دليل 1: الثعبان</div>
-            </div>
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="forearm-roman.png" alt="Roman Date">
-                <div class="card-caption">دليل 2: التاريخ الأسود</div>
-            </div>
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="neck-script.png" alt="Neck Script">
-                <div class="card-caption">دليل 3: مفيش رجوع</div>
-            </div>
-            <div class="photo-card reveal-on-scroll tilt-effect">
-                <div class="pin"></div>
-                <img src="chest-tattoo.png" alt="Chest Tattoo">
-                <div class="card-caption">دليل 4: انعدام الثقة</div>
+        
+        <!-- الفصل الثالث -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الأوضة رجعت تسكت.<br>محدش اتكلم.<br>الدكتور كان واقف قدام دراع علي، كأنه نسي إنه في جلسة علاج.<br>بص على الحية وهي خارجة من كلمة <i>me</i>...<br>وبعدين لف على الساعد اليمين.<br>وقف.<br>قرأ الجملة المكتوبة هناك بصوت واطي:</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Courier New', Courier, monospace; font-size: 1.5em; text-align: center; color: #fff;">
+            No Risk No Story.
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">ابتسم ابتسامة خفيفة.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "دي مفهومة...<br>اللي ميخاطرش، معندوش قصة تتحكي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">لكن بعدها بعينه مباشرة...<br>كان التاريخ.<br>
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.5em; display: block; text-align: center; color: #fff;">II • XIV • MMXXII</span><br>
+        فضل يبصله كام ثانية.<br>وبعدين قال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "بصراحة...<br>أنا كنت فاكر ده تاريخ الولادة الجديدة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي رفع راسه بسرعة.<br>ولأول مرة... الابتسامة اختفت تمامًا.<br>هز راسه بالنفي.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأ.<br>الولادة الجديدة ليها حكاية تانية."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت.<br>وبص للتاريخ.<br>ولأول مرة... الدكتور لاحظ إن عين علي لمعت.<br>مش دموع... لكن لمعة الإنسان لما يقف قدام ذكرى عمرها ما هتتكرر.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أما التاريخ ده...<br>ده أغلى تاريخ اتحفر على جسمي."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "ليه؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي أخد نفس طويل. وقال بهدوء:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الأوضة سكتت.<br>حتى صوت الساعة... كأنه اختفى.<br>علي كمل...</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "الناس لما تبص عليه... تشوف أرقام روماني.<br>وأنا... كل ما أشوفه... بفتكر اليوم اللي حياتي خدت نفس لأول مرة.<br><br>
+            الغريب إن الناس فاكرة إن الحب بيغير الإنسان...<br>لا... الإنسان الصح... هو اللي بيغير الإنسان."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "يعني مروة غيرتك؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ابتسم علي.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "هي مغيرتنيش بالعافية. ولا طلبت مني أبقى شخص تاني.<br>هي عملت حاجة أصعب بكتير... خلتني أحب الشخص اللي كنت طول عمري بكرهه."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور فضل ساكت. وعلي كمل...</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كنت ببص في المراية... وأشوف واحد مليان عيوب.<br>هي كانت تبصلي... وكأنها شايفة إن مفيش أجمل مني.<br>لحد النهارده... مش عارف كانت شايفة إيه.<br>يمكن ربنا كشفلها حاجة... أنا نفسي مكنتش شايفها."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص للتاريخ.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عارف يعني إيه حد يخليك تحس إنك كفاية... من غير ما تطلب منه؟<br>عارف يعني إيه حد يحسسك إن وجودك لوحده له قيمة؟<br>الإحساس ده... فلوس الدنيا كلها متشتريهوش.<br><br>
+            أنا اتعلمت من الدنيا حاجات كتير.<br>إن الناس بتبيع. وبتتغير. وبتنسى.<br>لكن ربنا... لما يحب يجبر قلب واحد مكسور... بيبعتله شخص.<br>وأنا... ربنا جبر خاطري بمروة."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور بهدوء: "واضح إنك بتحبها جدًا."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ضحك.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "دي أقل كلمة تتقال.<br>أنا مؤمن إن في حاجات بتحصل صدفة. بس هي... عمرها ما كانت صدفة.<br>أنا مؤمن إنها كانت رزق. دعوة يمكن أمي دعتها. أو سجدة أنا نسيتها. أو رحمة من ربنا... قرر ينزلها على قلبي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">صوته بدأ يهدى أكتر.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "فيه ناس ربنا يرزقهم ببيت. وفيه ناس يرزقهم بفلوس. وفيه ناس يرزقهم بشغل.<br>أما أنا... فربنا رزقني بإنسانة.<br>ولو خيروني ألف مرة... هختار نفس الرزق."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور كان باصص لعلي... لكن المرة دي مش كدكتور.<br>كان باصص لإنسان... بيتكلم عن حد بيحبه... وكأنه بيتكلم عن نعمة.<br>بعد ثواني... رجع الدكتور يبص للجملة المكتوبة فوق التاريخ.<br><i>No Risk No Story.</i></p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "يعني المخاطرة دي... كانت إنها تدخل حياتك؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ضحك لأول مرة ضحكة حقيقية.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأ يا دكتور.<br>المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه.<br>وأجمل مخاطرة أخدتها في حياتي... إني صدقتها."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وقف. وحط إيده على الساعد اليمين. وقال بصوت هادي...</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وعشان كده التاريخ اتحفر هنا.<br>مش عشان أفكره. أنا مستحيل أنساه.<br>اتحفر... عشان كل يوم أصحى وأفتكر إن مهما الدنيا علمتني أقسى الدروس... ربنا لسه قادر يبعت للإنسان رزق ينسّيه وجعه كله في لحظة واحدة."
+        </div>
+
+
+        <!-- الفصل الرابع -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور أخد نفس عميق... وبعدين بعينه راح ناحية الرقبة اليمين.<br>الجملة كانت واضحة... سودا... وحادة...</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Courier New', Courier, monospace; font-size: 1.5em; text-align: center; color: #fff; text-transform: uppercase;">
+            Never Look Back.
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">ابتسم ابتسامة خفيفة... وقال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "واضح إن من هنا... القصة هتبدأ توجع.<br>دي بقى أكتر واحدة بشوفها. أي حد بيعمل تاتوهات بيحب الجمل دي. تحفيز... بداية جديدة... سيب الماضي... الحاجات المعتادة يعني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي بصله... وبعدين ضحك. الضحكة دي رجعت تاني. الضحكة اللي عمرها ما كانت معناها إنه مبسوط.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنت فاكرها جملة... وأنا شايفها أمر.<br>أمر. كل يوم أصحى... وأشوفها.<br>مش عشان أفكر نفسي أكون قوي... لا. عشان أفكر نفسي... مبصش ورا."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "للدرجة دي الماضي كان وحش؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله.<br>عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟<br>مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص في الأرض.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كنت كل مرة أقول... يمكن الرسالة دي تتبعت. يمكن الشخص ده يتغير. يمكن الاعتذار ييجي. يمكن اللي راح يرجع. يمكن... يمكن... يمكن.<br>الغريب إن كلمة (يمكن)... دمرت ناس أكتر من كلمة (مستحيل)."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور فضل ساكت. وعلي كمل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كنت فاكر إن لو استنيت كفاية... كل حاجة هتتصلح.<br>بس الحقيقة؟ في حاجات... كل ما تستناها أكتر... بتكسرك أكتر.<br>عشان كده... الجملة دي مكانها على رقبتي."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "ليه الرقبة بالذات؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأن الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته.<br>فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "واضح إنك قاسي على نفسك."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا يا دكتور... أنا بس بطلت أدلع نفسي بالكلام اللي مبيحصلش.<br>يعني بطلت أقول بكرة أحسن. بطلت أقول الناس هتتغير. بطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-weight: bold; letter-spacing: 3px;">
+            ...تيك...<br>...تاك...
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">قال علي وهو باصص في الفراغ:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عارف أكتر حاجة كانت بتوجعني؟ مش الخذلان... ولا الفراق... ولا الكدب.<br>إني كنت كل مرة... أدي فرصة زيادة.<br>كنت فاكر إن دي طيبة. طلعت غباء."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "يعني مبقتش تسامح؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا... بسامح.<br>بس مبفتحش نفس الباب مرتين.<br>أصل الناس فاكرة إن المسامحة معناها إن كل حاجة ترجع زي الأول. لأ. أنا ممكن أسامحك... وأدعيلك... وأتمنالك الخير... بس مستحيل أرجع أحط إيدي في نفس النار وأقول يمكن المرة دي متحرقنيش."
+        </div>
+
+
+        <!-- الفصل الخامس -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الخامس: فاتورة الثقة</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور أخد نفس عميق. وحول عينه ناحية الصدر الشمال.<br>الحروف كانت أوضح. وأقسى. وأتقل.</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Courier New', Courier, monospace; font-size: 1.5em; text-align: center; color: var(--highlight-color); text-transform: uppercase;">
+            Don't Trust Damn Humans.
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">وقف قدامها كام ثانية. وبعدين قال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "دي... شكلها مش جملة. شكلها قضية."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ابتسم علي... وقال بهدوء يخوف:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأ يا دكتور... دي فاتورة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الأوضة رجعت تسكت... لدرجة إن صوت التكييف بقى مسموع.<br>الدكتور كان واقف قدام تاتو الصدر الشمال. قرأها مرة... وبعدين مرة تانية. وبعدين بص لعلي.</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وده الطبيعي.<br>لأن الحقيقة عمرها ما كانت مريحة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكتوا. الدكتور حط القلم على المكتب. ولأول مرة من أول الجلسة... اتكلم من غير برود.</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "مين خلاك توصل للمرحلة دي يا علي؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي فضل ساكت. بص للسقف. كأنه بيدور على إجابة... مع إنه حافظها. بعد ثواني قال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟<br>ليه محدش بيسأل... إنت استحملت كل ده إزاي؟<br>الناس بتحب تعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص.<br>يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت شوية. وبعدين بص للدكتور.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنا مش بكره البشر.<br>التاتو ده مش دعوة. دي تذكرة.<br>تذكرة بالتمن اللي دفعته.<br><br>
+            زمان... كنت بثق بسهولة. يمكن أسهل من اللازم. كنت فاكر إن طالما قلبي نضيف... يبقى الناس هتكون زيه. كنت فاكر إن اللي يضحك في وشك... لازم يبقى بيحبك. وإن اللي يقولك: (أنا جنبك)... هيفضل جنبك.<br>طلع إن الدنيا مبتشتغلش كده."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "اتخذلت؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا... اتعلمت.<br>المخذول... بيستنى اللي كسره يعتذر.<br>أما اللي اتعلم... بيعرف إن الاعتذار مش هيغير اللي حصل."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-weight: bold; letter-spacing: 3px;">
+            ...تيك...<br>...تاك...
+        </p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك.<br>أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك.<br>يبقى حافظ إيه اللي بيوجعك... وإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود.<br>ساعتها... بتفهم إن الث الثقة... مش حاجة تتوزع ببلاش."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "بس مينفعش تعاقب كل الناس بسبب كام شخص."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ابتسم. ابتسامة هادية جدًا.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أهو... وده اللي أقصده. إن محدش بيفهم.<br>أنا مقولتش إني هعاقب الناس.<br>أنا قلت... إن الثقة مبقتش حق.<br>الثقة بقت امتياز.<br>اللي عايزها... يتعب علشان ياخدها."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور فضل ساكت. وعلي كمل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنا لسه بعامل الناس باحترام. ولسه بساعد. ولسه بضحك. ولسه بسلم. بس... مبقتش بفتح قلبي لأي حد.<br>القلب اللي اتكسر مرة... مش بيبقى جبان. بيبقى فاهم.<br>وعشان كده التاتو هنا... على الصدر... لأن القلب تحته.<br>كل ما أبصله... أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "واضح إنك لسه زعلان."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "زعلان؟ لا يا دكتور.<br>الزعل بيخلص. إنما الدروس... بتعيش.<br><br>
+            عارف أكتر حاجة ضحكتني؟<br>إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا.<br>وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا.<br>ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور أخد نفس طويل. وبعدين بص على علي... لأول مرة من أول الجلسة... من غير ما يشوف التاتوهات. بصله هو. كإنسان. وقال بهدوء:</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "...واضح إنك تعبت أوي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ابتسم علي. ابتسامة صغيرة. هادية. لكن المرة دي... مكانش فيها سخرية. كان فيها استسلام بسيط. وقال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا يا دكتور... أنا بس... بطلت أستغرب."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وسكت. الصمت المرة دي... كان أعلى من أي كلمة اتقالت في الجلسة.<br>وفي الصمت ده... الدكتور لأول مرة حس إن اللي قدامه مش بيحاول يقنعه.<br>هو بس... كان نفسه... مرة واحدة في حياته... حد يفهمه من غير ما يضطر يشرح.</p>
+
+        <!-- الفصل السادس (الجديد) -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل السادس: الحرب اللي جوه... والظل اللي مش عايز يموت</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور حك جبهته ببطء، وقبل ما يقفل الملف، عينه راحت لجنب علي الأيمن... عند أضلاعه تحت إبطه وممتدة لجنب بطنه.<br>المكان كان متغطي بتاتو كبير، كلام كتير مكتوب تحت بعضه، وفي النص رسمة لبني آدم قاعد بضهره على الأرض، ومواجه لظل أسود كامل، مالوش ملامح غير عينين بيض بتلمع في الضلمة.</p>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور مال براسه وقرأ بصلابة:</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Amiri', serif; font-size: 1.4em; text-align: center; color: #fff;">
+            في دماغي إتنين خلف خلاف<br>
+            دنيا ودين، عكس عكاس<br>
+            دوقنا القهر، شربنا الكاس
+        </p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            سكت الدكتور لحظة، وبص لعلي وقال: "المرة دي التاتو واخد جنب جسمك كله... ومش مجرد كلمة أو رمز. دي حلبة مصارعة."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ابتسم، لكن الابتسامة المرة دي كانت حادة، فيها إرهاق معركة مابتنتهيش.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "دي مش حلبة يا دكتور... دي حرب أهلية شغال جوه دماغي 24 ساعة."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "بين مين ومين؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي أشار بإصبعه على رسمة الظل والشخص اللي قاعد.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "بين علي القديم... وعلي الجديد. اتنين عايشين في نفس العقل، بس خلف خلاف في كل حاجة. علي القديم كان ضعيف، بييجي على نفسه عشان يرضي غيره، كان همه الدنيا وتفاصيلها.. أما الجديد، فالدنيا مبقتش من أولوياته خالص. بقت (دنيا ودين، عكس عكاس)."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">أخد نفس، وكمل:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "(دوقنا القهر، شربنا الكاس).. الناس فاكرة إن لما حد بيشرب عشان ينسى، الكاس بيهون. بس الحقيقة إن الكاس نفسه كان متغرق بقهر الدنيا ومرارها."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">عين الدكتور نزلت على شريط أسود عريض بارز في وسط التاتو، المربع المظلل كأنه محفور بغضب، ومكتوب جواه بالأبيض:</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center;">
+            <span style="background-color: black; color: white; padding: 5px 10px; font-weight: bold; border-radius: 3px; font-size: 1.2em;">ضميري يصحى وأنا عايز أنام</span>
+        </p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور أشار للمربع الأسود وسأل: "ليه الجملة دي بالذات محبوسة في المربع الأسود ده؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي غمض عينه ثانية ورجع فتحها:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عشان علي القديم مبيعرفش يصحى غير في الوقت الغلط. أكون مهدود، طالع عيني طول اليوم، محتاج بس أنام وأرتاح من التفكير... يصحى هو. صوت الضمير الضعيف القديم اللي يقولي: (يمكن قسيت؟ يمكن المفروض تسامح؟ افتكر اللي بينكم!). يصحى ينكش في الوجع في عز ما أنا محتاج أنام."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ونزل بعينه للجملة اللي تحت المربع مباشرة:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عشان كده برد عليه وأقوله: <i>مش كل مرة، إنت مين صحاك؟</i>.. إوعى تفتكر إنك كل ما تصحى هسيبك ترجعني لنقطة الصفر تاني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وفجأة... عين الدكتور اتثبتت على السطر اللي بعده. السطر الوحيد المكتوب باللون الأحمر الفاقع وسط الحبر الأسود:</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-size: 1.4em;">
+            <span style="color: red; font-weight: bold;">إنت بتنسى شكلك، أنا بيك قرفان</span>
+        </p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور قرب وشبه اندهش: "الأحمر هنا مش بتاع مروة... الأحمر هنا فيه كره شديد. أنت بقيت تقرف من نفسك؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي هز راسه بقوة، وصوته بقى حاد:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "بقرف من نسختي القديمة يا دكتور! ومكتوبة بالأحمر لأن دي أكتر حاجة تهم في التاتو كله. علي القديم اللي بيحاول كل شوية يرجع يظهر للناس، بيبقى ناسي شكله!.. ناسي قد إيه كان ضعيف، ناسي قد إيه الناس كانت بتبص له باستخفاف وتيجي عليه. هو بينسى هوان شكله، بس أنا فاكر... وأنا بيك قرفان ومستحيل أسمحلك ترجع تملى المكان."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص الدكتور للرسمة اللي في النص... الشخص اللي قاعد بضهره والظل اللي قدامه. وقال بطفيف من التأثر:</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "ده أنت... وده ظلك القديم."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "ده علي الجديد اللي قاعد بصلابة، باصص لعلي القديم اللي بقى مجرد ظل مالوش قيمة غير عيون بتلمع بالضعف."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ونزل بصره للسطور الأخيرة تحت الرسمة وقرأهم بصوت واطي:</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="font-family: 'Amiri', serif; font-size: 1.4em; text-align: center; color: #fff;">
+            مش فاكر إمتى كنت بيك فرحان<br>
+            زمنا دوه مش ليك أحمار
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">علي ضحك ضحكة قصيرة بس قاسية:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "أنا من كتر ما بقيت بكره أيام علي الضعيف القديم... نسيت أساساً إذا كان في يوم حلو جمعني بيه! مش فاكر إمتى كنت بيك فرحان أو مبسوط. عشان كده نهيت الحوار معاه بأبسط وأقسى حقيقة..."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور سأله: "اللي هي؟"
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "قلت له: <i>زمنا دوه مش ليك أحمار</i>.. الزمن الحالي ده، بقسوته وناسه اللي بياكلوا القوي قبل الضعيف، مش بتاع واحد غبي وضعيف زيك. أنت حمار ومش هتفهم التغيرات دي ولا هتعرف تتكيف معاها... ولو طلعت تاني دلوقتي، هتخرب كل حاجة أنا تعبت عشان أبنيها وهتفرمنا."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-weight: bold; letter-spacing: 3px;">
+            ...تيك...<br>...تاك...
+        </p>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور فضل باصص لجنب علي، كأنه بيستوعب حجم الصراع اللي مش باين تحت الهدوم. البني آدم ده مش بس بيحارب العالم وذكرياته مع الناس... ده في حرب يومية مع أقرب حد ليه: <strong>نسخته القديمة</strong>.</p>
+        
+        <p class="scene-desc reveal-on-scroll">الدكتور أخد نفس عميق، ورفع إيده ببطء... وبدأ يحرك إيده ناحية أوراق الملف عشان ينهي الجلسة.</p>
+
+
+        <!-- الفصل الأخير -->
+        <h2 class="sub-heading reveal-on-scroll">الفصل الأخير: الكلمات اللي معرفتش تتقال</h2>
+        
+        <p class="scene-desc reveal-on-scroll">الأوضة ساكتة...<br>لأول مرة من أول الجلسة... محدش بيتكلم.<br>لا الدكتور... ولا علي... ولا حتى صوت الساعة.<br>الدكتور كان باصص لعلي.<br>بس المرة دي... مش بيحلله. ولا بيقرأ التاتوهات.<br>كان بيبص لإنسان... شكله واقف قدامه... وروحه في حتة تانية.<br>بعد ثواني... الدكتور اتكلم. بصوت هادي جدًا.</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "يعني... كل الحبر اللي على جسمك ده... كان مجرد طريقة للهروب؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي نزل عينه على جسمه.<br>بص على دراعه الشمال... على عيون مروة.<br>وبعدين على الحية. وبعدين على التاريخ. وبعدين على رقبته. وبعدين على صدره. وبعدين على جنبه الأيمن مكان الحرب والظل.<br>ابتسم. وقال بهدوء:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأ."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "أمال إيه؟"
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">سكت. كأن السؤال ده... استناه سنين. وبعدين قال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كل رسمة هنا... جنازة.<br>كل جملة... مدفونة تحتها نسخة قديمة مني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">رفع إيده على عيون مروة.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "ودي... فكرتني إن ربنا ممكن يرزق الإنسان بحد يشوفه وهو مكسور... ويعامله كأنه كامل."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">نزل بإيده على كلمة <i>me</i>.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "ودي... أول مرة في حياتي أقرر إن علي يستحق يعيش هو كمان."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">لمس الحية.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "ودي... مش رمز للشر. دي شهادة وفاة... للنسخة اللي كانت كل يوم تموت وهي بتحاول ترضي الناس."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وبعدين حط إيده على التاريخ.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وده... أجمل يوم ربنا كتبهولي."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">لمس جنبه عند الصراع والظل.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وده... الحرب اللي بتفكرني كل يوم إني مقبلش أرجع لضعفي تاني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">وأخيرًا... لمس رقبته.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "وده... الوعد اللي كل يوم بحاول أوفي بيه."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">ونزل بإيده على صدره. ابتسم بسخرية.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "ودي... أغلى فاتورة دفعتها في حياتي."
+        </div>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            الدكتور: "بس برضه... إنت مقولتليش ليه اخترت الحبر."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي أخد نفس طويل. وطلع زفيره براحة. وقال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لأن الكلام خذلني.<br>كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص.<br>كل مرة أقول اللي جوايا... أحس إن نصه مات قبل ما يوصل.<br>وكل مرة حد يسألني: (مالك؟) وأرد: (مفيش.)<br>كان يبقى جوايا ألف حكاية... وألف وجع... وألف كلمة... محدش شاف منهم حاجة.<br><br>
+            الغريب... إن الناس كانت مصدقة كلمة (مفيش)... أكتر مني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">بص في عين الدكتور.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "عارف يعني إيه يبقى عندك كلام... لو خرج... يمكن يهز جبل... لكن أول ما يوصل لزورك... يموت؟<br>أنا عشت الإحساس ده سنين.<br>لحد ما اكتشفت... إن الكلام مش لازم يطلع من اللسان.<br>ممكن يطلع من الجلد."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">رفع دراعه الشمال.</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "كل نقطة حبر... كانت كلمة.<br>كل خط... كان صرخة.<br>كل تاتو... كان اعتراف.<br>أنا معرفتش أقول اللي جوايا... فجسمي قاله بالنيابة عني."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">الأوضة غرقت في الصمت.<br>الدكتور نزل عينه. وقفل الملف. ببطء. من غير ما يكتب ولا كلمة.<br>وبعد لحظات... قال:</p>
+        
+        <div class="dialogue-block reveal-on-scroll" style="border-right-color: #888; color: #ccc;">
+            "أعتقد... إني فهمتك."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">علي ابتسم. الابتسامة دي كانت مختلفة. فيها شكر... لكن فيها يقين. وقال بهدوء:</p>
+        
+        <div class="dialogue-block reveal-on-scroll">
+            "لا يا دكتور...<br>أنت فهمت الحكاية... لكن محدش هيحسها... غير اللي عاشها."
+        </div>
+        
+        <p class="scene-desc reveal-on-scroll">لف ناحية الباب. ومشى كام خطوة.<br>إيده مسكت المقبض. فتح الباب.<br>نور الممر دخل الأوضة.<br>وقف. من غير ما يبص وراه في الأول. كأنه بيفكر نفسه بالوعد المكتوب على رقبته.<br>وبعدين... ابتسم.<br>لف وشه آخر مرة. بس المرة دي... مكانش بيبص للدكتور.<br>كان بيبص مباشرة للشخص اللي قاعد قدام الشاشة... اللي بيقرأ كل كلمة.<br>رفع إيده بتحية مسرحية بسيطة. وانحنى انحناءة خفيفة.<br>وقال بابتسامة ساخرة... هادية... كأنها آخر نكتة في عرض طويل من الوجع:</p>
+        
+        <div class="dialogue-block reveal-on-scroll" id="final-speech">
+            "لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه."
+        </div>
+
+        <p class="scene-desc reveal-on-scroll">فتح الباب... وخرج.<br>الباب اتقفل بهدوء.<br>ورجع صوت الساعة تاني...</p>
+        
+        <p class="scene-desc reveal-on-scroll" style="text-align: center; font-weight: bold; letter-spacing: 3px;">
+            ...تيك...<br>...تاك...<br>...تيك...<br>...تاك...
+        </p>
+
+        <p class="scene-desc reveal-on-scroll">كأنها بتقول... إن الحكايات مبتخلصش... هي بس... بتسيب أثر.</p>
+
+        <!-- مساحة فارغة في الأسفل لبدء التفاعل الأخير -->
+        <div style="height: 200px;" id="end-trigger"></div>
+    </div>
+
+
+    <!-- المشهد السينمائي النهائي (يظهر بعد التمرير للنهاية) -->
+    <div id="cinematic-screen">
+        <div id="lyrics-container" class="cinematic-lyrics"></div>
+        <div id="final-sentence" class="cinematic-final-sentence" style="display: none;">
+            <div dir="rtl" align="center" style="background-color: transparent; color: #d1cdb7; font-family: 'Amiri', 'Traditional Arabic', serif; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">
+                «وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»
             </div>
         </div>
-        <div id="ending-trigger" style="height: 50px; width: 100%;"></div>
-    </section>
 
-    <div id="cinematic-container">
-        <div class="cinematic-stage">
-
-            <div class="confess-screen" id="confess-text">
-                "استنا.. انا جوايا كلام تاني عاوز اقولو بس مش عارف اطلعو"
-            </div>
-
-            <div class="spotify-screen" id="spotify-player">
-                <div class="spotify-left">
-                    <div class="spotify-video-wrapper">
-                        <img id="creep-image" src="hamo.jpg" alt="Hamo Cover">
-                        <div class="spotify-video-overlay"></div>
-                    </div>
-                    <div class="spotify-info">
-                        <div class="spotify-title">Creep</div>
-                        <div class="spotify-artist">Radiohead</div>
-                    </div>
-                </div>
-                <div class="spotify-right">
-                    <div class="lyrics-scroll" id="lyrics-scroller"></div>
-                </div>
-            </div>
-
-            <div class="farewell-screen" id="typewriter-farewell"></div>
-
-            <div class="countdown-screen" id="cinema-countdown">
-                <div class="grain-overlay"></div>
-                <div class="cinema-circle">
-                    <div class="cinema-cross-h"></div>
-                    <div class="cinema-cross-v"></div>
-                    <div class="cinema-num" id="countdown-num">5</div>
-                </div>
-            </div>
-
-            <!-- الجملة الجديدة المقسمة بشكل صحيح -->
-            <div class="modern-finale-screen" id="modern-finale-screen">
-                <div class="modern-finale-text" id="modern-finale-part1"></div>
-                <div class="modern-finale-text" id="modern-finale-part2" style="margin-top: 15px; opacity: 0; transition: opacity 1s;"></div>
-                <div id="modern-finale-signature" style="margin-top: 30px; font-family: var(--font-ar); font-size: clamp(1.2rem, 3vw, 1.8em); color: var(--blood-red); opacity: 0; transition: opacity 1s; font-weight: bold; font-style: italic;"></div>
-            </div>
-
-            <!-- صندوق التعليقات المحسّن بالكامل لدعم الكيبورد والتفاعل الحقيقي -->
-            <div class="comments-screen" id="comments-box">
-                <div class="comment-prompt">"شجعني علي اني اكون احسن من النسخه الي فاتت و لو بكلمه بس."</div>
-                <div class="comment-input-area">
-                    <textarea class="comment-textarea" id="comment-text" placeholder="اكتب أثرك الطيب هنا..."></textarea>
-                </div>
-                <button class="comment-submit" onclick="submitMessage()">إرسال الرسالة الأخيرة</button>
-
-                <div class="comments-list-container">
-                    <h4 style="color: #aaa; margin-bottom: 15px; font-size: 1.1em; font-family: var(--font-ar); text-align: right;">الأثر الطيب للآخرين:</h4>
-                    <div id="comments-list">
-                        <!-- Comments rendered dynamically -->
-                    </div>
-                </div>
-            </div>
-
+        <div id="comment-section">
+            <textarea class="comment-box" id="user-comment" rows="3" placeholder="اترك أثراً أو كلمة قبل أن ترحل..."></textarea>
+            <div class="landscape-warning" id="landscape-warning" style="display:none;">*يُفضل تدوير الهاتف للكتابة براحة*</div>
+            <button class="leave-mark-btn" onclick="saveComment()">توقيع الأثر</button>
         </div>
     </div>
+
+    <!-- مشغل Spotify المخفي -->
+    <iframe id="spotify-player" src="https://open.spotify.com/embed/track/70LcF31zb1H0PyZxsq6z3T?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
 
     <script>
-        const lyricsData = [
-            { time: 18, text: "When you were here before" },
-            { time: 23, text: "Couldn't look you in the eye" },
-            { time: 27, text: "You're just like an angel" },
-            { time: 33, text: "Your skin makes me cry" },
-            { time: 39, text: "You float like a feather" },
-            { time: 44, text: "In a beautiful world" },
-            { time: 49, text: "I wish I was special" },
-            { time: 53, text: "You're so fuckin' special" },
-            { time: 59, text: "But I'm a creep" },
-            { time: 65, text: "I'm a weirdo" },
-            { time: 69, text: "What the hell am I doing here?" },
-            { time: 75, text: "I don't belong here" },
-            { time: 81, text: "I don't care if it hurts" },
-            { time: 86, text: "I wanna have control" },
-            { time: 91, text: "I want a perfect body" },
-            { time: 96, text: "I want a perfect soul" },
-            { time: 101, text: "I want you to notice" },
-            { time: 107, text: "When I'm not around" },
-            { time: 112, text: "You're so fuckin' special" },
-            { time: 117, text: "I wish I was special" },
-            { time: 123, text: "But I'm a creep" },
-            { time: 127, text: "I'm a weirdo" },
-            { time: 133, text: "What the hell am I doing here?" },
-            { time: 138, text: "I don't belong here," },
-            { time: 142, text: "oh," },
-            { time: 143, text: "oh" },
-            { time: 145, text: "She's running out the door" },
-            { time: 155, text: "She's running out" },
-            { time: 161, text: "She run, run, run, run" },
-            { time: 175, text: "Run!" },
-            { time: 185, text: "Whatever makes you happy" },
-            { time: 189, text: "Whatever you want" },
-            { time: 195, text: "You're so fuckin' special" },
-            { time: 200, text: "I wish I was special" },
-            { time: 205, text: "But I'm a creep" },
-            { time: 210, text: "I'm a weirdo" },
-            { time: 216, text: "What the hell am I doing here?" },
-            { time: 221, text: "I don't belong here" },
-            { time: 226, text: "I don't belong here" }
-        ];
-
-        const defaultComments = [
-            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", date: "منذ ساعة" },
-            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", date: "منذ ساعتين" },
-            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
-        ];
-
-        // متغيرات للتحكم في خاصية منع قفل الشاشة (Wake Lock)
-        let wakeLock = null;
-        let experienceStarted = false;
-
-        // دالة لطلب منع قفل الشاشة
-        async function requestWakeLock() {
-            if ('wakeLock' in navigator) {
-                try {
-                    wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
-
-                    // في حال تحررت الميزة لأي سبب (مثل انخفاض البطارية الشديد)
-                    wakeLock.addEventListener('release', () => {
-                        console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
-                        wakeLock = null;
-                    });
-                } catch (err) {
-                    console.error('فشل تفعيل ميزة منع قفل الشاشة:', err);
+        // تأثير الظهور عند التمرير
+        const scrollElements = document.querySelectorAll('.reveal-on-scroll');
+        
+        const elementInView = (el, dividend = 1.1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend);
+        };
+        
+        const displayScrollElement = (element) => {
+            element.classList.add('is-visible');
+        };
+        
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.1)) {
+                    displayScrollElement(el);
                 }
-            } else {
-                console.log('هذا المتصفح لا يدعم ميزة الـ Screen Wake Lock.');
-            }
-        }
+            });
+        };
+        
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+        
+        handleScrollAnimation();
 
-        function startExperience() {
-            experienceStarted = true;
 
-            // حل مشكلة حظر تشغيل الصوت التلقائي على أجهزة iOS Safari والآيفون
-            const audio = document.getElementById('creep-audio');
-            audio.play().then(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }).catch(e => console.log("iOS audio unlock status:", e));
+        // تفاعل النهاية والمشهد السينمائي
+        const endTrigger = document.getElementById('end-trigger');
+        const cinematicScreen = document.getElementById('cinematic-screen');
+        const mainContent = document.getElementById('main-content');
+        const lyricsContainer = document.getElementById('lyrics-container');
+        const finalSentence = document.getElementById('final-sentence');
+        const commentSection = document.getElementById('comment-section');
+        let cinematicStarted = false;
 
-            // تفعيل ميزة منع قفل الشاشة مباشرة عند الضغط على الزر
-            requestWakeLock();
+        // كلمات الأغنية (Creep - Radiohead) بتزامن تقريبي
+        const lyrics = [
+            { time: 0, text: "" },
+            { time: 3000, text: "When you were here before..." },
+            { time: 8000, text: "Couldn't look you in the eye..." },
+            { time: 13000, text: "You're just like an angel..." },
+            { time: 18000, text: "Your skin makes me cry..." },
+            { time: 24000, text: "But I'm a creep..." },
+            { time: 30000, text: "I'm a weirdo..." },
+            { time: 35000, text: "What the hell am I doing here?" },
+            { time: 42000, text: "I don't belong here..." },
+            { time: 48000, text: "" } // نهاية التزامن لظهور الجملة الأخيرة
+        ];
 
-            document.getElementById('intro-screen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('intro-screen').style.display = 'none';
-            }, 1500);
-        }
+        // تهيئة NoSleep
+        var noSleep = new NoSleep();
 
-        // استعادة ميزة منع قفل الشاشة تلقائياً إذا خرج الزرار من المتصفح وعاد إليه ثانية
-        document.addEventListener('visibilitychange', async () => {
-            if (document.visibilityState === 'visible' && experienceStarted) {
-                await requestWakeLock();
+        window.addEventListener('scroll', () => {
+            if (elementInView(endTrigger, 1) && !cinematicStarted) {
+                startCinematic();
             }
         });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.15 });
+        function startCinematic() {
+            cinematicStarted = true;
+            
+            // تشغيل منع القفل
+            document.addEventListener('click', function enableNoSleep() {
+                document.removeEventListener('click', enableNoSleep, false);
+                noSleep.enable();
+            }, false);
 
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('.tilt-effect').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                const angleX = (yc - y) / 10;
-                const angleY = (x - xc) / 10;
-                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-                card.classList.add('tilting');
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-                card.classList.remove('tilting');
-            });
-        });
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        document.querySelectorAll('.photo-card img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.classList.add('active');
-            });
-        });
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        let endingStarted = false;
-        const endingTrigger = document.getElementById('ending-trigger');
-        const endingObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !endingStarted) {
-                    endingStarted = true;
-                    triggerEnding();
-                }
-            });
-        }, { threshold: 0.5 });
-        endingObserver.observe(endingTrigger);
-
-        function triggerEnding() {
-            document.getElementById('cover').classList.add('black-blur');
-            document.getElementById('investigation').classList.add('black-blur');
-            document.getElementById('evidence').classList.add('black-blur');
-
-            const cinematic = document.getElementById('cinematic-container');
-            cinematic.style.display = 'flex';
+            // إخفاء المحتوى الرئيسي وإظهار الشاشة السوداء
+            mainContent.style.transition = "opacity 2s ease";
+            mainContent.style.opacity = "0";
+            
             setTimeout(() => {
-                cinematic.style.opacity = '1';
-                showConfession();
+                mainContent.style.display = "none";
+                cinematicScreen.style.display = "flex";
+                
+                // محاكاة ضغطة خفية لتشغيل الـ iframe إذا أمكن (الـ iframe الخاص بـ spotify قد يطلب تفاعل مباشر، لكننا نجهزه)
+                // يفضل أن يكون المستخدم قد تفاعل مسبقاً (Scroll يُعتبر تفاعل في بعض المتصفحات)
+                setTimeout(() => {
+                    cinematicScreen.style.opacity = "1";
+                    playLyrics();
+                }, 500);
+
             }, 2000);
         }
 
-        function showConfession() {
-            const confess = document.getElementById('confess-text');
-            confess.style.display = 'block';
-            setTimeout(() => { confess.style.opacity = '1'; }, 100);
-            setTimeout(() => {
-                confess.style.opacity = '0';
-                setTimeout(() => {
-                    confess.style.display = 'none';
-                    startCountdown();
-                }, 2000);
-            }, 5000);
-        }
-
-        function startCountdown() {
-            const countdown = document.getElementById('cinema-countdown');
-            const num = document.getElementById('countdown-num');
-            countdown.style.display = 'flex';
-            countdown.classList.add('jitter');
-            let count = 5;
-            num.innerText = count;
+        function playLyrics() {
+            let currentIndex = 0;
+            
             const interval = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    num.innerText = count;
+                if (currentIndex < lyrics.length) {
+                    lyricsContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        lyricsContainer.innerText = lyrics[currentIndex].text;
+                        lyricsContainer.style.opacity = 1;
+                        currentIndex++;
+                    }, 500);
                 } else {
                     clearInterval(interval);
-                    countdown.style.display = 'none';
-                    startSpotify();
+                    showFinalSentence();
                 }
-            }, 1000);
+            }, 5500); // تغيير الكلمات كل 5.5 ثانية (تقريبي للمشهد)
         }
 
-        function startSpotify() {
-            const spotify = document.getElementById('spotify-player');
-            spotify.style.display = 'flex';
-            setTimeout(() => { spotify.style.opacity = '1'; }, 100);
-
-            const scroller = document.getElementById('lyrics-scroller');
-            lyricsData.forEach((line, index) => {
-                const div = document.createElement('div');
-                div.className = 'lyric-line';
-                div.id = `lyric-${index}`;
-                div.innerText = line.text;
-                scroller.appendChild(div);
-            });
-
-            const audio = document.getElementById('creep-audio');
-            audio.play().catch(e => console.log("Audio play blocked, interaction needed."));
-
-            audio.addEventListener('timeupdate', () => {
-                const currentTime = audio.currentTime;
-                let activeIndex = -1;
-                for (let i = 0; i < lyricsData.length; i++) {
-                    if (currentTime >= lyricsData[i].time) {
-                        activeIndex = i;
-                    }
-                }
-                if (activeIndex !== -1) {
-                    document.querySelectorAll('.lyric-line').forEach((el, idx) => {
-                        if (idx === activeIndex) {
-                            el.className = 'lyric-line active';
-                            const containerHeight = document.querySelector('.spotify-right').clientHeight;
-                            const lyricOffset = el.offsetTop + (el.clientHeight / 2);
-                            scroller.style.transform = `translateY(-${lyricOffset}px)`;
-                        } else if (idx < activeIndex) {
-                            el.className = 'lyric-line previous';
-                        } else {
-                            el.className = 'lyric-line';
-                        }
-                    });
-                }
-            });
-
-            audio.addEventListener('ended', () => {
-                spotify.style.transition = 'opacity 1.5s ease';
-                spotify.style.opacity = '0';
-                setTimeout(() => {
-                    spotify.style.display = 'none';
-                    startFarewell();
-                }, 1500);
-            });
-        }
-
-        function typeWriter(text, elementId, speed, callback) {
-            let i = 0;
-            const element = document.getElementById(elementId);
-            element.innerHTML = '';
-            element.style.display = 'block';
-            element.style.opacity = '1';
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                } else if (callback) {
-                    setTimeout(callback, 2000);
-                }
-            }
-            type();
-        }
-
-        function startFarewell() {
-            const farewell = document.getElementById('typewriter-farewell');
-            const text = "«وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»";
-            typeWriter(text, 'typewriter-farewell', 100, () => {
-                setTimeout(() => {
-                    farewell.style.transition = 'opacity 1.5s ease';
-                    farewell.style.opacity = '0';
-                    setTimeout(() => {
-                        farewell.style.display = 'none';
-                        showModernFinale();
-                    }, 1500);
-                }, 3000);
-            });
-        }
-
-        function showModernFinale() {
-            const finaleScreen = document.getElementById('modern-finale-screen');
-            const part1 = document.getElementById('modern-finale-part1');
-            const part2 = document.getElementById('modern-finale-part2');
-            const signature = document.getElementById('modern-finale-signature');
-
-            finaleScreen.style.display = 'flex';
+        function showFinalSentence() {
+            lyricsContainer.style.display = "none";
+            finalSentence.style.display = "block";
+            
             setTimeout(() => {
-                finaleScreen.style.opacity = '1';
-                typeWriter("دي مش نهاية القصة..", 'modern-finale-part1', 120, () => {
+                finalSentence.style.opacity = "1";
+                
+                // إظهار قسم التعليقات بعد الجملة بـ 4 ثوانٍ
+                setTimeout(() => {
+                    commentSection.style.display = "block";
                     setTimeout(() => {
-                        part2.style.opacity = '1';
-                        typeWriter("دي بداية فصل جديد.", 'modern-finale-part2', 120, () => {
-                            setTimeout(() => {
-                                signature.innerText = "— الولادة الجديدة";
-                                signature.style.opacity = '1';
-                                setTimeout(() => {
-                                    finaleScreen.style.transition = 'opacity 1.5s ease';
-                                    finaleScreen.style.opacity = '0';
-                                    setTimeout(() => {
-                                        finaleScreen.style.display = 'none';
-                                        showComments();
-                                    }, 1500);
-                                }, 3500);
-                            }, 1000);
-                        });
-                    }, 1000);
-                });
+                        commentSection.style.opacity = "1";
+                        checkOrientation();
+                    }, 100);
+                }, 4000);
+
             }, 500);
         }
 
-        function showComments() {
-            // إلغاء كلاس فرض العرض الصارم للسماح للزائر بالتحويل للوضع الرأسي والكتابة بحرية
-            document.body.classList.remove('lock-active');
-
-            const comments = document.getElementById('comments-box');
-            comments.style.display = 'block';
-            loadComments();
-            setTimeout(() => {
-                comments.classList.add('slide-up');
-                comments.style.opacity = '1';
-            }, 100);
-        }
-
-        function loadComments() {
-            let comments = localStorage.getItem('patient14_comments');
-            if (!comments) {
-                comments = JSON.stringify(defaultComments);
-                localStorage.setItem('patient14_comments', comments);
+        function saveComment() {
+            const comment = document.getElementById('user-comment').value;
+            if(comment.trim() !== "") {
+                localStorage.setItem('patient14_comment', comment);
+                document.getElementById('user-comment').value = "";
+                document.getElementById('user-comment').placeholder = "تم ترك أثرك بنجاح في ملف العيادة...";
+                document.getElementById('user-comment').disabled = true;
+                
+                setTimeout(() => {
+                    noSleep.disable(); // السماح بقفل الشاشة مجدداً بعد الانتهاء
+                }, 2000);
             }
-            const listArr = JSON.parse(comments);
-            const listContainer = document.getElementById('comments-list');
-            listContainer.innerHTML = '';
-            listArr.forEach(c => {
-                const item = document.createElement('div');
-                item.className = 'comment-item';
-                item.innerHTML = `
-                    <div>${c.text}</div>
-                    <div class="comment-date">${c.date || 'الآن'}</div>
-                `;
-                listContainer.appendChild(item);
-            });
-            const container = document.querySelector('.comments-list-container');
-            container.scrollTop = container.scrollHeight;
         }
 
-        function submitMessage() {
-            const textarea = document.getElementById('comment-text');
-            const text = textarea.value.trim();
-            if (!text) {
-                alert('من فضلك اكتب كلمة طيبة أولاً.');
-                return;
-            }
-            let comments = localStorage.getItem('patient14_comments');
-            const listArr = comments ? JSON.parse(comments) : [];
-            listArr.push({ text: text, date: "الآن" });
-            localStorage.setItem('patient14_comments', JSON.stringify(listArr));
-
-            loadComments();
-            textarea.value = '';
-
-            const submitBtn = document.querySelector('.comment-submit');
-            submitBtn.innerText = 'تم ترك الأثر الطيب ✓';
-            submitBtn.style.background = '#27ae60';
-            submitBtn.style.borderColor = '#27ae60';
-            submitBtn.style.color = '#fff';
-            submitBtn.disabled = true;
-            setTimeout(() => {
-                submitBtn.innerText = 'إرسال الرسالة الأخيرة';
-                submitBtn.style.background = 'transparent';
-                submitBtn.style.borderColor = 'var(--blood-red)';
-                submitBtn.style.color = 'var(--blood-red)';
-                submitBtn.disabled = false;
-            }, 3000);
-        }
-
-        // تحسين سلوك حقل النص لحل مشكلة اختفاء الكيبورد في الهواتف الذكية وتوجيه المستخدم بالعامية
-        const textarea = document.getElementById('comment-text');
-
-        function showPortraitPrompt() {
-            const lockScreen = document.getElementById('orientation-lock');
-            const lockText = document.getElementById('lock-funny-text');
-            const lockSub = document.querySelector('.lock-funny-sub');
-
-            lockText.innerHTML = "يا صاحبي، اعمل التليفون بالطول عشان تكتب أثرك وروق علينا! 😉";
-            lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
-            lockScreen.style.display = 'flex';
-        }
-
-        textarea.addEventListener('focus', () => {
-            if (window.innerWidth > window.innerHeight) {
-                showPortraitPrompt();
-                textarea.blur(); // إلغاء التركيز مؤقتاً لحين تعديل اتجاه الهاتف
+        // تنبيه تدوير الهاتف
+        function checkOrientation() {
+            if (window.innerHeight < window.innerWidth && window.innerHeight < 500) {
+                document.getElementById('landscape-warning').style.display = "block";
             } else {
-                const stage = document.querySelector('.cinematic-stage');
-                stage.style.alignItems = 'flex-start';
-                stage.style.overflowY = 'auto';
-                document.getElementById('comments-box').style.marginTop = '15px';
+                document.getElementById('landscape-warning').style.display = "none";
             }
-        });
+        }
+        window.addEventListener('resize', checkOrientation);
 
-        textarea.addEventListener('blur', () => {
-            const stage = document.querySelector('.cinematic-stage');
-            stage.style.alignItems = 'center';
-            stage.style.overflowY = 'hidden';
-            document.getElementById('comments-box').style.marginTop = '0';
-        });
-
-        // متابعة التغيير الفوري لأبعاد الشاشة لإغلاق التنبيه والتركيز على الكتابة
-        window.addEventListener('resize', () => {
-            const lockScreen = document.getElementById('orientation-lock');
-            if (!document.body.classList.contains('lock-active')) {
-                if (window.innerWidth < window.innerHeight) {
-                    lockScreen.style.display = 'none';
-                    setTimeout(() => { textarea.focus(); }, 300);
-                }
-            }
-        });
     </script>
 </body>
 </html>
