@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Story</title>
+    <title>Dark Story - Patient 14</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@300;500;700&family=Courier+Prime:ital,wght@0,300;0,400;0,700;1,400&family=Special+Elite&display=swap');
         :root {
@@ -487,16 +487,16 @@
         <div class="cover-overlay"></div>
         <div class="file-folder" id="top-folder">
             <div class="top-secret-stamp">CLASSIFIED</div>
-            <h1 class="glitch-text">TITLE HERE</h1>
-            <p class="subtitle">STORY DESCRIPTION<br>PART 1</p>
+            <h1 class="glitch-text">CONFIDENTIAL</h1>
+            <p class="subtitle">PATIENT FILE: ALI SAKR<br>SESSION 14</p>
         </div>
         <div class="scroll-indicator">SCROLL DOWN ↓</div>
     </section>
 
     <section class="investigation-room" id="investigation">
         <div class="transcript-paper" id="paper-doc">
-            <!-- مساحة فارغة للقصة: يمكنك إضافة العناوين، ونصوص الحوار، والوصف الخاص بقصتك الجديدة هنا -->
-            
+            <h2 style="text-align: center; font-size: 2.2em; margin-bottom: 30px; border-bottom: 2px solid #555; padding-bottom: 10px;">العيادة رقم 14</h2>
+            <!-- تم إزالة القصة من هنا -->
         </div>
     </section>
 
@@ -506,23 +506,23 @@
         <div class="grid-container">
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
-                <img src="" alt="Evidence 1">
-                <div class="card-caption">دليل 1</div>
+                <img src="forearm-snake.png" alt="The Serpent">
+                <div class="card-caption">دليل 1: الثعبان</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
-                <img src="" alt="Evidence 2">
-                <div class="card-caption">دليل 2</div>
+                <img src="forearm-roman.png" alt="Roman Date">
+                <div class="card-caption">دليل 2: التاريخ الأسود</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
-                <img src="" alt="Evidence 3">
-                <div class="card-caption">دليل 3</div>
+                <img src="neck-script.png" alt="Neck Script">
+                <div class="card-caption">دليل 3: مفيش رجوع</div>
             </div>
             <div class="photo-card reveal-on-scroll tilt-effect">
                 <div class="pin"></div>
-                <img src="" alt="Evidence 4">
-                <div class="card-caption">دليل 4</div>
+                <img src="chest-tattoo.png" alt="Chest Tattoo">
+                <div class="card-caption">دليل 4: انعدام الثقة</div>
             </div>
         </div>
         <div id="ending-trigger" style="height: 50px; width: 100%;"></div>
@@ -532,13 +532,13 @@
         <div class="cinematic-stage">
 
             <div class="confess-screen" id="confess-text">
-                "رسالة أو اعتراف خاص بقصتك يوضع هنا"
+                "استنا.. انا جوايا كلام تاني عاوز اقولو بس مش عارف اطلعو"
             </div>
 
             <div class="spotify-screen" id="spotify-player">
                 <div class="spotify-left">
                     <div class="spotify-video-wrapper">
-                        <img id="creep-image" src="hamo.jpg" alt="Song Cover">
+                        <img id="creep-image" src="hamo.jpg" alt="Hamo Cover">
                         <div class="spotify-video-overlay"></div>
                     </div>
                     <div class="spotify-info">
@@ -562,14 +562,16 @@
                 </div>
             </div>
 
+            <!-- الجملة الجديدة المقسمة بشكل صحيح -->
             <div class="modern-finale-screen" id="modern-finale-screen">
                 <div class="modern-finale-text" id="modern-finale-part1"></div>
                 <div class="modern-finale-text" id="modern-finale-part2" style="margin-top: 15px; opacity: 0; transition: opacity 1s;"></div>
                 <div id="modern-finale-signature" style="margin-top: 30px; font-family: var(--font-ar); font-size: clamp(1.2rem, 3vw, 1.8em); color: var(--blood-red); opacity: 0; transition: opacity 1s; font-weight: bold; font-style: italic;"></div>
             </div>
 
+            <!-- صندوق التعليقات المحسّن بالكامل لدعم الكيبورد والتفاعل الحقيقي -->
             <div class="comments-screen" id="comments-box">
-                <div class="comment-prompt">"اكتب رأيك أو أثرك الطيب هنا..."</div>
+                <div class="comment-prompt">"شجعني علي اني اكون احسن من النسخه الي فاتت و لو بكلمه بس."</div>
                 <div class="comment-input-area">
                     <textarea class="comment-textarea" id="comment-text" placeholder="اكتب أثرك الطيب هنا..."></textarea>
                 </div>
@@ -630,19 +632,23 @@
         ];
 
         const defaultComments = [
-            { text: "تعليق تجريبي أو رسالة دعم...", date: "منذ ساعة" },
-            { text: "كلمة طيبة تضاف هنا...", date: "منذ ساعتين" }
+            { text: "كلام يلمس القلب فعلاً، بانتظار الفصل الجديد والبداية الأجمل يا علي.", date: "منذ ساعة" },
+            { text: "أحياناً الانكسار بيكون أعظم خطوة للبداية الحقيقية. كل الدعم ليك.", date: "منذ ساعتين" },
+            { text: "مروة رزق حقيقي.. ربنا يحفظهالك ويسعدكم ويبعد عنكم عيون البشر.", date: "منذ يوم" }
         ];
 
+        // متغيرات للتحكم في خاصية منع قفل الشاشة (Wake Lock)
         let wakeLock = null;
         let experienceStarted = false;
 
+        // دالة لطلب منع قفل الشاشة
         async function requestWakeLock() {
             if ('wakeLock' in navigator) {
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
                     console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
 
+                    // في حال تحررت الميزة لأي سبب (مثل انخفاض البطارية الشديد)
                     wakeLock.addEventListener('release', () => {
                         console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
                         wakeLock = null;
@@ -658,12 +664,14 @@
         function startExperience() {
             experienceStarted = true;
 
+            // حل مشكلة حظر تشغيل الصوت التلقائي على أجهزة iOS Safari والآيفون
             const audio = document.getElementById('creep-audio');
             audio.play().then(() => {
                 audio.pause();
                 audio.currentTime = 0;
             }).catch(e => console.log("iOS audio unlock status:", e));
 
+            // تفعيل ميزة منع قفل الشاشة مباشرة عند الضغط على الزر
             requestWakeLock();
 
             document.getElementById('intro-screen').style.opacity = '0';
@@ -672,6 +680,7 @@
             }, 1500);
         }
 
+        // استعادة ميزة منع قفل الشاشة تلقائياً إذا خرج الزرار من المتصفح وعاد إليه ثانية
         document.addEventListener('visibilitychange', async () => {
             if (document.visibilityState === 'visible' && experienceStarted) {
                 await requestWakeLock();
@@ -846,7 +855,7 @@
 
         function startFarewell() {
             const farewell = document.getElementById('typewriter-farewell');
-            const text = "«نص النهاية يوضع هنا»";
+            const text = "«وَفِي النِّهَايَةِ.. كَانَ مَعَكُمُ الْمَرِيضُ النَّفْسِيُّ»";
             typeWriter(text, 'typewriter-farewell', 100, () => {
                 setTimeout(() => {
                     farewell.style.transition = 'opacity 1.5s ease';
@@ -868,12 +877,12 @@
             finaleScreen.style.display = 'flex';
             setTimeout(() => {
                 finaleScreen.style.opacity = '1';
-                typeWriter("دي مش نهايه القصه", 'modern-finale-part1', 120, () => {
+                typeWriter("دي مش نهاية القصة..", 'modern-finale-part1', 120, () => {
                     setTimeout(() => {
                         part2.style.opacity = '1';
-                        typeWriter("دي بداية فصل جديد", 'modern-finale-part2', 120, () => {
+                        typeWriter("دي بداية فصل جديد.", 'modern-finale-part2', 120, () => {
                             setTimeout(() => {
-                                signature.innerText = "— التوقيع هنا";
+                                signature.innerText = "— الولادة الجديدة";
                                 signature.style.opacity = '1';
                                 setTimeout(() => {
                                     finaleScreen.style.transition = 'opacity 1.5s ease';
@@ -891,6 +900,7 @@
         }
 
         function showComments() {
+            // إلغاء كلاس فرض العرض الصارم للسماح للزائر بالتحويل للوضع الرأسي والكتابة بحرية
             document.body.classList.remove('lock-active');
 
             const comments = document.getElementById('comments-box');
@@ -903,10 +913,10 @@
         }
 
         function loadComments() {
-            let comments = localStorage.getItem('story_comments');
+            let comments = localStorage.getItem('patient14_comments');
             if (!comments) {
                 comments = JSON.stringify(defaultComments);
-                localStorage.setItem('story_comments', comments);
+                localStorage.setItem('patient14_comments', comments);
             }
             const listArr = JSON.parse(comments);
             const listContainer = document.getElementById('comments-list');
@@ -931,10 +941,10 @@
                 alert('من فضلك اكتب كلمة طيبة أولاً.');
                 return;
             }
-            let comments = localStorage.getItem('story_comments');
+            let comments = localStorage.getItem('patient14_comments');
             const listArr = comments ? JSON.parse(comments) : [];
             listArr.push({ text: text, date: "الآن" });
-            localStorage.setItem('story_comments', JSON.stringify(listArr));
+            localStorage.setItem('patient14_comments', JSON.stringify(listArr));
 
             loadComments();
             textarea.value = '';
@@ -954,16 +964,48 @@
             }, 3000);
         }
 
-        // تحسين سلوك حقل التعليقات للتعامل مع زر الإدخال
-        const commentArea = document.getElementById('comment-text');
-        if (commentArea) {
-            commentArea.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    submitMessage();
-                }
-            });
+        // تحسين سلوك حقل النص لحل مشكلة اختفاء الكيبورد في الهواتف الذكية وتوجيه المستخدم بالعامية
+        const textarea = document.getElementById('comment-text');
+
+        function showPortraitPrompt() {
+            const lockScreen = document.getElementById('orientation-lock');
+            const lockText = document.getElementById('lock-funny-text');
+            const lockSub = document.querySelector('.lock-funny-sub');
+
+            lockText.innerHTML = "يا صاحبي، اعمل التليفون بالطول عشان تكتب أثرك وروق علينا! 😉";
+            lockSub.innerHTML = "علشان الكيبورد تفتح معاك مظبوط وتعرف تكتب اللي في قلبك براحتك وبدون مشاكل.";
+            lockScreen.style.display = 'flex';
         }
+
+        textarea.addEventListener('focus', () => {
+            if (window.innerWidth > window.innerHeight) {
+                showPortraitPrompt();
+                textarea.blur(); // إلغاء التركيز مؤقتاً لحين تعديل اتجاه الهاتف
+            } else {
+                const stage = document.querySelector('.cinematic-stage');
+                stage.style.alignItems = 'flex-start';
+                stage.style.overflowY = 'auto';
+                document.getElementById('comments-box').style.marginTop = '15px';
+            }
+        });
+
+        textarea.addEventListener('blur', () => {
+            const stage = document.querySelector('.cinematic-stage');
+            stage.style.alignItems = 'center';
+            stage.style.overflowY = 'hidden';
+            document.getElementById('comments-box').style.marginTop = '0';
+        });
+
+        // متابعة التغيير الفوري لأبعاد الشاشة لإغلاق التنبيه والتركيز على الكتابة
+        window.addEventListener('resize', () => {
+            const lockScreen = document.getElementById('orientation-lock');
+            if (!document.body.classList.contains('lock-active')) {
+                if (window.innerWidth < window.innerHeight) {
+                    lockScreen.style.display = 'none';
+                    setTimeout(() => { textarea.focus(); }, 300);
+                }
+            }
+        });
     </script>
 </body>
 </html>
