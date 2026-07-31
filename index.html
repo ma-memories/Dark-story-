@@ -27,6 +27,7 @@
             scroll-behavior: smooth;
         }
 
+        /* قفل التدوير الصارم باستخدام CSS */
         #orientation-lock {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -57,6 +58,7 @@
         .lock-text { font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red); }
         .lock-funny-sub { font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6; }
 
+        /* إخفاء المحتوى تماماً في الوضع الطولي فقط عندما يكون القفل نشطاً */
         @media (orientation: portrait) {
             body.lock-active #orientation-lock {
                 display: flex !important;
@@ -147,28 +149,30 @@
             60% { transform: translateY(-10px) translateX(-50%); }
         }
 
+        /* تعديلات الخلفية والألوان لتطابق شكل الفيديو */
         .investigation-room {
             padding: 80px 20px; 
-            background-color: #F4EFEB; 
+            background-color: #F4EFEB; /* لون بيج هادئ ونظيف مطابق للفيديو */
             position: relative; 
             transition: all 2s;
         }
         .transcript-paper {
             max-width: 900px; margin: 0 auto; 
-            background-color: transparent;
+            background-color: transparent; /* إزالة ملمس الورق القديم */
             background-image: none;
             padding: 20px 10px; 
-            color: #2b2b2b; 
-            box-shadow: none; 
+            color: #2b2b2b; /* لون نص داكن واضح */
+            box-shadow: none; /* إزالة الظل الداخلي الكثيف */
             border-radius: 0; position: relative; overflow: hidden; transition: all 1s;
         }
         .transcript-paper p {
-            margin-bottom: 15px; 
+            margin-bottom: 25px; 
             line-height: 1.9; 
             font-size: 1.25em; 
             font-weight: 500;
         }
 
+        /* أنيميشن الظهور الانسيابي الذي يتحكم في حركة الكلام */
         .reveal-on-scroll {
             opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out;
         }
@@ -178,20 +182,15 @@
 
         .scene-desc {
             color: #444; margin-bottom: 30px; font-size: 1.15em; line-height: 1.8;
-            background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px;
         }
         .sub-heading {
             text-align: center; font-weight: bold; color: #111; font-size: 1.4em;
             margin: 50px 0 30px; padding-bottom: 0; border-bottom: none;
         }
-        
-        /* التنسيق الجديد للمقاطع الحوارية */
-        .dialogue-block { margin-bottom: 35px; }
-        .speaker { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1.2em; }
-        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block; padding-bottom: 2px;}
-        .ali-name { color: var(--blood-red); font-size: 1.3em; text-shadow: 0 0 1px rgba(139,0,0,0.3); display: inline-block; padding-bottom: 2px;}
-        .dialogue-block p { padding-right: 15px; border-right: 2px solid rgba(0,0,0,0.1); margin-top: 5px; }
-
+        .dialogue-block { margin-bottom: 30px; line-height: 1.9; font-size: 1.25em; }
+        .speaker { display: block; font-weight: 700; margin-bottom: 5px; font-size: 1.1em; }
+        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
+        .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
         .highlight-me {
             color: var(--blood-red); font-family: var(--font-en); font-weight: bold;
             font-size: 1.3em; text-transform: uppercase; animation: pulse-red 2s infinite;
@@ -207,6 +206,7 @@
             display: inline-block; direction: ltr;
         }
 
+        /* تنسيق اللون الأحمر الدموي مع تأثير متوهج ونابض كأنه ينبض بالحياة */
         .blood-effect {
             color: #8b0000 !important;
             text-shadow: 0 0 8px rgba(139, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.4);
@@ -279,6 +279,7 @@
             max-width: 80%; line-height: 1.6; font-weight: 500; text-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
 
+        /* ==================== شاشة Spotify ==================== */
         .spotify-screen {
             display: none; opacity: 0; width: 95%; max-width: 1100px; height: 85vh;
             justify-content: space-between; align-items: center; gap: 40px;
@@ -286,47 +287,80 @@
             direction: ltr; 
         }
 
-        .spotify-left { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .spotify-left {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
         .spotify-video-wrapper {
-            width: 35vh; max-width: 240px; height: 35vh; max-height: 240px; 
-            position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px;
+            width: 35vh; max-width: 240px; 
+            height: 35vh; max-height: 240px; 
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px;
             overflow: hidden; background: #111;
         }
+
         .spotify-video-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
         .spotify-video-overlay {
             position: absolute; top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.5); pointer-events: none;
         }
-        .spotify-info { margin-top: 15px; text-align: center; width: 100%; }
+
+        .spotify-info { 
+            margin-top: 15px; 
+            text-align: center; 
+            width: 100%; 
+        }
+
         .spotify-title { 
             font-size: 2.2em; font-weight: 700; color: #fff; 
             margin-bottom: 5px; font-family: var(--font-en); 
             text-shadow: 0 0 10px rgba(255,255,255,0.2); line-height: 1.2;
         }
+
         .spotify-artist { font-size: 1.3em; color: #b3b3b3; font-family: var(--font-en); }
+
         .spotify-right {
             flex: 1.5; height: 100%; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
         }
+
         .lyrics-scroll { 
-            transition: transform 0.5s ease-out; text-align: left; width: 100%;
-            position: absolute; top: 50%; 
+            transition: transform 0.5s ease-out; 
+            text-align: left; width: 100%;
+            position: absolute; 
+            top: 50%; 
         }
+
         .lyric-line {
             font-size: clamp(1.1rem, 4vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.15);
             margin: 25px 0; transition: all 0.5s ease; transform: scale(0.9);
             transform-origin: left center; line-height: 1.4; font-family: var(--font-en);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; filter: blur(1.5px);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            filter: blur(1.5px);
         }
-        .lyric-line.active { color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); transform: scale(1.05); filter: none; opacity: 1;}
-        .lyric-line.previous { color: rgba(255, 255, 255, 0.08); filter: blur(2px);}
+
+        .lyric-line.active { 
+            color: #fff; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
+            transform: scale(1.05); 
+            filter: none; 
+            opacity: 1;
+        }
+
+        .lyric-line.previous { 
+            color: rgba(255, 255, 255, 0.08); 
+            filter: blur(2px);
+        }
 
         .farewell-screen {
             display: none; opacity: 0; transition: opacity 1.5s ease;
-            color: var(--paper-color); text-align: center; font-size: clamp(1.2rem, 3.5vw, 2.2em); line-height: 1.5;
+            color: var(--paper-color);
+            text-align: center; font-size: clamp(1.2rem, 3.5vw, 2.2em); line-height: 1.5;
             font-family: var(--font-ar); font-weight: 700; max-width: 98%;
-            direction: rtl; width: 100%; margin: 0 auto; white-space: nowrap;
+            direction: rtl; width: 100%; margin: 0 auto;
+            white-space: nowrap;
         }
 
         .countdown-screen {
@@ -384,19 +418,42 @@
         .comment-submit:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
 
         .comments-list-container {
-            margin-top: 20px; text-align: right; max-height: 160px; overflow-y: auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; padding-right: 5px;
+            margin-top: 20px;
+            text-align: right;
+            max-height: 160px;
+            overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            padding-right: 5px;
         }
-        .comments-list-container::-webkit-scrollbar { width: 6px; }
-        .comments-list-container::-webkit-scrollbar-track { background: transparent; }
-        .comments-list-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
+        .comments-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .comments-list-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .comments-list-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
         .comment-item {
-            background: rgba(255, 255, 255, 0.04); border-right: 3px solid var(--blood-red);
-            padding: 12px 15px; border-radius: 4px; color: #e0e0e0; font-size: 0.95em;
-            line-height: 1.5; margin-bottom: 12px; direction: rtl;
+            background: rgba(255, 255, 255, 0.04);
+            border-right: 3px solid var(--blood-red);
+            padding: 12px 15px;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            direction: rtl;
             animation: commentFadeIn 0.5s ease forwards;
         }
-        .comment-date { font-size: 0.75em; color: #777; margin-top: 5px; text-align: left; }
+        .comment-date {
+            font-size: 0.75em;
+            color: #777;
+            margin-top: 5px;
+            text-align: left;
+        }
         @keyframes commentFadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -449,137 +506,875 @@
             <h2 class="reveal-on-scroll" style="text-align: center; font-size: 2.2em; margin-bottom: 30px; border-bottom: 2px solid #ccc; padding-bottom: 10px;">العيادة رقم 14</h2>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الأول: هندسة الحبر... والإنسان اللي اختفى ]</h3>
-            
             <p class="scene-desc reveal-on-scroll">
-            ...تيك... تاك... تيك... تاك...<br>
+            ...تيك... ...تاك... ...تيك... ...تاك...
+            </p>
+            <p class="reveal-on-scroll">
             الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس. كل تيكة كانت كأنها بتعد وقت ضاع... وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها. العيادة هادية بطريقة مستفزة. ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.
             </p>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (يرفع عينه من الملف ويبص لجسم علي كأنه بيقرأ اعترافات):</span>
-                <p>علي صقر... حتى اسمك عامل دوشة. اسم تقيل... كبير... تحسه داخل أي مكان قبلك. بس الغريبة إن اللي قاعد قدامي دلوقتي... مش باين عليه أي حاجة من الاسم ده. أنا شوفت ناس كتير عاملة تاتوهات... بس أنت... أنت عامل متحف كامل. كل رسمة ليها مكان... كل كلمة محسوبة. السؤال بقى... بتحاول تقول إيه؟</p>
-            </div>
-
-            <p class="scene-desc reveal-on-scroll">
-            الصمت نزل على الأوضة. حتى صوت الساعة اختفى من ودن علي. هو كان سامع صوت تاني... صوت قديم... ناس كانت بتقول: "إحنا معاك." "إحنا عمرنا ما هنسيبك." "اطمن." الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت. رجع للدكتور. ونفس الابتسامة لسه على وشه.
+            <p class="reveal-on-scroll">
+            الدكتور كان قاعد في آخر الأوضة، ساند ضهره لورا، حاطط رجل على رجل، ونظارته نازلة سنة صغيرة على مناخيره. بين كل كام ثانية... تك... تك... تك... يقلم ضوافره بمنتهى البرود. كأن مفيش قدامه بني آدم. كأن اللي قدامه مجرد ملف جديد هيتقفل آخر اليوم.
             </p>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيبص للأرض بوجع مكتوم):</span>
-                <p>زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك. وكل اللي يطمنك هيكمل معاك. وكل وعد بيتقال... لازم يتنفذ. كنت غبي... أيوة... غبي. بس الغباء الحقيقي مش إنك تثق. الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة.</p>
-                <p>كل مرة كنت أقول: المرة دي غير. وأرجع ألاقي نفسي بضحك. مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي. عارف يا دكتور... أصعب حاجة مش إن الناس تخذلك. أصعب حاجة... إنك تفضل تدور على سبب. تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك.</p>
-            </div>
+            <p class="reveal-on-scroll">
+            أما علي... فكان قاعد ساكت. هادئ بشكل يخوف. إيده متشابكة قدام بعض، ورجله بتهز الأرض هزة بسيطة جدًا، الهزة الوحيدة اللي كانت بتفضح إن جواه إعصار. وشه مفيهوش أي تعبير. إلا الابتسامة دي... الابتسامة اللي الناس فاكرة إنها ثقة... وهي في الحقيقة أرخص طريقة اخترعها الإنسان عشان يخبي إنه خلاص مبقاش عنده طاقة يشرح.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(رفع عينه من الملف... وبص على جسم علي. عينه كانت ماشية على التاتوهات واحدة واحدة. مش بيبصلها كرسومات... لا... كأنه بيقرأ اعترافات مكتوبة بالحبر. ابتسم ابتسامة صغيرة وقال بهدوء مستفز):</span><br>
+            "علي صقر... حتى اسمك عامل دوشة. اسم تقيل... كبير... تحسه داخل أي مكان قبلك. بس الغريبة إن اللي قاعد قدامي دلوقتي... مش باين عليه أي حاجة من الاسم ده."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(سكت ثانيتين... وقفل الملف):</span><br>
+            "أنا شوفت ناس كتير عاملة تاتوهات... بس أنت... أنت عامل متحف كامل. <span style="font-weight: bold; color: #555;">(أشار بالقلم ناحية دراعه)</span> كل رسمة ليها مكان... كل كلمة محسوبة... كل خط متعملش كده وخلاص. وده معناه إن الحبر عندك مش للمنظر. الحبر عندك بيتكلم."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(سكت... وبعدين مال لقدام سنة):</span><br>
+            "السؤال بقى... بتحاول تقول إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الصمت نزل على الأوضة. حتى صوت الساعة اختفى من ودن علي. هو كان سامع صوت تاني... صوت قديم... ناس كانت بتقول:
+            </p>
+            
+            <blockquote class="reveal-on-scroll" style="margin: 20px 0; padding-right: 15px; border-right: 3px solid #888; color: #555; font-style: italic;">
+            "إحنا معاك." "إحنا عمرنا ما هنسيبك." "اطمن."
+            </blockquote>
+            
+            <p class="reveal-on-scroll">
+            الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت. رجع للدكتور. ونفس الابتسامة لسه على وشه. ابتسامة باردة... باردة لدرجة إن اللي يشوفها يحلف إن صاحبها معندوش مشاعر. بس الحقيقة... إنها كانت آخر حاجة فاضلة واقفة بعد ما كل حاجة جواه وقعت.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم أكتر... وقال):</span><br>
+            "يا دكتور... الغريب في البشر إنهم بيعشقوا يشوفوا النهاية... بس أول ما تبدأ تحكيلهم البداية... يبصوا في الساعة. ولو كملت... يبصوا في الموبايل. ولو اتوجعت... يقولولك: شد حيلك. ولو وقعت... يسألوك: هتقوم إمتى؟ ولو قومت... يتعاملوا كأنك عمرك ما وقعت."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك ضحكة صغيرة... لكنها كانت ضحكة مالهاش صوت):</span><br>
+            "فبطلت أحكي. مش عشان الكلام خلص... لأ... عشان محدش أصلًا كان بيسمع."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص ناحية الأرض. وأخد نفس طويل):</span><br>
+            "زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك. وكل اللي يطمنك هيكمل معاك. وكل وعد بيتقال... لازم يتنفذ. كنت غبي... أيوة... غبي. بس الغباء الحقيقي مش إنك تثق. الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت... وحرك صوابعه بهدوء):</span><br>
+            "كل مرة كنت أقول: المرة دي غير. وأرجع ألاقي نفسي بضحك. مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي. هو أنا لسه بتفاجئ؟ هو أنا لسه مستني حاجة من حد؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رفع عينه للدكتور. نظرة هادية... بس فيها تعب سنين):</span><br>
+            "عارف يا دكتور... أصعب حاجة مش إن الناس تخذلك. أصعب حاجة... إنك تفضل تدور على سبب. تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... يمكن... يمكن... لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الدكتور كان ساكت. أول مرة بطل يقلم ضوافره. القلم نزل من بين صوابعه. وبدأ يبص لعلي بنفس الطريقة اللي الدكتور بيبص بيها للمريض... لما يحس إن اللي قدامه مش بيقول كلام... ده بيطلع حاجة مدفونة بقالها سنين.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(عين الدكتور نزلت على الدراع الشمال. وقف قدام أول تاتو. ابتسم ابتسامة خفيفة... وقال):</span><br>
+            "واضح إن هنا... القصة بتبتدي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            وعينه استقرت على أول كلمة محفورة بالحبر... <span class="en-phrase">Try for yourself...</span>
+            </p>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله ]</h3>
             
-            <p class="scene-desc reveal-on-scroll">
-            الدكتور قرب خطوة. عينه كانت واقفة على أول سطر <span class="en-phrase">Try for yourself.</span> وبعدين نزل بعينه لتحت. العينين. مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية.
+            <p class="reveal-on-scroll">
+            الدكتور قرب خطوة. ببطء... كأنه خايف يقرب زيادة. عينه كانت واقفة على أول سطر. <span class="en-phrase">Try for yourself.</span> قرأها مرة... واتنين... وبعدين نزل بعينه لتحت. وساعتها... سكت.
             </p>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (يميل بوجهه):</span>
-                <p>مين دي؟ واضح إنها كانت مهمة.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيلمس العينين بحنين وابتسامة صادقة):</span>
-                <p>مروة. هي فيه ناس بتخلص يا دكتور؟ فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه. الناس كلها كانت بتبص على علي اللي واقف قدامها. إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه. الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان. الناس كانت تقول: ده قوي. هي كانت تقول: لا... ده شايل فوق طاقته.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (ينتبه لرأس الحية اللي طالعة من تحت حرف الـ e):</span>
-                <p>يبقى الحية بدأت من هنا... الناس أول ما تشوفها تقول... شر... سم... خيانة...</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                <p>وأنا كل مرة أضحك، لأنهم عمرهم ما كملوا الحكاية. الحية كل فترة بتخلع جلدها. بتسيب النسخة القديمة... وتمشي. عمرها ما بترجع تلبسه. وأنا... لما قررت أتولد من جديد... مكنتش عايز أرجع للشخص اللي مات. أجمل رزق ممكن إنسان ياخده... مش فلوس ولا شهرة. أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك.</p>
-            </div>
+            
+            <p class="reveal-on-scroll">
+            العينين. مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية. فيهم لمعة خفيفة... وفيهم هدوء غريب... بس أكتر حاجة شدت الدكتور... إن العينين دول كانوا مختلفين عن باقي الحبر. كل التاتوهات كان فيها تحدي... غضب... وجع... إنما العينين... كان فيهم أمان. حاجة مكنتش راكبة مع باقي جسم علي.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(مال وشه شوية... وقال وهو لسه باصص عليهم):</span><br>
+            "مين دي؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(مبيردش. فضل باصص على دراعه كأنه أول مرة يشوفه. ابتسم... بس الابتسامة دي المرة دي مكانش فيها سخرية. كان فيها حنين... وجع... وحاجة شبه الامتنان. رفع إيده ولمس العينين بطرف صوابعه... برقة... كأن الحبر ده ممكن يحس. وبص للدكتور):</span><br>
+            "مروة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(رفع حاجبه):</span><br>
+            "واضح إنها كانت مهمة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك ضحكة قصيرة):</span><br>
+            "كانت؟ هي فيه ناس بتخلص يا دكتور؟ فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رجع يبص للعينين. وصوته هدي أكتر):</span><br>
+            "الناس كلها كانت بتبص على علي اللي واقف قدامها. إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه. <span style="font-weight: bold; color: #555;">(لف للدكتور)</span> فاهم الفرق؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور مردش. وعلي كمل):</span><br>
+            "الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان. الناس كانت تقول: ده قوي. هي كانت تقول: لا... ده شايل فوق طاقته. الناس كانت تسمع كلامي... هي كانت تسمع السكوت اللي بين الكلام."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(أخد نفس طويل):</span><br>
+            "الغريب إن الإنسان طول عمره بيدور على حد يفهمه. مش يوافقه... ولا يجامله... ولا يقوله حاضر. بس يفهمه. ولما يلاقي الشخص ده... بيحس إن الدنيا بطلت تبقى تقيلة شوية."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "كانت حبيبتك؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم):</span><br>
+            "لأ... كانت رزقي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور بصله باستغراب. فعلي كمل وهو بيبص للعينين):</span><br>
+            "فيه ناس بتدخل حياتك صدفة. وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة. وأنا... ربنا رزقني بمروة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(صوته بدأ يوطى):</span><br>
+            "أنا مش بقول إنها ملاك علشان بحبها. أنا بقول إنها ملاك... لأنها كانت أول إنسانة شافت جوايا حاجة حلوة... في الوقت اللي أنت نفسي كنت شايف إني مستاهلش أي حاجة حلوة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت. وبعدين ضحك بسخرية):</span><br>
+            "تخيل؟ أنا كنت شايف نفسي شخص عادي... يمكن أقل من عادي. إنما هي... كانت بتعاملني كأني أغلى حاجة في الدنيا. وأقسم بالله يا دكتور... لحد النهارده... مش عارف هي كانت شايفة إيه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "وإنت شايف إنها غيرت حياتك؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه):</span><br>
+            "لا... دي غيرتني أنا. <span style="font-weight: bold; color: #555;">(سكت شوية)</span> الولادة الجديدة اللي الناس فاكراها بدأت مع الحبر... لأ. الحبر جه بعدين. أما البداية الحقيقية... فكانت يوم ربنا بعتلي مروة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            عين الدكتور نزلت تحت العينين. وقف قدام التكملة: <span class="en-phrase">and for me</span> لكن كلمة... <span style="color: darkred; font-weight: bold; font-size: 1.2em;">me</span> كانت لوحدها باللون الأحمر.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(قرب أكتر، وقال):</span><br>
+            "ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(لمس الكلمة بصوابعه، وبرغم برودة الأوضة، كان واضح إن نبرة صوته اتهزت بحمل أتقل وشجن أعمق):</span><br>
+            "علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. <span class="en-phrase">and for me</span>.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "...أنا. كنت بعمل كل حاجة علشان الناس. أرضي ده، وأساعد ده، وأستحمل ده، وأجي على نفسي علشان الكل.. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تخليني ألتفت لنفسي.. أول واحدة تقوللي: عيش لنفسك شوية."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص للكلمة الحمرا، وأخد نفس حاد وكأنه بيستجمع روحه):</span><br>
+            "وحتى لو الدنيا لفت بينا.. ومبقناش مع بعض دلوقتي.. وحتى لو الظروف كانت أقوى مننا وكل واحد راح في طريق.. فـ <span class="en-phrase">me</span> اتكتبت بالدم عشان تفضل ثابتة ومتموتش. دي وعد ليها، ووعد لنفسي.. إن علي اللي هي تعبت عشان تخليه يشوف نفسه ويحبها، مش هسمحله يضيع تاني. أنا هفضل أحاول، وهفضل أعافر وأقوم.. علشاني، وعلشان الروح النضيفة اللي هي أحيتها جوايا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            وفجأة.. عين الدكتور انتبهت لراس وجسم الحية (التعبان) اللي طالع وممتد مباشرة من تحت حرف الـ (e) في كلمة <span class="en-phrase">me</span>. جلدها مرسوم بتفاصيل دقيقة ومرعبة، كأنها بتشق طريقها وتزحف خارجة من قلب الكلمة دي بالذات.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(مال براسه وقال بذهول):</span><br>
+            "يعني التعبان.. بدأ يخرج من هنا؟ منك أنت.. وبسببها؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه، وابتسامته رجعت بس المرة دي كانت دافية وموجوعة في نفس الوقت):</span><br>
+            "بالظبط يا دكتور. التعبان بدأ من هنا.. من لحظة التعب والولادة الجديدة اللي هي كانت سبب فيها. الناس أول ما تشوف التعبان تقول شر، سم، خيانة.. وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "ليه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "لأن التعبان هنا مش رمز للشر. التعبان هو الكائن الوحيد اللي لما الدنيا تضيق عليه وجلده يقدم ويتبهدل من الجروح، بيعمل إيه؟ بيخلع جلده كله. بيسيب النسخة القديمة، الضعيفة، المكسورة اللي اتأذت من الناس.. وبيمشي بنسخة جديدة قوية. مروة هي اللي خلتني أبدأ أخلع جلدي القديم. هي اللي زرعت جوايا القوة إني اتولد من جديد ومستسلمش للوجع. وعشان كده التعبان طالع من كلمة <span class="en-phrase">me</span>.. لأن ولادتي الجديدة كانت بسببها، ومكملة علشاني وعلشانها.. حتى لو مبقناش مع بعض."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت.. وبص لمروة المرسومة على دراعه، وقال بابتسامة هادية):</span><br>
+            "لو فيه حاجة واحدة في حياتي مستحيل أعتبرها صدفة... فهتبقى مروة. لأن في عز ما كنت فاكر إن الدنيا قفلت بابها في وشي... ربنا فتحلي باب على هيئة إنسانة. وأجمل رزق ممكن الإنسان ياخده... مش فلوس... ولا شهرة... ولا نجاح... أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
+            </p>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين ]</h3>
             
-            <p class="scene-desc reveal-on-scroll">
-            الدكتور وقف قدام الساعد اليمين. وقرأ الجملة بصوت واطي: <span class="en-phrase">No Risk No Story.</span> وتحتها التاريخ <span class="en-phrase">II • XIV • MMXXII</span>
+            <p class="reveal-on-scroll">
+            الأوضة رجعت تسكت. محدش اتكلم. الدكتور كان واقف قدام دراع علي، كأنه نسي إنّه في جلسة علاج. بص على الحية وهي خارجة من كلمة <span class="en-phrase">me</span>... وبعدين لف على الساعد اليمين. وقف. قرأ الجملة المكتوبة هناك بصوت واطي: <span class="en-phrase">No Risk No Story.</span>
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(ابتسم ابتسامة خفيفة):</span><br>
+            "دي مفهومة... اللي ميخاطرش، معندوش قصة تتحكي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            لكن بعدها بعينه مباشرة... كان التاريخ. <span class="en-phrase">II • XIV • MMXXII</span>
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(فضل يبصله كام ثانية. وبعدين قال):</span><br>
+            "بصراحة... أنا كنت فاكر ده تاريخ الولادة الجديدة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رفع راسه بسرعة. ولأول مرة... الابتسامة اختفت تمامًا. هز راسه بالنفي):</span><br>
+            "لأ. <span style="font-weight: bold; color: #555;">(قالها بهدوء... بس الهدوء ده كان فيه احترام للحظة دي)</span> الولادة الجديدة ليها حكاية تانية."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت. وبص للتاريخ. ولأول مرة... الدكتور لاحظ إن عين علي لمعت. مش دموع... لكن لمعة الإنسان لما يقف قدام ذكرى عمرها ما هتتكرر. ابتسم):</span><br>
+            "أما التاريخ ده... ده أغلى تاريخ اتحفر على جسمي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "ليه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(أخد نفس طويل. وقال بهدوء):</span><br>
+            "عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الأوضة سكتت. حتى صوت الساعة... كأنه اختفى.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(كمل):</span><br>
+            "الناس لما تبص عليه... تشوف أرقام روماني. وأنا... كل ما أشوفه... بفتكر اليوم اللي حياتي خدت نفس لأول مرة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك ضحكة صغيرة):</span><br>
+            "الغريب إن الناس فاكرة إن الحب بيغير الإنسان. <span style="font-weight: bold; color: #555;">(هز راسه)</span> لا... الإنسان الصح... هو اللي بيغير الإنسان."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "يعني مروة غيرتك؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم):</span><br>
+            "هي مغيرتنيش بالعافية. ولا طلبت مني أبقى شخص تاني. هي عملت حاجة أصعب بكتير. <span style="font-weight: bold; color: #555;">(سكت. وبعدين قال)</span> خلتني أحب الشخص اللي كنت طول عمري بكرهه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور فضل ساكت. وعلي كمل):</span><br>
+            "كنت ببص في المراية... وأشوف واحد مليان عيوب. هي كانت تبصلي... وكأنها شايفة إن مفيش أجمل مني. لحد النهارده... مش عارف هي كانت شايفة إيه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم وهو بيهز راسه):</span><br>
+            "يمكن ربنا كشفلها حاجة... أنا نفسي مكنتش شايفها. <span style="font-weight: bold; color: #555;">(بص للتاريخ)</span> عارف يعني إيه حد يخليك تحس إنك كفاية... من غير ما تطلب منه؟ عارف يعني إيه حد يحسسك إن وجودك لوحده له قيمة؟ الإحساس ده... فلوس الدنيا كلها متشتريهوش."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت لحظة):</span><br>
+            "أنا اتعلمت من الدنيا حاجات كتير. إن الناس بتبيع. وبتتغير. وبتنسى. لكن ربنا... لما يحب يجبر قلب واحد مكسور... بيبعتله شخص. وأنا... ربنا جبر خاطري بمروة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(قال بهدوء):</span><br>
+            "واضح إنك بتحبها جدًا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك):</span><br>
+            "دي أقل كلمة تتقال. <span style="font-weight: bold; color: #555;">(بص للتاريخ مرة تانية)</span> أنا مؤمن إن في حاجات بتحصل صدفة. بس هي... عمرها ما كانت صدفة. <span style="font-weight: bold; color: #555;">(رفع عينه لفوق)</span> أنا مؤمن إنها كانت رزق. دعوة يمكن أمي دعتها. أو سجدة أنا نسيتها. أو رحمة من ربنا... قرر ينزلها على قلبي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(صوته بدأ يهدى أكتر):</span><br>
+            "فيه ناس ربنا يرزقهم ببيت. وفيه ناس يرزقهم بفلوس. وفيه ناس يرزقهم بشغل. أما أنا... فربنا رزقني بإنسانة. <span style="font-weight: bold; color: #555;">(ابتسم)</span> ولو خيروني ألف مرة... هختار نفس الرزق."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الدكتور كان باصص لعلي... لكن المرة دي مش كدكتور. كان باصص لإنسان... بيتكلم عن حد بيحبه... وكأنه بيتكلم عن نعمة. بعد ثواني... رجع الدكتور يبص للجملة المكتوبة فوق التاريخ. <span class="en-phrase">No Risk No Story.</span>
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "يعني المخاطرة دي... كانت إنها تدخل حياتك؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك لأول مرة ضحكة حقيقية):</span><br>
+            "لأ يا دكتور."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "أمال؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه. <span style="font-weight: bold; color: #555;">(سكت. وبعدين ابتسم)</span> وأجمل مخاطرة أخدتها في حياتي... إني صدقتها."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(وقف. وحط إيده على الساعد اليمين. وقال بصوت هادي):</span><br>
+            "وعشان كده التاريخ اتحفر هنا. مش عشان أفكره. أنا مستحيل أنساه. اتحفر... عشان كل يوم أصحى وأفتكر إن مهما الدنيا علمتني أقسى الدروس... ربنا لسه قادر يبعت للإنسان رزق ينسّيه وجعه كله في لحظة واحدة."
             </p>
 
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                <p>دي مفهومة... اللي ميخاطرش، معندوش قصة تتحكي. بس تاريخ ده.. أنا كنت فاكر ده تاريخ الولادة الجديدة.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (عينيه بتلمع):</span>
-                <p>لأ. الولادة الجديدة ليها حكاية تانية. أما التاريخ ده... ده أغلى تاريخ اتحفر على جسمي. عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي. الغريب إن الناس فاكرة إن الحب بيغير الإنسان. لأ... الإنسان الصح... هو اللي بيغير الإنسان. هي مغيرتنيش بالعافية. هي عملت حاجة أصعب بكتير. خلتني أحب الشخص اللي كنت طول عمري بكرهه.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور:</span>
-                <p>يعني المخاطرة في... <span class="en-phrase">No Risk No Story</span> ... كانت إنها تدخل حياتك؟</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                <p>لأ يا دكتور. المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه. وأجمل مخاطرة أخدتها في حياتي... إني صدقتها.</p>
-            </div>
-
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك ]</h3>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (يأخذ نفساً عميقاً وينظر لرقبة علي اليمين):</span>
-                <p>دي بقى أكتر واحدة بشوفها. <span class="en-phrase">Never Look Back</span>. تحفيز... سيب الماضي... الحاجات المعتادة يعني.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بيشاور على رقبته):</span>
-                <p>الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته. فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى. بطلت أقول بكرة أحسن. وبطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل. أصعب حاجة مش الخذلان، دي إني كنت كل مرة أدي فرصة زيادة. أنا بسامح يا دكتور... بس مبفتحش نفس الباب مرتين.</p>
-            </div>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(أخد نفس عميق... وبعدين بعينه راح ناحية الرقبة اليمين. الجملة كانت واضحة... سودا... وحادة... وكأنها محفورة بسكينة: <span class="en-phrase">Never Look Back</span>. ابتسم ابتسامة خفيفة... وقال):</span><br>
+            "واضح إن من هنا... القصة هتبدأ توجع. دي بقى أكتر واحدة بشوفها. أي حد بيعمل تاتوهات بيحب الجمل دي. تحفيز... بداية جديدة... سيب الماضي... الحاجات المعتادة يعني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بصله... وبعدين ضحك. الضحكة دي رجعت تاني. الضحكة اللي عمرها ما كانت معناها إنه مبسوط. قال بهدوء):</span><br>
+            "أنت فاكرها جملة... وأنا شايفها أمر."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(عقد حاجبيه):</span><br>
+            "أمر؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه):</span><br>
+            "أيوة... أمر. كل يوم أصحى... وأشوفها. <span style="font-weight: bold; color: #555;">(رفع صباعه ولمس الحروف على رقبته)</span> مش عشان أفكر نفسي أكون قوي... لا. عشان أفكر نفسي... مبصش ورا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "للدرجة دي الماضي كان وحش؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم):</span><br>
+            "الماضي عمره ما كان وحش. اللي كان وحش... إني كنت كل شوية أرجعله. <span style="font-weight: bold; color: #555;">(سكت. وبعدين قال)</span> عارف يعني إيه تمشي خمس خطوات لقدام... وبعدين ترجع عشرة؟ مش عشان الطريق قفلك... لأ... عشان قلبك هو اللي رجعك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص في الأرض):</span><br>
+            "كنت كل مرة أقول... يمكن الرسالة دي تتبعت. يمكن الشخص ده يتغير. يمكن الاعتذار ييجي. يمكن اللي راح يرجع. يمكن... يمكن... يمكن. <span style="font-weight: bold; color: #555;">(ضحك بسخرية)</span> الغريب إن كلمة (يمكن)... دمرت ناس أكتر من كلمة (مستحيل)."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور فضل ساكت. وعلي كمل):</span><br>
+            "كنت فاكر إن لو استنيت كفاية... كل حاجة هتتصلح. <span style="font-weight: bold; color: #555;">(رفع عينه)</span> بس الحقيقة؟ في حاجات... كل ما تستناها أكتر... بتكسرك أكتر. <span style="font-weight: bold; color: #555;">(سكت شوية)</span> عشان كده... الجملة دي مكانها على رقبتي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "ليه الرقبة بالذات؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم):</span><br>
+            "لأن الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته. <span style="font-weight: bold; color: #555;">(وسكت)</span> فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "واضح إنك قاسي على نفسك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه):</span><br>
+            "لا يا دكتور... أنا بس بطلت أدلع نفسي بالكلام اللي مبيحصلش."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "يعني؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "يعني بطلت أقول بكرة أحسن. بطلت أقول الناس هتتغير. بطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الأوضة سكتت. وصوت الساعة رجع. ...تيك... ...تاك...
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(وهو باصص في الفراغ):</span><br>
+            "عارف أكتر حاجة كانت بتوجعني؟ مش الخذلان... ولا الفراق... ولا الكدب."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "أمال إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم):</span><br>
+            "إني كنت كل مرة... أدي فرصة زيادة. <span style="font-weight: bold; color: #555;">(ضحك ضحكة صغيرة)</span> كنت فاكر إن دي طيبة. طلعت غباء."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(قال بهدوء):</span><br>
+            "يعني مبقتش تسامح؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه بالنفي):</span><br>
+            "لا... بسامح."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "أمال؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "بس مبفتحش نفس الباب مرتين. <span style="font-weight: bold; color: #555;">(سكت. وبعدين قرب من الدكتور خطوة)</span> أصل الناس فاكرة إن المسامحة معناها إن كل حاجة ترجع زي الأول. لأ. أنا ممكن أسامحك... وأدعيلك... وأتمنالك الخير... بس مستحيل أرجع أحط إيدي في نفس النار وأقول يمكن المرة دي متحرقنيش."
+            </p>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الخامس: فاتورة الثقة ]</h3>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (ينظر للصدر الشمال بذهول):</span>
-                <p>دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها. مين خلاك توصل للمرحلة دي يا علي؟</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي:</span>
-                <p>أصعب حاجة إن حد يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك ويمشي. ساعتها بتفهم إن الثقة... مش حاجة تتوزع ببلاش. الثقة بقت امتياز. اللي عايزها... يتعب عشان ياخدها. وعشان كده التاتو ده على صدري.. لأن القلب تحته. عشان أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس. الزعل بيخلص يا دكتور... إنما الدروس... بتعيش.</p>
-            </div>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(أخد نفس عميق. وحول عينه ناحية الصدر الشمال. الحروف كانت أوضح. وأقسى. وأتقل. <span class="en-phrase">Don't Trust Damn Humans.</span> قرأها مرتين وبص لعلي كأنه مصدوم):</span><br>
+            "دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك... وقال بهدوء يخوف):</span><br>
+            "وده الطبيعي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(عقد حاجبه):</span><br>
+            "ليه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "لأن الحقيقة عمرها ما كانت مريحة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(قرب خطوة):</span><br>
+            "بس دي جملة قاسية."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "الحياة كانت أقسى."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(سكتوا. الدكتور حط القلم على المكتب. ولأول مرة من أول الجلسة... اتكلم من غير برود):</span><br>
+            "مين خلاك توصل للمرحلة دي يا علي؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(فضل ساكت. بص للسقف. كأنه بيدور على إجابة... مع إنه حافظها. بعد ثواني قال):</span><br>
+            "هو ليه دايمًا أول سؤال بيكون... مين عمل فيك كده؟ ليه محدش بيسأل... إنت استحملت كل ده إزاي؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور مردش. وعلي كمل):</span><br>
+            "الناس بتحب تعرف الجاني... لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص. <span style="font-weight: bold; color: #555;">(ابتسم ابتسامته الساخرة)</span> يمكن عشان الجروح بعد ما تقفل... مبتبقاش تريند."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت شوية. وبعدين بص للدكتور):</span><br>
+            "أنا مش بكره البشر."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(استغرب):</span><br>
+            "أمال الجملة دي معناها إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(حط إيده على صدره. بالظبط فوق التاتو):</span><br>
+            "دي مش دعوة. دي تذكرة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "تذكرة؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "أيوة... تذكرة بالتمن اللي دفعته. <span style="font-weight: bold; color: #555;">(سكت)</span> زمان... كنت بثق بسهولة. يمكن أسهل من اللازم. كنت فاكر إن طالما قلبي نضيف... يبقى الناس هتكون زيه. كنت فاكر إن اللي يضحك في وشك... لازم يبقى بيحبك. وإن اللي يقولك: (أنا جنبك)... هيفضل جنبك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك. لكن الضحكة دي... كانت مليانة خيبة):</span><br>
+            "طلع إن الدنيا مبتشتغلش كده."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "اتخذلت؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بصله):</span><br>
+            "لا... اتعلمت."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "إيه الفرق؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "المخذول... بيستنى اللي كسره يعتذر. أما اللي اتعلم... بيعرف إن الاعتذار مش هيغير اللي حصل."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الأوضة غرقت في الصمت. ...تيك... ...تاك...
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(وهو باصص في الأرض):</span><br>
+            "عارف يا دكتور... أصعب حاجة مش إن حد يسيبك. <span style="font-weight: bold; color: #555;">(رفع عينه)</span> أصعب حاجة... إنه يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور بلع ريقه. وعلي كمل):</span><br>
+            "يبقى حافظ إيه اللي بيوجعك... وإيه اللي يكسرك... وإيه اللي يخليك متنامش... وساعتها يمشي. كأن كل اللي بينكم... مكانش موجود. <span style="font-weight: bold; color: #555;">(سكت)</span> ساعتها... بتفهم إن الثقة... مش حاجة تتوزع ببلاش."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "بس مينفعش تعاقب كل الناس بسبب كام شخص."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم. ابتسامة هادية جدًا. وقال):</span><br>
+            "أهو... وده اللي أقصده."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(استغرب):</span><br>
+            "إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "إن محدش بيفهم."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت. وبعدين قال بصوت واطي):</span><br>
+            "أنا مقولتش إني هعاقب الناس. أنا قلت... إن الثقة مبقتش حق. <span style="font-weight: bold; color: #555;">(قرب خطوة)</span> الثقة بقت امتياز."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(كل كلمة كانت بتخرج ببطء):</span><br>
+            "اللي عايزها... يتعب علشان ياخدها."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(الدكتور فضل ساكت. وعلي كمل):</span><br>
+            "أنا لسه بعامل الناس باحترام. ولسه بساعد. ولسه بضحك. ولسه بسلم. بس... مبقتش بفتح قلبي لأي حد. <span style="font-weight: bold; color: #555;">(ابتسم)</span> القلب اللي اتكسر مرة... مش بيبقى جبان. بيبقى فاهم."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رفع إيده على صدره):</span><br>
+            "وعشان كده التاتو هنا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "ليه على الصدر؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رد من غير تفكير):</span><br>
+            "لأن القلب تحته. <span style="font-weight: bold; color: #555;">(وسكت)</span> كل ما أبصله... أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "واضح إنك لسه زعلان."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ضحك):</span><br>
+            "زعلان؟ لا يا دكتور. <span style="font-weight: bold; color: #555;">(سكت)</span> الزعل بيخلص. إنما الدروس... بتعيش."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(لف ناحية الشباك. وبص برا. العربيات ماشية... والناس ماشية... والدنيا ماشية... كأنها عمرها ما وقفت على حد. قال من غير ما يبص للدكتور):</span><br>
+            "عارف أكتر حاجة ضحكتني؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "إن أكتر ناس كانوا يقولولي... (إحنا عمرنا ما هنسيبك)... كانوا أول ناس اختفوا. <span style="font-weight: bold; color: #555;">(ضحك)</span> وساعتها... فهمت إن الكلام... أرخص عملة في الدنيا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رجع بص للدكتور):</span><br>
+            "ومن يومها... بطلت أصدق اللي بيتقال. وبقيت أصدق اللي بيتعمل."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(أخد نفس طويل. وبعدين بص على علي... لأول مرة من أول الجلسة... من غير ما يشوف التاتوهات. بصله هو. كإنسان. وقال بهدوء):</span><br>
+            "...واضح إنك تعبت أوي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم. ابتسامة صغيرة. هادية. لكن المرة دي... مكانش فيها سخرية. كان فيها استسلام بسيط. وقال):</span><br>
+            "لا يا دكتور... أنا بس... بطلت أستغرب."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            وسكت. الصمت المرة دي... كان أعلى من أي كلمة اتقالت في الجلسة. وفي الصمت ده... الدكتور لأول مرة حس إن اللي قدامه مش بيحاول يقنعه. هو بس... كان نفسه... مرة واحدة في حياته... حد يفهمه من غير ما يضطر يشرح.
+            </p>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل السادس: الحرب اللي جوه... والظل اللي مش عايز يموت ]</h3>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (ينظر لجنبه الأيمن مكان الحرب والظل):</span>
-                <p>المرة دي التاتو واخد جنب جسمك كله... ومش مجرد كلمة. دي حلبة مصارعة. الأحمر هنا مش بتاع مروة... الأحمر هنا فيه كره شديد. أنت بقيت تقرف من نفسك؟</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (صوته يصبح حاداً):</span>
-                <p>بقرف من نسختي القديمة يا دكتور! ومكتوبة بالأحمر لأن دي أكتر حاجة تهم في التاتو كله. علي القديم اللي بيحاول كل شوية يرجع يظهر للناس، بيبقى ناسي شكله!.. ناسي قد إيه كان ضعيف، ناسي قد إيه الناس كانت بتبص له باستخفاف. أنا من كتر ما بقيت بكره أيام علي الضعيف القديم... نسيت أساساً إذا كان في يوم حلو جمعني بيه!</p>
-            </div>
+            
+            <p class="reveal-on-scroll">
+            الدكتور حك جبهته ببطء، وقبل ما يقفل الملف، عينه راحت لجنب علي الأيمن... عند أضلاعه تحت إبطه وممتدة لجنب بطنه. المكان كان متغطي بتاتو كبير، كلام كتير مكتوب تحت بعضه، وفي النص رسمة لبني آدم قاعد بضهره على الأرض، ومواجه لظل أسود كامل، مالوش ملامح غير عينين بيض بتلمع في الضلمة.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(مال براسه وقرأ بصلابة):</span><br>
+            "<span class="en-phrase">في دماغي إتنين خلف خلاف</span> <span class="en-phrase">دنيا ودين، عكس عكاس</span> <span class="en-phrase">دوقنا القهر، شربنا الكاس</span>"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(سكت لحظة، وبص لعلي وقال):</span><br>
+            "المرة دي التاتو واخد جنب جسمك كله... ومش مجرد كلمة أو رمز. دي حلبة مصارعة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم، لكن الابتسامة المرة دي كانت حادة، فيها إرهاق معركة مابتنتهيش):</span><br>
+            "دي مش حلبة يا دكتور... دي حرب أهلية شغال جوه دماغي 24 ساعة."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "بين مين ومين؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(أشار بإصبعه على رسمة الظل والشخص اللي قاعد):</span><br>
+            "بين علي القديم... وعلي الجديد. اتنين عايشين في نفس العقل، بس خلف خلاف في كل حاجة. علي القديم كان ضعيف، بييجي على نفسه عشان يرضي غيره، كان همه الدنيا وتفاصيلها.. أما الجديد، فالدنيا مبقتش من أولوياته خالص. بقت (دنيا ودين، عكس عكاس)."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(أخد نفس، وكمل):</span><br>
+            "(دوقنا القهر، شربنا الكاس).. الناس فاكرة إن لما حد بيشرب عشان ينسى، الكاس بيهون. بس الحقيقة إن الكاس نفسه كان متغرق بقهر الدنيا ومرارها."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            عين الدكتور نزلت على شريط أسود عريض بارز في وسط التاتو، المربع المظلل كأنه محفور بغضب، ومكتوب جواه بالأبيض: <span style="background-color: black; color: white; padding: 2px 6px; font-weight: bold;">ضميري يصحى وأنا عايز أنام</span>
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(أشار للمربع الأسود وسأل):</span><br>
+            "ليه الجملة دي بالذات محبوسة في المربع الأسود ده؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(غمض عينه ثانية ورجع فتحها):</span><br>
+            "عشان علي القديم مبيعرفش يصحى غير في الوقت الغلط. أكون مهدود، طالع عيني طول اليوم، محتاج بس أنام وأرتاح من التفكير... يصحى هو. صوت الضمير الضعيف القديم اللي يقولي: (يمكن قسيت؟ يمكن المفروض تسامح؟ افتكر اللي بينكم!). يصحى ينكش في الوجع في عز ما أنا محتاج أنام."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ونزل بعينه للجملة اللي تحت المربع مباشرة):</span><br>
+            "عشان كده برد عليه وأقوله: <span class="en-phrase">مش كل مرة، إنت مين صحاك؟</span>.. إوعى تفتكر إنك كل ما تصحى هسيبك ترجعني لنقطة الصفر تاني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            وفجأة... عين الدكتور اتثبتت على السطر اللي بعده. السطر الوحيد المكتوب باللون الأحمر الفاقع وسط الحبر الأسود: <span style="color: red; font-weight: bold;">إنت بتنسى شكلك، أنا بيك قرفان</span>
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(قرب وشبه اندهش):</span><br>
+            "الأحمر هنا مش بتاع مروة... الأحمر هنا فيه كره شديد. أنت بقيت تقرف من نفسك؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(هز راسه بقوة، وصوته بقى حاد):</span><br>
+            "بقرف من نسختي القديمة يا دكتور! ومكتوبة بالأحمر لأن دي أكتر حاجة تهم في التاتو كله. علي القديم اللي بيحاول كل شوية يرجع يظهر للناس، بيبقى ناسي شكله!.. ناسي قد إيه كان ضعيف، ناسي قد إيه الناس كانت بتبص له باستخفاف وتيجي عليه. هو بينسى هوان شكله، بس أنا فاكر... وأنا بيك قرفان ومستحيل أسمحلك ترجع تملى المكان."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(بص للرسمة اللي في النص... الشخص اللي قاعد بضهره والظل اللي قدامه. وقال بطفيف من التأثر):</span><br>
+            "ده أنت... وده ظلك القديم."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رد بهدوء):</span><br>
+            "ده علي الجديد اللي قاعد بصلابة، باصص لعلي القديم اللي بقى مجرد ظل مالوش قيمة غير عيون بتلمع بالضعف."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ونزل بصره للسطور الأخيرة تحت الرسمة وقرأهم بصوت واطي: <span class="en-phrase">مش فاكر إمتى كنت بيك فرحان</span> - <span class="en-phrase">زمنا دوه مش ليك أحمار</span>. ضحك ضحكة قصيرة بس قاسية):</span><br>
+            "أنا من كتر ما بقيت بكره أيام علي الضعيف القديم... نسيت أساساً إذا كان في يوم حلو جمعني بيه! مش فاكر إمتى كنت بيك فرحان أو مبسوط. عشان كده نهيت الحوار معاه بأبسط وأقسى حقيقة..."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "اللي هي؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص للدكتور بثبات):</span><br>
+            "قلت له: <span class="en-phrase">زمنا دوه مش ليك أحمار</span>.. الزمن الحالي ده، بقسوته وناسه اللي بياكلوا القوي قبل الضعيف، مش بتاع واحد غبي وضعيف زيك. أنت حمار ومش هتفهم التغيرات دي ولا هتعرف تتكيف معاها... ولو طلعت تاني دلوقتي، هتخرب كل حاجة أنا تعبت عشان أبنيها وهتفرمنا."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الأوضة رجعت تسكت. صوت التكييف وصوت الساعة... ...تيك... ...تاك... الدكتور فضل باصص لجنب علي، كأنه بيستوعب حجم الصراع اللي مش باين تحت الهدوم. البني آدم ده مش بس بيحارب العالم وذكرياته مع الناس... ده في حرب يومية مع أقرب حد ليه: <strong>نسخته القديمة</strong>.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الدكتور أخد نفس عميق، ورفع إيده ببطء... وبدأ يحرك إيده ناحية أوراق الملف عشان ينهي الجلسة.
+            </p>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الأخير: الكلمات اللي معرفتش تتقال ]</h3>
             
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (بصوت هادئ جداً):</span>
-                <p>يعني... كل الحبر اللي على جسمك ده... كان مجرد طريقة للهروب؟</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (بابتسامة يقين):</span>
-                <p>لأ. كل رسمة هنا... جنازة. مدفونة تحتها نسخة قديمة مني. أنا اخترت الحبر.. لأن الكلام خذلني. كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص. وكل مرة حد يسألني (مالك؟) وأرد (مفيش)، كان يبقى جوايا ألف حكاية وألف وجع. الغريب إن الناس كانت مصدقة كلمة (مفيش) أكتر مني. عشت سنين بكلام بيموت في زوري، لحد ما اكتشفت إن الكلام مش لازم يطلع من اللسان... ممكن يطلع من الجلد.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker dr-name">الدكتور (يغلق الملف ببطء):</span>
-                <p>أعتقد... إني فهمتك.</p>
-            </div>
-
-            <div class="dialogue-block reveal-on-scroll">
-                <span class="speaker ali-name">علي (يتجه للباب، ويلتفت بابتسامة ساخرة كأنها آخر نكتة في العرض):</span>
-                <p>أنت فهمت الحكاية يا دكتور... لكن محدش هيحسها... غير اللي عاشها. لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه. وفي النهاية... كان معاكم... المريض النفسي.</p>
-            </div>
-
+            <p class="reveal-on-scroll">
+            الأوضة ساكتة... لأول مرة من أول الجلسة... محدش بيتكلم. لا الدكتور... ولا علي... ولا حتى صوت الساعة. الدكتور كان باصص لعلي. بس المرة دي... مش بيحلله. ولا بيقرأ التاتوهات. كان بيبص لإنسان... شكله واقف قدامه... وروحه في حتة تانية.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(بعد ثواني... اتكلم بصوت هادي جدًا):</span><br>
+            "يعني... كل الحبر اللي على جسمك ده... كان مجرد طريقة للهروب؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(نزل عينه على جسمه. بص على دراعه الشمال... على عيون مروة. وبعدين على الحية. وبعدين على التاريخ. وبعدين على رقبته. وبعدين على صدره. وبعدين على جنبه الأيمن مكان الحرب والظل. ابتسم. وقال بهدوء):</span><br>
+            "لأ."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "أمال إيه؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(سكت. كأن السؤال ده... استناه سنين. وبعدين قال):</span><br>
+            "كل رسمة هنا... جنازة. <span style="font-weight: bold; color: #555;">(الدكتور سكت. وعلي كمل)</span> كل جملة... مدفونة تحتها نسخة قديمة مني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رفع إيده على عيون مروة):</span><br>
+            "ودي... فكرتني إن ربنا ممكن يرزق الإنسان بحد يشوفه وهو مكسور... ويعامله كأنه كامل."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(نزل بإيده على كلمة <span class="en-phrase">me</span>):</span><br>
+            "ودي... أول مرة في حياتي أقرر إن علي يستحق يعيش هو كمان."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(لمس الحية):</span><br>
+            "ودي... مش رمز للشر. دي شهادة وفاة... للنسخة اللي كانت كل يوم تموت وهي بتحاول ترضي الناس."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(وبعدين حط إيده على التاريخ <span class="en-phrase">II • XIV • MMXXII</span> ابتسم):</span><br>
+            "وده... أجمل يوم ربنا كتبهولي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(لمس جنبه عند الصراع والظل):</span><br>
+            "وده... الحرب اللي بتفكرني كل يوم إني مقبلش أرجع لضعفي تاني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(وأخيرًا... لمس رقبته <span class="en-phrase">Never Look Back.</span>):</span><br>
+            "وده... الوعد اللي كل يوم بحاول أوفي بيه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ونزل بإيده على صدره <span class="en-phrase">Don't Trust Damn Humans.</span> ابتسم بسخرية):</span><br>
+            "ودي... أغلى فاتورة دفعتها في حياتي."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span>:<br>
+            "بس برضه... إنت مقولتليش ليه اخترت الحبر."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(أخد نفس طويل. وطلع زفيره براحة. وقال):</span><br>
+            "لأن الكلام خذلني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(بصله باستغراب):</span><br>
+            "إزاي؟"
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span>:<br>
+            "كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص. كل مرة أقول اللي جوايا... أحس إن نصه مات قبل ما يوصل. وكل مرة حد يسألني: (مالك؟) وأرد: (مفيش.) كان يبقى جوايا ألف حكاية... وألف وجع... وألف كلمة... محدش شاف منهم حاجة. <span style="font-weight: bold; color: #555;">(سكت. وبعدين ضحك)</span> الغريب... إن الناس كانت مصدقة كلمة (مفيش)... أكتر مني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص في عين الدكتور):</span><br>
+            "عارف يعني إيه يبقى عندك كلام... لو خرج... يمكن يهز جبل... لكن أول ما يوصل لزورك... يموت؟ <span style="font-weight: bold; color: #555;">(سكت)</span> أنا عشت الإحساس ده سنين. <span style="font-weight: bold; color: #555;">(قرب خطوة)</span> لحد ما اكتشفت... إن الكلام مش لازم يطلع من اللسان."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(بص لجسمه. رفع دراعه الشمال):</span><br>
+            "ممكن يطلع من الجلد. كل نقطة حبر... كانت كلمة. كل خط... كان صرخة. كل تاتو... كان اعتراف. <span style="font-weight: bold; color: #555;">(ابتسم)</span> أنا معرفتش أقول اللي جوايا... فجسمي قاله بالنيابة عني."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            الأوضة غرقت في الصمت. الدكتور نزل عينه. وقفل الملف. ببطء. من غير ما يكتب ولا كلمة.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="dr-name" style="border: none; font-size: 1.3em; font-weight: bold; color: #111;">الدكتور</span> <span style="font-weight: bold; color: #555;">(بعد لحظات... قال):</span><br>
+            "أعتقد... إني فهمتك."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(ابتسم. الابتسامة دي كانت مختلفة. فيها شكر... لكن فيها يقين. وقال بهدوء):</span><br>
+            "لا يا دكتور... <span style="font-weight: bold; color: #555;">(سكت. وبعدين كمل)</span> أنت فهمت الحكاية... لكن محدش هيحسها... غير اللي عاشها."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            لف ناحية الباب. ومشى كام خطوة. إيده مسكت المقبض. فتح الباب. نور الممر دخل الأوضة. وقف. من غير ما يبص وراه في الأول. كأنه بيفكر نفسي بالوعد المكتوب على رقبته. وبعدين... ابتسم. لف وشه آخر مرة. بس المرة دي... مكانش بيبص للدكتور. كان بيبص مباشرة للشخص اللي قاعد قدام الشاشة... اللي بيقرأ كل كلمة.
+            </p>
+            
+            <p class="reveal-on-scroll">
+            <span class="ali-name" style="font-weight: bold; font-size: 1.4em; color: #8b0000;">علي</span> <span style="font-weight: bold; color: #555;">(رفع إيده بتحية مسرحية بسيطة. وانحنى انحناءة خفيفة. وقال بابتسامة ساخرة... هادية... كأنها آخر نكتة في عرض طويل من الوجع):</span><br>
+            "لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه."
+            </p>
+            
+            <p class="reveal-on-scroll">
+            سكت ثانية. وبعدين ابتسم نفس الابتسامة اللي بدأ بيها الجلسة. فتح الباب... وخرج. الباب اتقفل بهدوء. ورجع صوت الساعة تاني... ...تيك... ...تاك... ...تيك... ...تاك... كأنها بتقول... إن الحكايات مبتخلصش... هي بس... بتسيب أثر.
+            </p>
         </div>
     </section>
 
@@ -730,6 +1525,7 @@
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
                     console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
+
                     wakeLock.addEventListener('release', () => {
                         console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
                         wakeLock = null;
@@ -737,11 +1533,14 @@
                 } catch (err) {
                     console.error('فشل تفعيل ميزة منع قفل الشاشة:', err);
                 }
+            } else {
+                console.log('هذا المتصفح لا يدعم ميزة الـ Screen Wake Lock.');
             }
         }
 
         function startExperience() {
             experienceStarted = true;
+
             const audio = document.getElementById('creep-audio');
             audio.play().then(() => {
                 audio.pause();
@@ -976,6 +1775,7 @@
 
         function showComments() {
             document.body.classList.remove('lock-active');
+
             const comments = document.getElementById('comments-box');
             comments.style.display = 'block';
             loadComments();
