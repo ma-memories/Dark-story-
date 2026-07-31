@@ -27,7 +27,6 @@
             scroll-behavior: smooth;
         }
 
-        /* قفل التدوير الصارم باستخدام CSS */
         #orientation-lock {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -58,7 +57,6 @@
         .lock-text { font-size: 1.8em; font-weight: bold; margin-bottom: 15px; color: var(--blood-red); }
         .lock-funny-sub { font-size: 1.2em; color: #aaa; max-width: 80%; line-height: 1.6; }
 
-        /* إخفاء المحتوى تماماً في الوضع الطولي فقط عندما يكون القفل نشطاً */
         @media (orientation: portrait) {
             body.lock-active #orientation-lock {
                 display: flex !important;
@@ -149,30 +147,28 @@
             60% { transform: translateY(-10px) translateX(-50%); }
         }
 
-        /* تعديلات الخلفية والألوان لتطابق شكل الفيديو */
         .investigation-room {
             padding: 80px 20px; 
-            background-color: #F4EFEB; /* لون بيج هادئ ونظيف مطابق للفيديو */
+            background-color: #F4EFEB; 
             position: relative; 
             transition: all 2s;
         }
         .transcript-paper {
             max-width: 900px; margin: 0 auto; 
-            background-color: transparent; /* إزالة ملمس الورق القديم */
+            background-color: transparent;
             background-image: none;
             padding: 20px 10px; 
-            color: #2b2b2b; /* لون نص داكن واضح */
-            box-shadow: none; /* إزالة الظل الداخلي الكثيف */
+            color: #2b2b2b; 
+            box-shadow: none; 
             border-radius: 0; position: relative; overflow: hidden; transition: all 1s;
         }
         .transcript-paper p {
-            margin-bottom: 25px; 
+            margin-bottom: 15px; 
             line-height: 1.9; 
             font-size: 1.25em; 
             font-weight: 500;
         }
 
-        /* أنيميشن الظهور الانسيابي الذي يتحكم في حركة الكلام */
         .reveal-on-scroll {
             opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out;
         }
@@ -182,15 +178,20 @@
 
         .scene-desc {
             color: #444; margin-bottom: 30px; font-size: 1.15em; line-height: 1.8;
+            background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px;
         }
         .sub-heading {
             text-align: center; font-weight: bold; color: #111; font-size: 1.4em;
             margin: 50px 0 30px; padding-bottom: 0; border-bottom: none;
         }
-        .dialogue-block { margin-bottom: 30px; line-height: 1.9; font-size: 1.25em; }
-        .speaker { display: block; font-weight: 700; margin-bottom: 5px; font-size: 1.1em; }
-        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block;}
-        .ali-name { color: var(--blood-red); font-size: 1.2em; text-shadow: 0 0 1px rgba(139,0,0,0.3);}
+        
+        /* التنسيق الجديد للمقاطع الحوارية */
+        .dialogue-block { margin-bottom: 35px; }
+        .speaker { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1.2em; }
+        .dr-name { color: #1a252f; border-bottom: 1px dashed #1a252f; display: inline-block; padding-bottom: 2px;}
+        .ali-name { color: var(--blood-red); font-size: 1.3em; text-shadow: 0 0 1px rgba(139,0,0,0.3); display: inline-block; padding-bottom: 2px;}
+        .dialogue-block p { padding-right: 15px; border-right: 2px solid rgba(0,0,0,0.1); margin-top: 5px; }
+
         .highlight-me {
             color: var(--blood-red); font-family: var(--font-en); font-weight: bold;
             font-size: 1.3em; text-transform: uppercase; animation: pulse-red 2s infinite;
@@ -206,7 +207,6 @@
             display: inline-block; direction: ltr;
         }
 
-        /* تنسيق اللون الأحمر الدموي مع تأثير متوهج ونابض كأنه ينبض بالحياة */
         .blood-effect {
             color: #8b0000 !important;
             text-shadow: 0 0 8px rgba(139, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.4);
@@ -279,7 +279,6 @@
             max-width: 80%; line-height: 1.6; font-weight: 500; text-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
 
-        /* ==================== شاشة Spotify ==================== */
         .spotify-screen {
             display: none; opacity: 0; width: 95%; max-width: 1100px; height: 85vh;
             justify-content: space-between; align-items: center; gap: 40px;
@@ -287,80 +286,47 @@
             direction: ltr; 
         }
 
-        .spotify-left {
-            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-
+        .spotify-left { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .spotify-video-wrapper {
-            width: 35vh; max-width: 240px; 
-            height: 35vh; max-height: 240px; 
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px;
+            width: 35vh; max-width: 240px; height: 35vh; max-height: 240px; 
+            position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.8); border-radius: 12px;
             overflow: hidden; background: #111;
         }
-
         .spotify-video-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
         .spotify-video-overlay {
             position: absolute; top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.5); pointer-events: none;
         }
-
-        .spotify-info { 
-            margin-top: 15px; 
-            text-align: center; 
-            width: 100%; 
-        }
-
+        .spotify-info { margin-top: 15px; text-align: center; width: 100%; }
         .spotify-title { 
             font-size: 2.2em; font-weight: 700; color: #fff; 
             margin-bottom: 5px; font-family: var(--font-en); 
             text-shadow: 0 0 10px rgba(255,255,255,0.2); line-height: 1.2;
         }
-
         .spotify-artist { font-size: 1.3em; color: #b3b3b3; font-family: var(--font-en); }
-
         .spotify-right {
             flex: 1.5; height: 100%; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, #fff 25%, #fff 75%, transparent);
         }
-
         .lyrics-scroll { 
-            transition: transform 0.5s ease-out; 
-            text-align: left; width: 100%;
-            position: absolute; 
-            top: 50%; 
+            transition: transform 0.5s ease-out; text-align: left; width: 100%;
+            position: absolute; top: 50%; 
         }
-
         .lyric-line {
             font-size: clamp(1.1rem, 4vh, 1.8rem); font-weight: 700; color: rgba(255, 255, 255, 0.15);
             margin: 25px 0; transition: all 0.5s ease; transform: scale(0.9);
             transform-origin: left center; line-height: 1.4; font-family: var(--font-en);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            filter: blur(1.5px);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; filter: blur(1.5px);
         }
-
-        .lyric-line.active { 
-            color: #fff; 
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
-            transform: scale(1.05); 
-            filter: none; 
-            opacity: 1;
-        }
-
-        .lyric-line.previous { 
-            color: rgba(255, 255, 255, 0.08); 
-            filter: blur(2px);
-        }
+        .lyric-line.active { color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); transform: scale(1.05); filter: none; opacity: 1;}
+        .lyric-line.previous { color: rgba(255, 255, 255, 0.08); filter: blur(2px);}
 
         .farewell-screen {
             display: none; opacity: 0; transition: opacity 1.5s ease;
-            color: var(--paper-color);
-            text-align: center; font-size: clamp(1.2rem, 3.5vw, 2.2em); line-height: 1.5;
+            color: var(--paper-color); text-align: center; font-size: clamp(1.2rem, 3.5vw, 2.2em); line-height: 1.5;
             font-family: var(--font-ar); font-weight: 700; max-width: 98%;
-            direction: rtl; width: 100%; margin: 0 auto;
-            white-space: nowrap;
+            direction: rtl; width: 100%; margin: 0 auto; white-space: nowrap;
         }
 
         .countdown-screen {
@@ -418,42 +384,19 @@
         .comment-submit:hover { background: var(--blood-red); color: #000; box-shadow: 0 0 20px var(--blood-red); }
 
         .comments-list-container {
-            margin-top: 20px;
-            text-align: right;
-            max-height: 160px;
-            overflow-y: auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 15px;
-            padding-right: 5px;
+            margin-top: 20px; text-align: right; max-height: 160px; overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; padding-right: 5px;
         }
-        .comments-list-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .comments-list-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .comments-list-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 3px;
-        }
+        .comments-list-container::-webkit-scrollbar { width: 6px; }
+        .comments-list-container::-webkit-scrollbar-track { background: transparent; }
+        .comments-list-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
         .comment-item {
-            background: rgba(255, 255, 255, 0.04);
-            border-right: 3px solid var(--blood-red);
-            padding: 12px 15px;
-            border-radius: 4px;
-            color: #e0e0e0;
-            font-size: 0.95em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            direction: rtl;
+            background: rgba(255, 255, 255, 0.04); border-right: 3px solid var(--blood-red);
+            padding: 12px 15px; border-radius: 4px; color: #e0e0e0; font-size: 0.95em;
+            line-height: 1.5; margin-bottom: 12px; direction: rtl;
             animation: commentFadeIn 0.5s ease forwards;
         }
-        .comment-date {
-            font-size: 0.75em;
-            color: #777;
-            margin-top: 5px;
-            text-align: left;
-        }
+        .comment-date { font-size: 0.75em; color: #777; margin-top: 5px; text-align: left; }
         @keyframes commentFadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -506,1240 +449,137 @@
             <h2 class="reveal-on-scroll" style="text-align: center; font-size: 2.2em; margin-bottom: 30px; border-bottom: 2px solid #ccc; padding-bottom: 10px;">العيادة رقم 14</h2>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الأول: هندسة الحبر... والإنسان اللي اختفى ]</h3>
+            
             <p class="scene-desc reveal-on-scroll">
-            ...تيك...<br>
-            ...تاك...<br>
-            ...تيك...<br>
-            ...تاك...
+            ...تيك... تاك... تيك... تاك...<br>
+            الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس. كل تيكة كانت كأنها بتعد وقت ضاع... وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها. العيادة هادية بطريقة مستفزة. ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.
             </p>
-            <p class="reveal-on-scroll">
-            الغريب إن صوت الساعة ساعات بيبقى أعلى من صوت الناس.<br>
-            كل تيكة كانت كأنها بتعد وقت ضاع...<br>
-            وكل تاكة كانت بتفكرك بحاجة كنت فاكر إنك نسيتها.<br>
-            العيادة هادية بطريقة مستفزة.<br>
-            ريحة الديتول مالية المكان، مخلوطة بريحة ورق قديم وملفات متكومة فوق بعضها. التكييف بارد، زيادة عن اللزوم، والكرسي الجلد اللي قاعد عليه علي مريح بشكل يخليك تحس إن الراحة نفسها عاملة كمين.
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (يرفع عينه من الملف ويبص لجسم علي كأنه بيقرأ اعترافات):</span>
+                <p>علي صقر... حتى اسمك عامل دوشة. اسم تقيل... كبير... تحسه داخل أي مكان قبلك. بس الغريبة إن اللي قاعد قدامي دلوقتي... مش باين عليه أي حاجة من الاسم ده. أنا شوفت ناس كتير عاملة تاتوهات... بس أنت... أنت عامل متحف كامل. كل رسمة ليها مكان... كل كلمة محسوبة. السؤال بقى... بتحاول تقول إيه؟</p>
+            </div>
+
+            <p class="scene-desc reveal-on-scroll">
+            الصمت نزل على الأوضة. حتى صوت الساعة اختفى من ودن علي. هو كان سامع صوت تاني... صوت قديم... ناس كانت بتقول: "إحنا معاك." "إحنا عمرنا ما هنسيبك." "اطمن." الغريب... إن كل الأصوات دي اختفت أول ما الدنيا قلبت. رجع للدكتور. ونفس الابتسامة لسه على وشه.
             </p>
-            <p class="reveal-on-scroll">
-            الدكتور كان قاعد في آخر الأوضة، ساند ضهره لورا، حاطط رجل على رجل، ونظارته نازلة سنة صغيرة على مناخيره.<br>
-            بين كل كام ثانية...<br>
-            تك... تك... تك...<br>
-            يقلم ضوافره بمنتهى البرود.<br>
-            كأن مفيش قدامه بني آدم.<br>
-            كأن اللي قدامه مجرد ملف جديد هيتقفل آخر اليوم.
-            </p>
-            <p class="reveal-on-scroll">
-            أما علي...<br>
-            فكان قاعد ساكت.<br>
-            هادئ بشكل يخوف.<br>
-            إيده متشابكة قدام بعض، ورجله بتهز الأرض هزة بسيطة جدًا، الهزة الوحيدة اللي كانت بتفضح إن جواه إعصار.<br>
-            وشه مفيهوش أي تعبير.<br>
-            إلا الابتسامة دي...<br>
-            الابتسامة اللي الناس فاكرة إنها ثقة...<br>
-            وهي في الحقيقة أرخص طريقة اخترعها الإنسان عشان يخبي إنه خلاص مبقاش عنده طاقة يشرح.
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور رفع عينه من الملف...<br>
-            وبص على جسم علي.<br>
-            عينه كانت ماشية على التاتوهات واحدة واحدة.<br>
-            مش بيبصلها كرسومات...<br>
-            لا...<br>
-            كأنه بيقرأ اعترافات مكتوبة بالحبر.<br>
-            ابتسم ابتسامة صغيرة وقال بهدوء مستفز:<br>
-            "علي صقر...<br>
-            حتى اسمك عامل دوشة.<br>
-            اسم تقيل...<br>
-            كبير...<br>
-            تحسه داخل أي مكان قبلك.<br>
-            بس الغريبة إن اللي قاعد قدامي دلوقتي...<br>
-            مش باين عليه أي حاجة من الاسم ده."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت ثانيتين...<br>
-            وقفل الملف.<br>
-            "أنا شوفت ناس كتير عاملة تاتوهات...<br>
-            بس أنت...<br>
-            أنت عامل متحف كامل."<br>
-            أشار بالقلم ناحية دراعه.<br>
-            "كل رسمة ليها مكان...<br>
-            كل كلمة محسوبة...<br>
-            كل خط متعملش كده وخلاص.<br>
-            وده معناه إن الحبر عندك مش للمنظر.<br>
-            الحبر عندك بيتكلم."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت...<br>
-            وبعدين مال لقدام سنة.<br>
-            "السؤال بقى...<br>
-            بتحاول تقول إيه؟"
-            </p>
-            <p class="reveal-on-scroll">
-            الصمت نزل على الأوضة.<br>
-            حتى صوت الساعة اختفى من ودن علي.<br>
-            هو كان سامع صوت تاني...<br>
-            صوت قديم...<br>
-            ناس كانت بتقول:
-            </p>
-            <blockquote class="reveal-on-scroll" style="margin: 20px 0; padding-right: 15px; border-right: 3px solid #888; color: #555; font-style: italic;">
-            "إحنا معاك."<br>
-            "إحنا عمرنا ما هنسيبك."<br>
-            "اطمن."
-            </blockquote>
-            <p class="reveal-on-scroll">
-            الغريب...<br>
-            إن كل الأصوات دي اختفت أول ما الدنيا قلبت.<br>
-            رجع للدكتور.<br>
-            ونفس الابتسامة لسه على وشه.<br>
-            ابتسامة باردة...<br>
-            باردة لدرجة إن اللي يشوفها يحلف إن صاحبها معندوش مشاعر.<br>
-            بس الحقيقة...<br>
-            إنها كانت آخر حاجة فاضلة واقفة بعد ما كل حاجة جواه وقعت.
-            </p>
-            <p class="reveal-on-scroll">
-            ابتسم أكتر...<br>
-            وقال:<br>
-            "يا دكتور...<br>
-            الغريب في البشر إنهم بيعشقوا يشوفوا النهاية...<br>
-            بس أول ما تبدأ تحكيلهم البداية...<br>
-            يبصوا في الساعة.<br>
-            ولو كملت...<br>
-            يبصوا في الموبايل.<br>
-            ولو اتوجعت...<br>
-            يقولولك: شد حيلك.<br>
-            ولو وقعت...<br>
-            يسألوك: هتقوم إمتى؟<br>
-            ولو قومت...<br>
-            يتعاملوا كأنك عمرك ما وقعت."
-            </p>
-            <p class="reveal-on-scroll">
-            ضحك ضحكة صغيرة...<br>
-            لكنها كانت ضحكة مالهاش صوت.<br>
-            "فبطلت أحكي.<br>
-            مش عشان الكلام خلص...<br>
-            لأ...<br>
-            عشان محدش أصلًا كان بيسمع."
-            </p>
-            <p class="reveal-on-scroll">
-            بص ناحية الأرض.<br>
-            وأخد نفس طويل.<br>
-            "زمان...<br>
-            كنت فاكر إن كل الناس اللي بتحضنك بتحبك.<br>
-            وكل اللي يطمنك هيكمل معاك.<br>
-            وكل وعد بيتقال...<br>
-            لازم يتنفذ.<br>
-            كنت غبي...<br>
-            أيوة...<br>
-            غبي.<br>
-            بس الغباء الحقيقي مش إنك تثق.<br>
-            الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت...<br>
-            وحرك صوابعه بهدوء.<br>
-            "كل مرة كنت أقول:<br>
-            المرة دي غير.<br>
-            وأرجع ألاقي نفسي بضحك.<br>
-            مش عشان مبسوط...<br>
-            لأ...<br>
-            عشان كنت مستغرب من نفسي.<br>
-            هو أنا لسه بتفاجئ؟<br>
-            هو أنا لسه مستني حاجة من حد؟"
-            </p>
-            <p class="reveal-on-scroll">
-            رفع عينه للدكتور.<br>
-            نظرة هادية...<br>
-            بس فيها تعب سنين.<br>
-            "عارف يا دكتور...<br>
-            أصعب حاجة مش إن الناس تخذلك.<br>
-            أصعب حاجة...<br>
-            إنك تفضل تدور على سبب.<br>
-            تقعد تقول:<br>
-            يمكن كانوا مضغوطين...<br>
-            يمكن الظروف...<br>
-            يمكن فهموني غلط...<br>
-            يمكن...<br>
-            يمكن...<br>
-            لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور كان ساكت.<br>
-            أول مرة بطل يقلم ضوافره.<br>
-            القلم نزل من بين صوابعه.<br>
-            وبدأ يبص لعلي بنفس الطريقة اللي الدكتور بيبص بيها للمريض...<br>
-            لما يحس إن اللي قدامه مش بيقول كلام...<br>
-            ده بيطلع حاجة مدفونة بقالها سنين.
-            </p>
-            <p class="reveal-on-scroll">
-            عين الدكتور نزلت على الدراع الشمال.<br>
-            وقف قدام أول تاتو.<br>
-            ابتسم ابتسامة خفيفة...<br>
-            وقال:<br>
-            "واضح إن هنا...<br>
-            القصة بتبتدي."
-            </p>
-            <p class="reveal-on-scroll">
-            وعينه استقرت على أول كلمة محفورة بالحبر...<br>
-            <span class="en-phrase">Try for yourself...</span>
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيبص للأرض بوجع مكتوم):</span>
+                <p>زمان... كنت فاكر إن كل الناس اللي بتحضنك بتحبك. وكل اللي يطمنك هيكمل معاك. وكل وعد بيتقال... لازم يتنفذ. كنت غبي... أيوة... غبي. بس الغباء الحقيقي مش إنك تثق. الغباء إنك تفضل تثق في نفس الناس بعد ما يعلموك الدرس بنفس الطريقة كل مرة.</p>
+                <p>كل مرة كنت أقول: المرة دي غير. وأرجع ألاقي نفسي بضحك. مش عشان مبسوط... لأ... عشان كنت مستغرب من نفسي. عارف يا دكتور... أصعب حاجة مش إن الناس تخذلك. أصعب حاجة... إنك تفضل تدور على سبب. تقعد تقول: يمكن كانوا مضغوطين... يمكن الظروف... يمكن فهموني غلط... لحد ما تكتشف إن كل الـ (يمكن) دي كانت محاولة منك تنقذ صورة ناس، وهم أصلًا كانوا من زمان أنقذوا نفسهم... وسابوك.</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الثاني: العينين اللي شافوا الإنسان... قبل ما يشوفوا شكله ]</h3>
-            <p class="reveal-on-scroll">
-            الدكتور قرب خطوة.<br>
-            ببطء...<br>
-            كأنه خايف يقرب زيادة.<br>
-            عينه كانت واقفة على أول سطر.<br>
-            <span class="en-phrase">Try for yourself.</span><br>
-            قرأها مرة...<br>
-            واتنين...<br>
-            وبعدين نزل بعينه لتحت.<br>
-            وساعتها...<br>
-            سكت.
+            
+            <p class="scene-desc reveal-on-scroll">
+            الدكتور قرب خطوة. عينه كانت واقفة على أول سطر <span class="en-phrase">Try for yourself.</span> وبعدين نزل بعينه لتحت. العينين. مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية.
             </p>
-            <p class="reveal-on-scroll">
-            العينين.<br>
-            مرسومين بدقة تخليك تحلف إنهم هيطرفوا بعد ثانية.<br>
-            فيهم لمعة خفيفة...<br>
-            وفيهم هدوء غريب...<br>
-            بس أكتر حاجة شدت الدكتور...<br>
-            إن العينين دول كانوا مختلفين عن باقي الحبر.<br>
-            كل التاتوهات كان فيها تحدي...<br>
-            غضب...<br>
-            وجع...<br>
-            إنما العينين...<br>
-            كان فيهم أمان.<br>
-            حاجة مكنتش راكبة مع باقي جسم علي.
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور مال وشه شوية...<br>
-            وقال وهو لسه باصص عليهم:<br>
-            "مين دي؟"<br>
-            علي مبيردش.<br>
-            فضل باصص على دراعه كأنه أول مرة يشوفه.<br>
-            ابتسم...<br>
-            بس الابتسامة دي المرة دي مكانش فيها سخرية.<br>
-            كان فيها حنين...<br>
-            وجع...<br>
-            وحاجة شبه الامتنان.
-            </p>
-            <p class="reveal-on-scroll">
-            رفع إيده ولمس العينين بطرف صوابعه...<br>
-            برقة...<br>
-            كأن الحبر ده ممكن يحس.<br>
-            وبص للدكتور.<br>
-            "مروة."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور رفع حاجبه.<br>
-            "واضح إنها كانت مهمة."<br>
-            علي ضحك ضحكة قصيرة.<br>
-            "كانت؟"<br>
-            سكت ثانيتين.<br>
-            "هي فيه ناس بتخلص يا دكتور?
-            فيه ناس بتسيب أثر...<br>
-            حتى لو الزمن كله عدى...<br>
-            الأثر بيفضل مكانه."
-            </p>
-            <p class="reveal-on-scroll">
-            رجع يبص للعينين.<br>
-            وصوته هدي أكتر.<br>
-            "الناس كلها كانت بتبص على علي اللي واقف قدامها.<br>
-            إنما مروة...<br>
-            كانت أول واحدة تبص على علي اللي مستخبي جواه."<br>
-            لف للدكتور.<br>
-            "فاهم الفرق؟"
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور مردش.<br>
-            وعلي كمل.<br>
-            "الناس كانت تشوف واحد بيضحك...<br>
-            هي كانت تشوف إنه تعبان.<br>
-            الناس كانت تقول: ده قوي.<br>
-            هي كانت تقول: لا... ده شايل فوق طاقته.<br>
-            الناس كانت تسمع كلامي...<br>
-            هي كانت تسمع السكوت اللي بين الكلام."
-            </p>
-            <p class="reveal-on-scroll">
-            أخد نفس طويل.<br>
-            "الغريب إن الإنسان طول عمره بيدور على حد يفهمه.<br>
-            مش يوافقه...<br>
-            ولا يجامله...<br>
-            ولا يقوله حاضر.<br>
-            بس يفهمه.<br>
-            ولما يلاقي الشخص ده...<br>
-            بيحس إن الدنيا بطلت تبقى تقيلة شوية."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "كانت حبيبتك؟"<br>
-            علي ابتسم.<br>
-            "لأ...<br>
-            كانت رزقي."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور بصله باستغراب.<br>
-            فعلي كمل وهو بيبص للعينين.<br>
-            "فيه ناس بتدخل حياتك صدفة.<br>
-            وفيه ناس ربنا يبعتهم في الوقت اللي أنت خلاص كنت فاقد فيه الإيمان بكل حاجة.<br>
-            وأنا...<br>
-            ربنا رزقني بمروة."
-            </p>
-            <p class="reveal-on-scroll">
-            صوته بدأ يوطى.<br>
-            "أنا مش بقول إنها ملاك علشان بحبها.<br>
-            أنا بقول إنها ملاك...<br>
-            لأنها كانت أول إنسانة شافت جوايا حاجة حلوة...<br>
-            في الوقت اللي أنت نفسي كنت شايف إني مستاهلش أي حاجة حلوة."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين ضحك بسخرية.<br>
-            "تخيل؟<br>
-            أنا كنت شايف نفسي شخص عادي...<br>
-            يمكن أقل من عادي.<br>
-            إنما هي...<br>
-            كانت بتعاملني كأني أغلى حاجة في الدنيا.<br>
-            وأقسم بالله يا دكتور...<br>
-            لحد النهارده...<br>
-            مش عارف هي كانت شايفة إيه."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "وإنت شايف إنها غيرت حياتك؟"<br>
-            علي هز راسه.<br>
-            "لا...<br>
-            دي غيرتني أنا."<br>
-            سكت شوية.<br>
-            "الولادة الجديدة اللي الناس فاكراها بدأت مع الحبر...<br>
-            لأ.<br>
-            الحبر جه بعدين.<br>
-            أما البداية الحقيقية...<br>
-            فكانت يوم ربنا بعتلي مروة."
-            </p>
-            <p class="reveal-on-scroll">
-            عين الدكتور نزلت تحت العينين. وقف قدام التكملة:<br>
-            <span class="en-phrase">and for me</span><br>
-            لكن كلمة...<br>
-            <span style="color: darkred; font-weight: bold; font-size: 1.2em;">me</span><br>
-            كانت لوحدها باللون الأحمر.
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قرب أكتر، وقال:<br>
-            "ليه الكلمة دي بالذات بالأحمر؟ وليه مربوطة بالعينين اللي فوقيها؟"<br>
-            علي لمس الكلمة بصوابعه، وبرغم برودة الأوضة، كان واضح إن نبرة صوته اتهزت بحمل أتقل وشجن أعمق:<br>
-            "علشان الجملة على بعضها يا دكتور مكانتش مجرد شعار.. الجملة دي بتقول إن العينين دول كانوا باصين عليا.. <span class="en-phrase">and for me</span>.. يعني علشاني أنا. مروة مكانتش مجرد شخص عابر، دي كانت المراية اللي شوفت فيها نفسي لأول مرة. عارف أكتر كلمة كنت بنساها في حياتي يا دكتور؟"
-            </p>
-            <p class="reveal-on-scroll">
-            "...أنا."<br>
-            "كنت بعمل كل حاجة علشان الناس. أرضي ده، وأساعد ده، وأستحمل ده، وأجي على نفسي علشان الكل.. لحد ما نسيت إن فيه واحد اسمه علي. مروة كانت أول واحدة تخليني ألتفت لنفسي.. أول واحدة تقوللي: عيش لنفسك شوية."
-            </p>
-            <p class="reveal-on-scroll">
-            بص للكلمة الحمرا، وأخد نفس حاد وكأنه بيستجمع روحه:<br>
-            "وحتى لو الدنيا لفت بينا.. ومبقناش مع بعض دلوقتي.. وحتى لو الظروف كانت أقوى مننا وكل واحد راح في طريق.. فـ <span class="en-phrase">me</span> اتكتبت بالدم عشان تفضل ثابتة ومتموتش. دي وعد ليها، ووعد لنفسي.. إن علي اللي هي تعبت عشان تخليه يشوف نفسه ويحبها، مش هسمحله يضيع تاني. أنا هفضل أحاول، وهفضل أعافر وأقوم.. علشاني، وعلشان الروح النضيفة اللي هي أحيتها جوايا."
-            </p>
-            <p class="reveal-on-scroll">
-            وفجأة.. عين الدكتور انتبهت لراس وجسم الحية (التعبان) اللي طالع وممتد مباشرة من تحت حرف الـ (e) في كلمة <span class="en-phrase">me</span>. جلدها مرسوم بتفاصيل دقيقة ومرعبة، كأنها بتشق طريقها وتزحف خارجة من قلب الكلمة دي بالذات.<br>
-            الدكتور مال براسه وقال بذهول:<br>
-            "يعني التعبان.. بدأ يخرج من هنا؟ منك أنت.. وبسببها؟"
-            </p>
-            <p class="reveal-on-scroll">
-            علي هز راسه، وابتسامته رجعت بس المرة دي كانت دافية وموجوعة في نفس الوقت:<br>
-            "بالظبط يا دكتور. التعبان بدأ من هنا.. من لحظة التعب والولادة الجديدة اللي هي كانت سبب فيها. الناس أول ما تشوف التعبان تقول شر، سم، خيانة.. وأنا كل مرة أضحك. لأنهم عمرهم ما كملوا الحكاية."<br>
-            "ليه؟"<br>
-            "لأن التعبان هنا مش رمز للشر. التعبان هو الكائن الوحيد اللي لما الدنيا تضيق عليه وجلده يقدم ويتبهدل من الجروح، بيعمل إيه؟ بيخلع جلده كله. بيسيب النسخة القديمة، الضعيفة، المكسورة اللي اتأذت من الناس.. وبيمشي بنسخة جديدة قوية. مروة هي اللي خلتني أبدأ أخلع جلدي القديم. هي اللي زرعت جوايا القوة إني اتولد من جديد ومستسلمش للوجع. وعشان كده التعبان طالع من كلمة <span class="en-phrase">me</span>.. لأن ولادتي الجديدة كانت بسببها، ومكملة علشاني وعلشانها.. حتى لو مبقناش مع بعض."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.. وبص لمروة المرسومة على دراعه، وقال بابتسامة هادية:<br>
-            "لو فيه حاجة واحدة في حياتي مستحيل أعتبرها صدفة... فهتبقى مروة. لأن في عز ما كنت فاكر إن الدنيا قفلت بابها في وشي... ربنا فتحلي باب على هيئة إنسانة. وأجمل رزق ممكن الإنسان ياخده... مش فلوس... ولا شهرة... ولا نجاح... أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك."
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (يميل بوجهه):</span>
+                <p>مين دي؟ واضح إنها كانت مهمة.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيلمس العينين بحنين وابتسامة صادقة):</span>
+                <p>مروة. هي فيه ناس بتخلص يا دكتور؟ فيه ناس بتسيب أثر... حتى لو الزمن كله عدى... الأثر بيفضل مكانه. الناس كلها كانت بتبص على علي اللي واقف قدامها. إنما مروة... كانت أول واحدة تبص على علي اللي مستخبي جواه. الناس كانت تشوف واحد بيضحك... هي كانت تشوف إنه تعبان. الناس كانت تقول: ده قوي. هي كانت تقول: لا... ده شايل فوق طاقته.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (ينتبه لرأس الحية اللي طالعة من تحت حرف الـ e):</span>
+                <p>يبقى الحية بدأت من هنا... الناس أول ما تشوفها تقول... شر... سم... خيانة...</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي:</span>
+                <p>وأنا كل مرة أضحك، لأنهم عمرهم ما كملوا الحكاية. الحية كل فترة بتخلع جلدها. بتسيب النسخة القديمة... وتمشي. عمرها ما بترجع تلبسه. وأنا... لما قررت أتولد من جديد... مكنتش عايز أرجع للشخص اللي مات. أجمل رزق ممكن إنسان ياخده... مش فلوس ولا شهرة. أجمل رزق... إن ربنا يرزقك بحد يشوف روحك... قبل ما يشوف شكلك.</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الثالث: التاريخ اللي مش بيتحسب بالسنين ]</h3>
-            <p class="reveal-on-scroll">
-            الأوضة رجعت تسكت.<br>
-            محدش اتكلم.<br>
-            الدكتور كان واقف قدام دراع علي، كأنه نسي إنّه في جلسة علاج.<br>
-            بص على الحية وهي خارجة من كلمة <span class="en-phrase">me</span>...<br>
-            وبعدين لف على الساعد اليمين.<br>
-            وقف.<br>
-            قرأ الجملة المكتوبة هناك بصوت واطي:<br>
-            <span class="en-phrase">No Risk No Story.</span>
+            
+            <p class="scene-desc reveal-on-scroll">
+            الدكتور وقف قدام الساعد اليمين. وقرأ الجملة بصوت واطي: <span class="en-phrase">No Risk No Story.</span> وتحتها التاريخ <span class="en-phrase">II • XIV • MMXXII</span>
             </p>
-            <p class="reveal-on-scroll">
-            ابتسم ابتسامة خفيفة.<br>
-            "دي مفهومة...<br>
-            اللي ميخاطرش، معندوش قصة تتحكي."<br>
-            لكن بعدها بعينه مباشرة...<br>
-            كان التاريخ.<br>
-            <span class="en-phrase">II • XIV • MMXXII</span>
-            </p>
-            <p class="reveal-on-scroll">
-            فضل يبصله كام ثانية.<br>
-            وبعدين قال:<br>
-            "بصراحة...<br>
-            أنا كنت فاكر ده تاريخ الولادة الجديدة."<br>
-            علي رفع راسه بسرعة.<br>
-            ولأول مرة...<br>
-            الابتسامة اختفت تمامًا.<br>
-            هز راسه بالنفي.<br>
-            "لأ."<br>
-            قالها بهدوء...<br>
-            بس الهدوء ده كان فيه احترام للحظة دي.<br>
-            "الولادة الجديدة ليها حكاية تانية."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبص للتاريخ.<br>
-            ولأول مرة...<br>
-            الدكتور لاحظ إن عين علي لمعت.<br>
-            مش دموع...<br>
-            لكن لمعة الإنسان لما يقف قدام ذكرى عمرها ما هتتكرر.<br>
-            "أما التاريخ ده..."<br>
-            ابتسم.<br>
-            "ده أغلى تاريخ اتحفر على جسمي."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "ليه؟"<br>
-            علي أخد نفس طويل.<br>
-            وقال بهدوء:<br>
-            "عشان ده اليوم...<br>
-            اللي ربنا كتب فيه اسم مروة جنب اسمي."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة سكتت.<br>
-            حتى صوت الساعة...<br>
-            كأنه اختفى.<br>
-            علي كمل...<br>
-            "الناس لما تبص عليه...<br>
-            تشوف أرقام روماني.<br>
-            وأنا...<br>
-            كل ما أشوفه...<br>
-            بفتكر اليوم اللي حياتي خدت نفس لأول مرة."
-            </p>
-            <p class="reveal-on-scroll">
-            ضحك ضحكة صغيرة.<br>
-            "الغريب إن الناس فاكرة إن الحب بيغير الإنسان."<br>
-            هز راسه.<br>
-            "لا...<br>
-            الإنسان الصح...<br>
-            هو اللي بيغير الإنسان."<br>
-            الدكتور قال:<br>
-            "يعني مروة غيرتك؟"<br>
-            ابتسم علي.<br>
-            "هي مغيرتنيش بالعافية.<br>
-            ولا طلبت مني أبقى شخص تاني.<br>
-            هي عملت حاجة أصعب بكتير."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين قال:<br>
-            "خلتني أحب الشخص اللي كنت طول عمري بكرهه."<br>
-            الدكتور فضل ساكت.<br>
-            وعلي كمل...<br>
-            "كنت ببص في المراية...<br>
-            وأشوف واحد مليان عيوب.<br>
-            هي كانت تبصلي...<br>
-            وكأنها شايفة إن مفيش أجمل مني.<br>
-            لحد النهارده...<br>
-            مش عارف هي كانت شايفة إيه."
-            </p>
-            <p class="reveal-on-scroll">
-            ابتسم وهو بيهز راسه.<br>
-            "يمكن ربنا كشفلها حاجة...<br>
-            أنا نفسي مكنتش شايفها."<br>
-            بص للتاريخ.<br>
-            "عارف يعني إيه حد يخليك تحس إنك كفاية...<br>
-            من غير ما تطلب منه؟<br>
-            عارف يعني إيه حد يحسسك إن وجودك لوحده له قيمة؟<br>
-            الإحساس ده...<br>
-            فلوس الدنيا كلها متشتريهوش."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت لحظة.<br>
-            "أنا اتعلمت من الدنيا حاجات كتير.<br>
-            إن الناس بتبيع.<br>
-            وبتتغير.<br>
-            وبتنسى.<br>
-            لكن ربنا...<br>
-            لما يحب يجبر قلب واحد مكسور...<br>
-            بيبعتله شخص.<br>
-            وأنا...<br>
-            ربنا جبر خاطري بمروة."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال بهدوء:<br>
-            "واضح إنك بتحبها جدًا."<br>
-            علي ضحك.<br>
-            "دي أقل كلمة تتقال."<br>
-            بص للتاريخ مرة تانية.<br>
-            "أنا مؤمن إن في حاجات بتحصل صدفة.<br>
-            بس هي...<br>
-            عمرها ما كانت صدفة."<br>
-            رفع عينه لفوق.<br>
-            "أنا مؤمن إنها كانت رزق.<br>
-            دعوة يمكن أمي دعتها.<br>
-            أو سجدة أنا نسيتها.<br>
-            أو رحمة من ربنا...<br>
-            قرر ينزلها على قلبي."
-            </p>
-            <p class="reveal-on-scroll">
-            صوته بدأ يهدى أكتر.<br>
-            "فيه ناس ربنا يرزقهم ببيت.<br>
-            وفيه ناس يرزقهم بفلوس.<br>
-            وفيه ناس يرزقهم بشغل.<br>
-            أما أنا...<br>
-            فربنا رزقني بإنسانة."<br>
-            ابتسم.<br>
-            "ولو خيروني ألف مرة...<br>
-            هختار نفس الرزق."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور كان باصص لعلي...<br>
-            لكن المرة دي مش كدكتور.<br>
-            كان باصص لإنسان...<br>
-            بيتكلم عن حد بيحبه...<br>
-            وكأنه بيتكلم عن نعمة.<br>
-            بعد ثواني...<br>
-            رجع الدكتور يبص للجملة المكتوبة فوق التاريخ.<br>
-            <span class="en-phrase">No Risk No Story.</span><br>
-            وقال:<br>
-            "يعني المخاطرة دي...<br>
-            كانت إنها تدخل حياتك؟"<br>
-            علي ضحك لأول مرة ضحكة حقيقية.<br>
-            "لأ يا دكتور."<br>
-            "أمال؟"<br>
-            "المخاطرة...<br>
-            إني بعد كل اللي شوفته من الناس...<br>
-            أصدق إن لسه في حد يستحق أثق فيه."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين ابتسم.<br>
-            "وأجمل مخاطرة أخدتها في حياتي...<br>
-            إني صدقتها."<br>
-            وقف.<br>
-            وحط إيده على الساعد اليمين.<br>
-            وقال بصوت هادي...<br>
-            "وعشان كده التاريخ اتحفر هنا.<br>
-            مش عشان أفكره.<br>
-            أنا مستحيل أنساه.<br>
-            اتحفر...<br>
-            عشان كل يوم أصحى وأفتكر إن مهما الدنيا علمتني أقسى الدروس...<br>
-            ربنا لسه قادر يبعت للإنسان رزق ينسّيه وجعه كله في لحظة واحدة."
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور:</span>
+                <p>دي مفهومة... اللي ميخاطرش، معندوش قصة تتحكي. بس تاريخ ده.. أنا كنت فاكر ده تاريخ الولادة الجديدة.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (عينيه بتلمع):</span>
+                <p>لأ. الولادة الجديدة ليها حكاية تانية. أما التاريخ ده... ده أغلى تاريخ اتحفر على جسمي. عشان ده اليوم... اللي ربنا كتب فيه اسم مروة جنب اسمي. الغريب إن الناس فاكرة إن الحب بيغير الإنسان. لأ... الإنسان الصح... هو اللي بيغير الإنسان. هي مغيرتنيش بالعافية. هي عملت حاجة أصعب بكتير. خلتني أحب الشخص اللي كنت طول عمري بكرهه.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور:</span>
+                <p>يعني المخاطرة في... <span class="en-phrase">No Risk No Story</span> ... كانت إنها تدخل حياتك؟</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي:</span>
+                <p>لأ يا دكتور. المخاطرة... إني بعد كل اللي شوفته من الناس... أصدق إن لسه في حد يستحق أثق فيه. وأجمل مخاطرة أخدتها في حياتي... إني صدقتها.</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الرابع: متبصش وراك... حتى لو قلبك بيشدك ]</h3>
-            <p class="reveal-on-scroll">
-            الدكتور أخد نفس عميق...<br>
-            وبعدين بعينه راح ناحية الرقبة اليمين.<br>
-            الجملة كانت واضحة...<br>
-            سودا...<br>
-            وحادة...<br>
-            <span class="en-phrase">Never Look Back.</span><br>
-            ابتسم ابتسامة خفيفة...<br>
-            وقال:<br>
-            "واضح إن من هنا...<br>
-            القصة هتبدأ توجع."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور فضل واقف قدام علي.<br>
-            عينه اتحركت ببطء...<br>
-            لحد ما وقفت على الرقبة اليمين.<br>
-            الحروف كانت كبيرة...<br>
-            واضحة...<br>
-            كأنها متكتبتش بالحبر.<br>
-            كأنها محفورة بسكينة.<br>
-            <span class="en-phrase">Never Look Back.</span>
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور ابتسم وقال:<br>
-            "دي بقى أكتر واحدة بشوفها.<br>
-            أي حد بيعمل تاتوهات بيحب الجمل دي.<br>
-            تحفيز...<br>
-            بداية جديدة...<br>
-            سيب الماضي...<br>
-            الحاجات المعتادة يعني."
-            </p>
-            <p class="reveal-on-scroll">
-            علي بصله...<br>
-            وبعدين ضحك.<br>
-            الضحكة دي رجعت تاني.<br>
-            الضحكة اللي عمرها ما كانت معناها إنه مبسوط.<br>
-            قال بهدوء:<br>
-            "أنت فاكرها جملة...<br>
-            وأنا شايفها أمر."<br>
-            الدكتور عقد حاجبيه.<br>
-            "أمر؟"<br>
-            هز علي راسه.<br>
-            "أيوة...<br>
-            أمر.<br>
-            كل يوم أصحى...<br>
-            وأشوفها."
-            </p>
-            <p class="reveal-on-scroll">
-            رفع صباعه ولمس الحروف على رقبته.<br>
-            "مش عشان أفكر نفسي أكون قوي...<br>
-            لا.<br>
-            عشان أفكر نفسي...<br>
-            مبصش ورا."<br>
-            الدكتور قال:<br>
-            "للدرجة دي الماضي كان وحش؟"<br>
-            علي ابتسم.<br>
-            "الماضي عمره ما كان وحش.<br>
-            اللي كان وحش...<br>
-            إني كنت كل شوية أرجعله."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين قال:<br>
-            "عارف يعني إيه تمشي خمس خطوات لقدام...<br>
-            وبعدين ترجع عشرة؟<br>
-            مش عشان الطريق قفلك...<br>
-            لأ...<br>
-            عشان قلبك هو اللي رجعك."
-            </p>
-            <p class="reveal-on-scroll">
-            بص في الأرض.<br>
-            "كنت كل مرة أقول...<br>
-            يمكن الرسالة دي تتبعت.<br>
-            يمكن الشخص ده يتغير.<br>
-            يمكن الاعتذار ييجي.<br>
-            يمكن اللي راح يرجع.<br>
-            يمكن...<br>
-            يمكن...<br>
-            يمكن."<br>
-            ضحك بسخرية.<br>
-            "الغريب إن كلمة (يمكن)...<br>
-            دمرت ناس أكتر من كلمة (مستحيل)."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور فضل ساكت.<br>
-            وعلي كمل.<br>
-            "كنت فاكر إن لو استنيت كفاية...<br>
-            كل حاجة هتتصلح."<br>
-            رفع عينه.<br>
-            "بس الحقيقة؟<br>
-            في حاجات...<br>
-            كل ما تستناها أكتر...<br>
-            بتكسرك أكتر."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت شوية.<br>
-            "عشان كده...<br>
-            الجملة دي مكانها على رقبتي."<br>
-            الدكتور قال:<br>
-            "ليه الرقبة بالذات؟"<br>
-            ابتسم علي.<br>
-            "لأن الإنسان...<br>
-            لما يلف يبص وراه...<br>
-            أول حاجة بتتحرك هي رقبته."
-            </p>
-            <p class="reveal-on-scroll">
-            وسكت.<br>
-            "فكل مرة أحاول ألف...<br>
-            أشوفها.<br>
-            كأنها بتقولي...<br>
-            إوعى."<br>
-            الدكتور قال:<br>
-            "واضح إنك قاسي على نفسك."<br>
-            علي هز راسه.<br>
-            "لا يا دكتور...<br>
-            أنا بس بطلت أدلع نفسي بالكلام اللي مبيحصلش."<br>
-            "يعني؟"<br>
-            "يعني بطلت أقول بكرة أحسن.<br>
-            بطلت أقول الناس هتتغير.<br>
-            بطلت أقول اللي كسرني أكيد ندم.<br>
-            لأن الحقيقة...<br>
-            مش محتاجة تجميل."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة سكتت.<br>
-            وصوت الساعة رجع.<br>
-            ...تيك...<br>
-            ...تاك...<br>
-            قال علي وهو باصص في الفراغ:<br>
-            "عارف أكتر حاجة كانت بتوجعني؟<br>
-            مش الخذلان...<br>
-            ولا الفراق...<br>
-            ولا الكدب."<br>
-            الدكتور سأله:<br>
-            "أمال إيه؟"<br>
-            ابتسم.<br>
-            "إني كنت كل مرة...<br>
-            أدي فرصة زيادة."<br>
-            ضحك ضحكة صغيرة.<br>
-            "كنت فاكر إن دي طيبة.<br>
-            طلعت غباء."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال بهدوء:<br>
-            "يعني مبقتش تسامح؟"<br>
-            علي هز راسه بالنفي.<br>
-            "لا...<br>
-            بسامح."<br>
-            "أمال؟"<br>
-            "بس مبفتحش نفس الباب مرتين."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين قرب من الدكتور خطوة.<br>
-            "أصل الناس فاكرة إن المسامحة معناها إن كل حاجة ترجع زي الأول.<br>
-            لأ.<br>
-            أنا ممكن أسامحك...<br>
-            وأدعيلك...<br>
-            وأتمنالك الخير...<br>
-            بس مستحيل أرجع أحط إيدي في نفس النار وأقول يمكن المرة دي متحرقنيش."
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (يأخذ نفساً عميقاً وينظر لرقبة علي اليمين):</span>
+                <p>دي بقى أكتر واحدة بشوفها. <span class="en-phrase">Never Look Back</span>. تحفيز... سيب الماضي... الحاجات المعتادة يعني.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بيشاور على رقبته):</span>
+                <p>الإنسان... لما يلف يبص وراه... أول حاجة بتتحرك هي رقبته. فكل مرة أحاول ألف... أشوفها. كأنها بتقولي... إوعى. بطلت أقول بكرة أحسن. وبطلت أقول اللي كسرني أكيد ندم. لأن الحقيقة... مش محتاجة تجميل. أصعب حاجة مش الخذلان، دي إني كنت كل مرة أدي فرصة زيادة. أنا بسامح يا دكتور... بس مبفتحش نفس الباب مرتين.</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الخامس: فاتورة الثقة ]</h3>
-            <p class="reveal-on-scroll">
-            الدكتور أخد نفس عميق.<br>
-            وحول عينه ناحية الصدر الشمال.<br>
-            الحروف كانت أوضح.<br>
-            وأقسى.<br>
-            وأتقل.<br>
-            <span class="en-phrase">Don't Trust Damn Humans.</span><br>
-            وقف قدامها كام ثانية.<br>
-            وبعدين قال:<br>
-            "دي...<br>
-            شكلها مش جملة.<br>
-            شكلها قضية."
-            </p>
-            <p class="reveal-on-scroll">
-            ابتسم علي...<br>
-            وقال بهدوء يخوف:<br>
-            "لأ يا دكتور...<br>
-            دي فاتورة."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة رجعت تسكت...<br>
-            لدرجة إن صوت التكييف بقى مسموع.<br>
-            الدكتور كان واقف قدام تاتو الصدر الشمال.<br>
-            <span class="en-phrase">Don't Trust Damn Humans.</span><br>
-            قرأها مرة...<br>
-            وبعدين مرة تانية.<br>
-            وبعدين بص لعلي.<br>
-            "دي أول جملة في جسمك أحس إنها مش بتوجعك أنت...<br>
-            دي بتوجع أي حد يقراها."<br>
-            علي ضحك.<br>
-            "وده الطبيعي."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور عقد حاجبه.<br>
-            "ليه؟"<br>
-            "لأن الحقيقة عمرها ما كانت مريحة."<br>
-            الدكتور قرب خطوة.<br>
-            "بس دي جملة قاسية."<br>
-            "الحياة كانت أقسى."
-            </p>
-            <p class="reveal-on-scroll">
-            سكتوا.<br>
-            الدكتور حط القلم على المكتب.<br>
-            ولأول مرة من أول الجلسة...<br>
-            اتكلم من غير برود.<br>
-            "مين خلاك توصل للمرحلة دي يا علي؟"<br>
-            علي فضل ساكت.<br>
-            بص للسقف.<br>
-            كأنه بيدور على إجابة...<br>
-            مع إنه حافظها.
-            </p>
-            <p class="reveal-on-scroll">
-            بعد ثواني قال:<br>
-            "هو ليه دايمًا أول سؤال بيكون...<br>
-            مين عمل فيك كده؟<br>
-            ليه محدش بيسأل...<br>
-            إنت استحملت كل ده إزاي؟"
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور مردش.<br>
-            وعلي كمل.<br>
-            "الناس بتحب تعرف الجاني...<br>
-            لكن عمرها ما تهتم بالضحية بعد ما القصة تخلص."<br>
-            ابتسم ابتسامته الساخرة.<br>
-            "يمكن عشان الجروح بعد ما تقفل...<br>
-            مبتبقاش تريند."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت شوية.<br>
-            وبعدين بص للدكتور.<br>
-            "أنا مش بكره البشر."<br>
-            الدكتور استغرب.<br>
-            "أمال الجملة دي معناها إيه؟"<br>
-            علي حط إيده على صدره.<br>
-            بالظبط فوق التاتو.<br>
-            "دي مش دعوة.<br>
-            دي تذكرة."<br>
-            "تذكرة؟"<br>
-            "أيوة...<br>
-            تذكرة بالتمن اللي دفعته."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            "زمان...<br>
-            كنت بثق بسهولة.<br>
-            يمكن أسهل من اللازم.<br>
-            كنت فاكر إن طالما قلبي نضيف...<br>
-            يبقى الناس هتكون زيه.<br>
-            كنت فاكر إن اللي يضحك في وشك...<br>
-            لازم يبقى بيحبك.<br>
-            وإن اللي يقولك: (أنا جنبك)...<br>
-            هيفضل جنبك."
-            </p>
-            <p class="reveal-on-scroll">
-            ضحك.<br>
-            لكن الضحكة دي...<br>
-            كانت مليانة خيبة.<br>
-            "طلع إن الدنيا مبتشتغلش كده."<br>
-            الدكتور سأله:<br>
-            "اتخذلت؟"<br>
-            علي بصله.<br>
-            "لا...<br>
-            اتعلمت."<br>
-            "إيه الفرق؟"<br>
-            "المخذول...<br>
-            بيستنى اللي كسره يعتذر.<br>
-            أما اللي اتعلم...<br>
-            بيعرف إن الاعتذار مش هيغير اللي حصل."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة غرقت في الصمت.<br>
-            ...تيك...<br>
-            ...تاك...<br>
-            قال علي وهو باصص في الأرض:<br>
-            "عارف يا دكتور...<br>
-            أصعب حاجة مش إن حد يسيبك."<br>
-            رفع عينه.<br>
-            "أصعب حاجة...<br>
-            إنه يسيبك...<br>
-            بعد ما يكون عرف كل نقطة ضعف فيك."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور بلع ريقه.<br>
-            وعلي كمل.<br>
-            "يبقى حافظ إيه اللي بيوجعك...<br>
-            وإيه اللي يكسرك...<br>
-            وإيه اللي يخليك متنامش...<br>
-            وساعتها يمشي.<br>
-            كأن كل اللي بينكم...<br>
-            مكانش موجود."<br>
-            سكت.<br>
-            "ساعتها...<br>
-            بتفهم إن الثقة...<br>
-            مش حاجة تتوزع ببلاش."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "بس مينفعش تعاقب كل الناس بسبب كام شخص."<br>
-            علي ابتسم.<br>
-            ابتسامة هادية جدًا.<br>
-            وقال:<br>
-            "أهو...<br>
-            وده اللي أقصده."<br>
-            الدكتور استغرب.<br>
-            "إيه؟"<br>
-            "إن محدش بيفهم."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين قال بصوت واطي:<br>
-            "أنا مقولتش إني هعاقب الناس."<br>
-            "أنا قلت...<br>
-            إن الثقة مبقتش حق."<br>
-            قرب خطوة.<br>
-            "الثقة بقت امتياز."
-            </p>
-            <p class="reveal-on-scroll">
-            كل كلمة كانت بتخرج ببطء.<br>
-            "اللي عايزها...<br>
-            يتعب علشان ياخدها."<br>
-            الدكتور فضل ساكت.<br>
-            وعلي كمل.<br>
-            "أنا لسه بعامل الناس باحترام.<br>
-            ولسه بساعد.<br>
-            ولسه بضحك.<br>
-            ولسه بسلم.<br>
-            بس...<br>
-            مبقتش بفتح قلبي لأي حد."<br>
-            ابتسم.<br>
-            "القلب اللي اتكسر مرة...<br>
-            مش بيبقى جبان.<br>
-            بيبقى فاهم."
-            </p>
-            <p class="reveal-on-scroll">
-            رفع إيده على صدره.<br>
-            "وعشان كده التاتو هنا."<br>
-            الدكتور سأله:<br>
-            "ليه على الصدر؟"<br>
-            علي رد من غير تفكير.<br>
-            "لأن القلب تحته."<br>
-            وسكت.<br>
-            "كل ما أبصله...<br>
-            أفتكر إن أكتر عضو اتأذى في جسمي...<br>
-            عمره ما كان باين للناس."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "واضح إنك لسه زعلان."<br>
-            علي ضحك.<br>
-            "زعلان؟<br>
-            لا يا دكتور."<br>
-            سكت.<br>
-            "الزعل بيخلص.<br>
-            إنما الدروس...<br>
-            بتعيش."
-            </p>
-            <p class="reveal-on-scroll">
-            لف ناحية الشباك.<br>
-            وبص برا.<br>
-            العربيات ماشية...<br>
-            والناس ماشية...<br>
-            والدنيا ماشية...<br>
-            كأنها عمرها ما وقفت على حد.<br>
-            قال من غير ما يبص للدكتور:<br>
-            "عارف أكتر حاجة ضحكتني؟"<br>
-            "إيه؟"<br>
-            "إن أكتر ناس كانوا يقولولي...<br>
-            (إحنا عمرنا ما هنسيبك)...<br>
-            كانوا أول ناس اختفوا."<br>
-            ضحك.<br>
-            "وساعتها...<br>
-            فهمت إن الكلام...<br>
-            أرخص عملة في الدنيا."
-            </p>
-            <p class="reveal-on-scroll">
-            رجع بص للدكتور.<br>
-            "ومن يومها...<br>
-            بطلت أصدق اللي بيتقال.<br>
-            وبقيت أصدق اللي بيتعمل."<br>
-            الدكتور أخد نفس طويل.<br>
-            وبعدين بص على علي...<br>
-            لأول مرة من أول الجلسة...<br>
-            من غير ما يشوف التاتوهات.<br>
-            بصله هو.<br>
-            كإنسان.<br>
-            وقال بهدوء:<br>
-            "...واضح إنك تعبت أوي."
-            </p>
-            <p class="reveal-on-scroll">
-            ابتسم علي.<br>
-            ابتسامة صغيرة.<br>
-            هادية.<br>
-            لكن المرة دي...<br>
-            مكانش فيها سخرية.<br>
-            كان فيها استسلام بسيط.<br>
-            وقال:<br>
-            "لا يا دكتور...<br>
-            أنا بس...<br>
-            بطلت أستغرب."
-            </p>
-            <p class="reveal-on-scroll">
-            وسكت.<br>
-            الصمت المرة دي...<br>
-            كان أعلى من أي كلمة اتقالت في الجلسة.<br>
-            وفي الصمت ده...<br>
-            الدكتور لأول مرة حس إن اللي قدامه مش بيحاول يقنعه.<br>
-            هو بس...<br>
-            كان نفسه...<br>
-            مرة واحدة في حياته...<br>
-            حد يفهمه من غير ما يضطر يشرح.
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (ينظر للصدر الشمال بذهول):</span>
+                <p>دي أول جملة في جسمك أحس إنها مش بتوجعك أنت... دي بتوجع أي حد يقراها. مين خلاك توصل للمرحلة دي يا علي؟</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي:</span>
+                <p>أصعب حاجة إن حد يسيبك... بعد ما يكون عرف كل نقطة ضعف فيك. يبقى حافظ إيه اللي بيوجعك ويمشي. ساعتها بتفهم إن الثقة... مش حاجة تتوزع ببلاش. الثقة بقت امتياز. اللي عايزها... يتعب عشان ياخدها. وعشان كده التاتو ده على صدري.. لأن القلب تحته. عشان أفتكر إن أكتر عضو اتأذى في جسمي... عمره ما كان باين للناس. الزعل بيخلص يا دكتور... إنما الدروس... بتعيش.</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل السادس: الحرب اللي جوه... والظل اللي مش عايز يموت ]</h3>
-            <p class="reveal-on-scroll">
-            الدكتور حك جبهته ببطء، وقبل ما يقفل الملف، عينه راحت لجنب علي الأيمن... عند أضلاعه تحت إبطه وممتدة لجنب بطنه.<br>
-            المكان كان متغطي بتاتو كبير، كلام كتير مكتوب تحت بعضه، وفي النص رسمة لبني آدم قاعد بضهره على الأرض، ومواجه لظل أسود كامل، مالوش ملامح غير عينين بيض بتلمع في الضلمة.<br>
-            الدكتور مال براسه وقرأ بصلابة:<br>
-            <span class="en-phrase">في دماغي إتنين خلف خلاف</span><br>
-            <span class="en-phrase">دنيا ودين، عكس عكاس</span><br>
-            <span class="en-phrase">دوقنا القهر، شربنا الكاس</span>
-            </p>
-            <p class="reveal-on-scroll">
-            سكت الدكتور لحظة، وبص لعلي وقال:<br>
-            "المرة دي التاتو واخد جنب جسمك كله... ومش مجرد كلمة أو رمز. دي حلبة مصارعة."<br>
-            علي ابتسم، لكن الابتسامة المرة دي كانت حادة، فيها إرهاق معركة مابتنتهيش.<br>
-            "دي مش حلبة يا دكتور... دي حرب أهلية شغال جوه دماغي 24 ساعة."<br>
-            "بين مين ومين؟"<br>
-            علي أشار بإصبعه على رسمة الظل والشخص اللي قاعد.<br>
-            "بين علي القديم... وعلي الجديد. اتنين عايشين في نفس العقل، بس خلف خلاف في كل حاجة. علي القديم كان ضعيف، بييجي على نفسه عشان يرضي غيره، كان همه الدنيا وتفاصيلها.. أما الجديد، فالدنيا مبقتش من أولوياته خالص. بقت (دنيا ودين، عكس عكاس)."
-            </p>
-            <p class="reveal-on-scroll">
-            أخد نفس، وكمل:<br>
-            "(دوقنا القهر، شربنا الكاس).. الناس فاكرة إن لما حد بيشرب عشان ينسى، الكاس بيهون. بس الحقيقة إن الكاس نفسه كان متغرق بقهر الدنيا ومرارها."
-            </p>
-            <p class="reveal-on-scroll">
-            عين الدكتور نزلت على شريط أسود عريض بارز في وسط التاتو، المربع المظلل كأنه محفور بغضب، ومكتوب جواه بالأبيض:<br>
-            <span style="background-color: black; color: white; padding: 2px 6px; font-weight: bold;">ضميري يصحى وأنا عايز أنام</span><br>
-            الدكتور أشار للمربع الأسود وسأل:<br>
-            "ليه الجملة دي بالذات محبوسة في المربع الأسود ده؟"
-            </p>
-            <p class="reveal-on-scroll">
-            علي غمض عينه ثانية ورجع فتحها:<br>
-            "عشان علي القديم مبيعرفش يصحى غير في الوقت الغلط. أكون مهدود، طالع عيني طول اليوم، محتاج بس أنام وأرتاح من التفكير... يصحى هو. صوت الضمير الضعيف القديم اللي يقولي: (يمكن قسيت؟ يمكن المفروض تسامح؟ افتكر اللي بينكم!). يصحى ينكش في الوجع في عز ما أنا محتاج أنام."
-            </p>
-            <p class="reveal-on-scroll">
-            ونزل بعينه للجملة اللي تحت المربع مباشرة:<br>
-            "عشان كده برد عليه وأقوله: <span class="en-phrase">مش كل مرة، إنت مين صحاك؟</span>.. إوعى تفتكر إنك كل ما تصحى هسيبك ترجعني لنقطة الصفر تاني."
-            </p>
-            <p class="reveal-on-scroll">
-            وفجأة... عين الدكتور اتثبتت على السطر اللي بعده. السطر الوحيد المكتوب باللون الأحمر الفاقع وسط الحبر الأسود:<br>
-            <span style="color: red; font-weight: bold;">إنت بتنسى شكلك، أنا بيك قرفان</span><br>
-            الدكتور قرب وشبه اندهش:<br>
-            "الأحمر هنا مش بتاع مروة... الأحمر هنا فيه كره شديد. أنت بقيت تقرف من نفسك؟"
-            </p>
-            <p class="reveal-on-scroll">
-            علي هز راسه بقوة، وصوته بقى حاد:<br>
-            "بقرف من نسختي القديمة يا دكتور! ومكتوبة بالأحمر لأن دي أكتر حاجة تهم في التاتو كله. علي القديم اللي بيحاول كل شوية يرجع يظهر للناس، بيبقى ناسي شكله!.. ناسي قد إيه كان ضعيف، ناسي قد إيه الناس كانت بتبص له باستخفاف وتيجي عليه. هو بينسى هوان شكله، بس أنا فاكر... وأنا بيك قرفان ومستحيل أسمحلك ترجع تملى المكان."
-            </p>
-            <p class="reveal-on-scroll">
-            بص الدكتور للرسمة اللي في النص... الشخص اللي قاعد بضهره والظل اللي قدامه.<br>
-            وقال بطفيف من التأثر:<br>
-            "ده أنت... وده ظلك القديم."<br>
-            علي رد بهدوء:<br>
-            "ده علي الجديد اللي قاعد بصلابة، باصص لعلي القديم اللي بقى مجرد ظل مالوش قيمة غير عيون بتلمع بالضعف."
-            </p>
-            <p class="reveal-on-scroll">
-            ونزل بصره للسطور الأخيرة تحت الرسمة وقرأهم بصوت واطي:<br>
-            <span class="en-phrase">مش فاكر إمتى كنت بيك فرحان</span><br>
-            <span class="en-phrase">زمنا دوه مش ليك أحمار</span><br>
-            علي ضحك ضحكة قصيرة بس قاسية:<br>
-            "أنا من كتر ما بقيت بكره أيام علي الضعيف القديم... نسيت أساساً إذا كان في يوم حلو جمعني بيه! مش فاكر إمتى كنت بيك فرحان أو مبسوط. عشان كده نهيت الحوار معاه بأبسط وأقسى حقيقة..."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور سأله:<br>
-            "اللي هي؟"<br>
-            علي بص للدكتور بثبات:<br>
-            "قلت له: <span class="en-phrase">زمنا دوه مش ليك أحمار</span>.. الزمن الحالي ده، بقسوته وناسه اللي بياكلوا القوي قبل الضعيف، مش بتاع واحد غبي وضعيف زيك. أنت حمار ومش هتفهم التغيرات دي ولا هتعرف تتكيف معاها... ولو طلعت تاني دلوقتي، هتخرب كل حاجة أنا تعبت عشان أبنيها وهتفرمنا."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة رجعت تسكت.<br>
-            صوت التكييف وصوت الساعة...<br>
-            ...تيك...<br>
-            ...تاك...<br>
-            الدكتور فضل باصص لجنب علي، كأنه بيستوعب حجم الصراع اللي مش باين تحت الهدوم. البني آدم ده مش بس بيحارب العالم وذكرياته مع الناس... ده في حرب يومية مع أقرب حد ليه: <strong>نسخته القديمة</strong>.
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور أخد نفس عميق، ورفع إيده ببطء... وبدأ يحرك إيده ناحية أوراق الملف عشان ينهي الجلسة.
-            </p>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (ينظر لجنبه الأيمن مكان الحرب والظل):</span>
+                <p>المرة دي التاتو واخد جنب جسمك كله... ومش مجرد كلمة. دي حلبة مصارعة. الأحمر هنا مش بتاع مروة... الأحمر هنا فيه كره شديد. أنت بقيت تقرف من نفسك؟</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (صوته يصبح حاداً):</span>
+                <p>بقرف من نسختي القديمة يا دكتور! ومكتوبة بالأحمر لأن دي أكتر حاجة تهم في التاتو كله. علي القديم اللي بيحاول كل شوية يرجع يظهر للناس، بيبقى ناسي شكله!.. ناسي قد إيه كان ضعيف، ناسي قد إيه الناس كانت بتبص له باستخفاف. أنا من كتر ما بقيت بكره أيام علي الضعيف القديم... نسيت أساساً إذا كان في يوم حلو جمعني بيه!</p>
+            </div>
 
             <h3 class="sub-heading reveal-on-scroll">[ الفصل الأخير: الكلمات اللي معرفتش تتقال ]</h3>
-            <p class="reveal-on-scroll">
-            الأوضة ساكتة...<br>
-            لأول مرة من أول الجلسة...<br>
-            محدش بيتكلم.<br>
-            لا الدكتور...<br>
-            ولا علي...<br>
-            ولا حتى صوت الساعة.
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور كان باصص لعلي.<br>
-            بس المرة دي...<br>
-            مش بيحلله.<br>
-            ولا بيقرأ التاتوهات.<br>
-            كان بيبص لإنسان...<br>
-            شكله واقف قدامه...<br>
-            وروحه في حتة تانية.
-            </p>
-            <p class="reveal-on-scroll">
-            بعد ثواني...<br>
-            الدكتور اتكلم.<br>
-            بصوت هادي جدًا.<br>
-            "يعني...<br>
-            كل الحبر اللي على جسمك ده...<br>
-            كان مجرد طريقة للهروب؟"
-            </p>
-            <p class="reveal-on-scroll">
-            علي نزل عينه على جسمه.<br>
-            بص على دراعه الشمال...<br>
-            على عيون مروة.<br>
-            وبعدين على الحية.<br>
-            وبعدين على التاريخ.<br>
-            وبعدين على رقبته.<br>
-            وبعدين على صدره.<br>
-            وبعدين على جنبه الأيمن مكان الحرب والظل.<br>
-            ابتسم.<br>
-            وقال بهدوء:<br>
-            "لأ."<br>
-            "أمال إيه؟"<br>
-            سكت.<br>
-            كأن السؤال ده...<br>
-            استناه سنين.
-            </p>
-            <p class="reveal-on-scroll">
-            وبعدين قال:<br>
-            "كل رسمة هنا...<br>
-            جنازة."<br>
-            الدكتور سكت.<br>
-            وعلي كمل.<br>
-            "كل جملة...<br>
-            مدفونة تحتها نسخة قديمة مني."
-            </p>
-            <p class="reveal-on-scroll">
-            رفع إيده على عيون مروة.<br>
-            "ودي...<br>
-            فكرتني إن ربنا ممكن يرزق الإنسان بحد يشوفه وهو مكسور...<br>
-            ويعامله كأنه كامل."<br>
-            نزل بإيده على كلمة <span class="en-phrase">me</span>.<br>
-            "ودي...<br>
-            أول مرة في حياتي أقرر إن علي يستحق يعيش هو كمان."
-            </p>
-            <p class="reveal-on-scroll">
-            لمس الحية.<br>
-            "ودي...<br>
-            مش رمز للشر.<br>
-            دي شهادة وفاة...<br>
-            للنسخة اللي كانت كل يوم تموت وهي بتحاول ترضي الناس."
-            </p>
-            <p class="reveal-on-scroll">
-            وبعدين حط إيده على التاريخ.<br>
-            <span class="en-phrase">II • XIV • MMXXII</span><br>
-            ابتسم.<br>
-            "وده...<br>
-            أجمل يوم ربنا كتبهولي."
-            </p>
-            <p class="reveal-on-scroll">
-            لمس جنبه عند الصراع والظل.<br>
-            "وده...<br>
-            الحرب اللي بتفكرني كل يوم إني مقبلش أرجع لضعفي تاني."
-            </p>
-            <p class="reveal-on-scroll">
-            وأخيرًا...<br>
-            لمس رقبته.<br>
-            <span class="en-phrase">Never Look Back.</span><br>
-            "وده...<br>
-            الوعد اللي كل يوم بحاول أوفي بيه."
-            </p>
-            <p class="reveal-on-scroll">
-            ونزل بإيده على صدره.<br>
-            <span class="en-phrase">Don't Trust Damn Humans.</span><br>
-            ابتسم بسخرية.<br>
-            "ودي...<br>
-            أغلى فاتورة دفعتها في حياتي."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور قال:<br>
-            "بس برضه...<br>
-            إنت مقولتليش ليه اخترت الحبر."<br>
-            علي أخد نفس طويل.<br>
-            وطلع زفيره براحة.<br>
-            وقال:<br>
-            "لأن الكلام خذلني."
-            </p>
-            <p class="reveal-on-scroll">
-            الدكتور بصله باستغراب.<br>
-            "إزاي؟"<br>
-            "كل مرة كنت أحاول أشرح...<br>
-            الكلام كان يطلع ناقص.<br>
-            كل مرة أقول اللي جوايا...<br>
-            أحس إن نصه مات قبل ما يوصل.<br>
-            وكل مرة حد يسألني:<br>
-            (مالك؟)<br>
-            وأرد:<br>
-            (مفيش.)<br>
-            كان يبقى جوايا ألف حكاية...<br>
-            وألف وجع...<br>
-            وألف كلمة...<br>
-            محدش شاف منهم حاجة."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت.<br>
-            وبعدين ضحك.<br>
-            "الغريب...<br>
-            إن الناس كانت مصدقة كلمة (مفيش)...<br>
-            أكتر مني."
-            </p>
-            <p class="reveal-on-scroll">
-            بص في عين الدكتور.<br>
-            "عارف يعني إيه يبقى عندك كلام...<br>
-            لو خرج...<br>
-            يمكن يهز جبل...<br>
-            لكن أول ما يوصل لزورك...<br>
-            يموت؟"<br>
-            سكت.<br>
-            "أنا عشت الإحساس ده سنين."<br>
-            قرب خطوة.<br>
-            "لحد ما اكتشفت...<br>
-            إن الكلام مش لازم يطلع من اللسان."
-            </p>
-            <p class="reveal-on-scroll">
-            بص لجسمه.<br>
-            "ممكن يطلع من الجلد."<br>
-            رفع دراعه الشمال.<br>
-            "كل نقطة حبر...<br>
-            كانت كلمة."<br>
-            "كل خط...<br>
-            كان صرخة."<br>
-            "كل تاتو...<br>
-            كان اعتراف."
-            </p>
-            <p class="reveal-on-scroll">
-            ابتسم.<br>
-            "أنا معرفتش أقول اللي جوايا...<br>
-            فجسمي قاله بالنيابة عني."
-            </p>
-            <p class="reveal-on-scroll">
-            الأوضة غرقت في الصمت.<br>
-            الدكتور نزل عينه.<br>
-            وقفل الملف.<br>
-            ببطء.<br>
-            من غير ما يكتب ولا كلمة.<br>
-            وبعد لحظات...<br>
-            قال:<br>
-            "أعتقد...<br>
-            إني فهمتك."
-            </p>
-            <p class="reveal-on-scroll">
-            علي ابتسم.<br>
-            الابتسامة دي كانت مختلفة.<br>
-            فيها شكر...<br>
-            لكن فيها يقين.<br>
-            وقال بهدوء:<br>
-            "لا يا دكتور..."<br>
-            سكت.<br>
-            وبعدين كمل:<br>
-            "أنت فهمت الحكاية...<br>
-            لكن محدش هيحسها...<br>
-            غير اللي عاشها."
-            </p>
-            <p class="reveal-on-scroll">
-            لف ناحية الباب.<br>
-            ومشى كام خطوة.<br>
-            إيده مسكت المقبض.<br>
-            فتح الباب.<br>
-            نور الممر دخل الأوضة.<br>
-            وقف.<br>
-            من غير ما يبص وراه في الأول.<br>
-            كأنه بيفكر نفسي بالوعد المكتوب على رقبته.<br>
-            وبعدين...<br>
-            ابتسم.<br>
-            لف وشه آخر مرة.<br>
-            بس المرة دي...<br>
-            مكانش بيبص للدكتور.<br>
-            كان بيبص مباشرة للشخص اللي قاعد قدام الشاشة...<br>
-            اللي بيقرأ كل كلمة.<br>
-            رفع إيده بتحية مسرحية بسيطة.<br>
-            وانحنى انحناءة خفيفة.<br>
-            وقال بابتسامة ساخرة...<br>
-            هادية...<br>
-            كأنها آخر نكتة في عرض طويل من الوجع:<br>
-            "لو وصلت لحد هنا...<br>
-            يبقى شكرًا إنك سمعت حكاية واحد...<br>
-            الدنيا كانت دايمًا مستعجلة تحكم عليه...<br>
-            قبل ما تسمعه."
-            </p>
-            <p class="reveal-on-scroll">
-            سكت ثانية.<br>
-            وبعدين ابتسم نفس الابتسامة اللي بدأ بيها الجلسة.<br>
-            فتح الباب...<br>
-            وخرج.<br>
-            الباب اتقفل بهدوء.<br>
-            ورجع صوت الساعة تاني...<br>
-            ...تيك...<br>
-            ...تاك...<br>
-            ...تيك...<br>
-            ...تاك...<br>
-            كأنها بتقول...<br>
-            إن الحكايات مبتخلصش...<br>
-            هي بس...<br>
-            بتسيب أثر.
-            </p>
+            
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (بصوت هادئ جداً):</span>
+                <p>يعني... كل الحبر اللي على جسمك ده... كان مجرد طريقة للهروب؟</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (بابتسامة يقين):</span>
+                <p>لأ. كل رسمة هنا... جنازة. مدفونة تحتها نسخة قديمة مني. أنا اخترت الحبر.. لأن الكلام خذلني. كل مرة كنت أحاول أشرح... الكلام كان يطلع ناقص. وكل مرة حد يسألني (مالك؟) وأرد (مفيش)، كان يبقى جوايا ألف حكاية وألف وجع. الغريب إن الناس كانت مصدقة كلمة (مفيش) أكتر مني. عشت سنين بكلام بيموت في زوري، لحد ما اكتشفت إن الكلام مش لازم يطلع من اللسان... ممكن يطلع من الجلد.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker dr-name">الدكتور (يغلق الملف ببطء):</span>
+                <p>أعتقد... إني فهمتك.</p>
+            </div>
+
+            <div class="dialogue-block reveal-on-scroll">
+                <span class="speaker ali-name">علي (يتجه للباب، ويلتفت بابتسامة ساخرة كأنها آخر نكتة في العرض):</span>
+                <p>أنت فهمت الحكاية يا دكتور... لكن محدش هيحسها... غير اللي عاشها. لو وصلت لحد هنا... يبقى شكرًا إنك سمعت حكاية واحد... الدنيا كانت دايمًا مستعجلة تحكم عليه... قبل ما تسمعه. وفي النهاية... كان معاكم... المريض النفسي.</p>
+            </div>
+
         </div>
     </section>
 
@@ -1890,7 +730,6 @@
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
                     console.log('ميزة منع قفل الشاشة مفعلة الآن بنجاح.');
-
                     wakeLock.addEventListener('release', () => {
                         console.log('تم إرجاع التحكم الطبيعي في الشاشة للموبايل.');
                         wakeLock = null;
@@ -1898,14 +737,11 @@
                 } catch (err) {
                     console.error('فشل تفعيل ميزة منع قفل الشاشة:', err);
                 }
-            } else {
-                console.log('هذا المتصفح لا يدعم ميزة الـ Screen Wake Lock.');
             }
         }
 
         function startExperience() {
             experienceStarted = true;
-
             const audio = document.getElementById('creep-audio');
             audio.play().then(() => {
                 audio.pause();
@@ -2140,7 +976,6 @@
 
         function showComments() {
             document.body.classList.remove('lock-active');
-
             const comments = document.getElementById('comments-box');
             comments.style.display = 'block';
             loadComments();
